@@ -9,10 +9,7 @@
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
 using namespace std;
-
-int lowbit(int x) { // 0沒有lowbit
-    return (x&-x);
-}
+int tmp;
 typedef struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
@@ -31,22 +28,24 @@ typedef struct Binary_Indexed_Tree{
     long long query(int x){
         long long ret = 0;
         for(; x>0; x-=lowbit(x)){
-            ret += bit[x];
+            ret += x;
+           // cout << x << ' ' ;
         }
         return ret;
     }
 }BIT;
 
 
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a *= a) {
-        if(b &  1) {
-            ret *= a;
-        }
-    }
-    return ret;
-}
+
+// inline int poww(int a , int b) {
+//     int ret = 1;
+//     for( ; b ; b >>= 1 , a *= a) {
+//         if(b &  1) {
+//             ret *= a;
+//         }
+//     }
+//     return ret;
+// }
 
 template<class io>
 inline void re(io &x) {
@@ -66,21 +65,46 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-inline int mmax(int x ,int y){
-    return x > y ? x : y ;
-}
-inline int mmin(int x ,int y){
-    return x < y?x:y;
-}
+// inline int mmax(int x ,int y){
+//     return x > y ? x : y ;
+// }
+// inline int mmin(int x ,int y){
+//     return x < y?x:y;
+// }
 
 bool const operator == (pair<int,int> &a , pair<int,int> &b){
     if(a.first==b.first && a.second == b.second) return true;
     else return false;
 }
 
+void solve(){
+    int a;
+    re(a);
+    BIT bt; bt.init(1e6+10);
+    set<int> se;
+    se.insert(0);
+    int ans = 0;
+    for(int i = 1 ; i <= a; i++) {
+
+        re(tmp);
+        if(tmp == 0) continue;
+        cout << bt.query(tmp - 1) << '\n';
+        
+        bt.update(tmp , tmp);
+        //se.insert(tmp);
+    }
+
+
+    wr(ans) , putchar('\n');
+
+
+}
+
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-
+    int a;
+    re(a);
+    while(a--){solve();}
     return 0;
 }

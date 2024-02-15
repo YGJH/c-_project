@@ -1,0 +1,1 @@
+{"name":"Local: B_bit","url":"/home/charles/Documents/c++/problems/B_bit.cpp","tests":[{"id":1707992967950,"input":"1\n5\n1 5 3 6 4","output":"15"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/Documents/c++/problems/B_bit.cpp","group":"local","local":true}

@@ -10,18 +10,16 @@
 #define int long long
 using namespace std;
 
-int lowbit(int x) { // 0沒有lowbit
-    return (x&-x);
-}
+
 typedef struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
-    int lowbit(int x){
+    int lowbit(int x){// 0沒有lowbit
         return x&-x;
     }
     void init(int _n){
         n = _n+1;
-        bit = vector<long long>(n,0);
+        bit = vector<long long>(n+1,0);
     }
     void update(int x,int v){
         for(; x<n; x+=lowbit(x)){
@@ -81,6 +79,29 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
+
+    int n , q;
+    re(n) , re(q);
+    BIT bt; bt.init(n+1);
+    for(int i = 1; i <= n ; i++) {
+        int tmp; re(tmp);
+        bt.update(i , tmp);
+    }
+    // for(int i = 0 ; i <= n ; i++) {
+    //     cout << bt.query(i) << endl;;
+    // }
+    for(int i = 0 ; i < q; i++) {
+        int com , st , en; re(com), re(st) , re(en);
+        if(com == 0) {
+            bt.update(st + 1, en);
+        }
+        else {
+            int kk = bt.query(en);
+            int pp = bt.query(st);
+            wr(kk - pp);
+            putchar('\n');
+        }
+    }
 
     return 0;
 }

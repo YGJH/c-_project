@@ -2,6 +2,8 @@
 #define mk make_pair
 #define pb push_back
 #define all(x) (x).begin(),(x).end()
+#define MXN 1'000'005
+#define N 1'000'000
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 #define ll long long
 #define endl '\n'
@@ -81,6 +83,13 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
+    long long fac[MXN], inv[MXN];
+    fac[0] = 1; // 0! = 1
+    for(long long i = 1; i <= N; i++)    
+        fac[i] = fac[i-1] * i % MOD;
+    inv[N] = FastPow(fac[N], MOD-2); // 快速冪
+    for(long long i = N-1; i >=0; i--)
+        inv[i] = inv[i+1] * (i+1) % MOD;
 
     return 0;
 }
