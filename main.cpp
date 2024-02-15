@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
+#define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 #define ll long long
 #define endl '\n'
@@ -9,6 +10,9 @@
 #define int long long
 using namespace std;
 
+int lowbit(x) {
+    return (x&-x);
+}
 inline int poww(int a , int b) {
     int ret = 1;
     for( ; b ; b >>= 1 , a *= a) {
