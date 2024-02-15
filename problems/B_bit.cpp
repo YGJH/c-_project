@@ -28,8 +28,7 @@ typedef struct Binary_Indexed_Tree{
     long long query(int x){
         long long ret = 0;
         for(; x>0; x-=lowbit(x)){
-            ret += x;
-           // cout << x << ' ' ;
+            ret += bit[x];
         }
         return ret;
     }
@@ -88,7 +87,7 @@ void solve(){
 
         re(tmp);
         if(tmp == 0) continue;
-        cout << bt.query(tmp - 1) << '\n';
+        ans += bt.query(tmp - 1) ;
         
         bt.update(tmp , tmp);
         //se.insert(tmp);
