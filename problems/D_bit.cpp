@@ -10,7 +10,8 @@
 #define int long long
 using namespace std;
 
-typedef struct Binary_Indexed_Tree{
+
+struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
     int lowbit(int x){
@@ -63,10 +64,6 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-ll inv(ll x){
-	return mypow(x, MOD-2);
-}
-
 inline int mmax(int x ,int y){
     return x > y ? x : y ;
 }
@@ -82,8 +79,31 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    int n , q; re(n) , re(q);
+    int tmp;
+    BIT.init(n+10);
+    map<int,int> mp;
+    for(int i = 1 ; i <= n ; i++) {
+        re(tmp);
+        BIT.update(i , tmp);
+        if(mp[tmp]==0)
+            mp[tmp] = i;
+    }
+    int comm , a, b , u;
+    for(int i = 0 ; i < q ; i++) {
+        re(comm);
+        if(comm == 1) {
+            re(a) , re(b) , re(u);
+            BIT.update(a,u) , BIT.update(b+1,-u);
+        }
+        else {
+            re(a);
+            if(mp[a]-1==0) continue;
+            wr(BIT.query(mp[a]-1));
+            putchar('\n');
+        }
+    }
+
 
     return 0;
 }

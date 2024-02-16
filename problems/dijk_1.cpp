@@ -8,8 +8,13 @@
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
+#define si 300000
+#define MXN INT64_MAX
 using namespace std;
 
+int lowbit(int x) { // 0沒有lowbit
+    return (x&-x);
+}
 typedef struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
@@ -63,10 +68,6 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-ll inv(ll x){
-	return mypow(x, MOD-2);
-}
-
 inline int mmax(int x ,int y){
     return x > y ? x : y ;
 }
@@ -78,12 +79,37 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
     if(a.first==b.first && a.second == b.second) return true;
     else return false;
 }
-
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    int a , n;re(a) , re(n);
+    int dis[si];
+    bool vis[si];memset(vis,false,sizeof(vis));
+    vector<pair<int,int>> vec[si];
+    for(int i=1;i<=a;i++)dis[i]=INT64_MAX-10;
+    for(int i = 0 ; i < n ; i++) {
+        int k , c, b;
+        re(k) , re(c) , re(b);
+        vec[k].pb(mk(c,b));
+    }
+    dis[1]=0;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;//以小到大排序
+    pq.push({dis[1],1});
 
+    while(pq.empty()==0){
+        int u = pq.top().second;
+        pq.pop();
+        if(vis[u])continue;
+        vis[u]=1;
+        for(auto [v,w]:vec[u]){
+            if(dis[u]+w<dis[v]){
+                dis[v]=dis[u]+w;
+                pq.push({dis[v],v});
+            }
+        }
+    }    
+    for(int i = 1 ; i <= a ; i++) {
+        wr(dis[i]),putchar(' ');
+    }
     return 0;
 }

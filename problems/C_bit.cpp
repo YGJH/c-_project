@@ -10,6 +10,9 @@
 #define int long long
 using namespace std;
 
+int lowbit(int x) { // 0沒有lowbit
+    return (x&-x);
+}
 typedef struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
@@ -63,10 +66,6 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-ll inv(ll x){
-	return mypow(x, MOD-2);
-}
-
 inline int mmax(int x ,int y){
     return x > y ? x : y ;
 }
@@ -78,12 +77,35 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
     if(a.first==b.first && a.second == b.second) return true;
     else return false;
 }
+bool cmp(pair<int,int> a , pair<int,int> b) {
+    return a.second < b.second;
+}
+void solve(){
+    int n, x;re(n),re(x);
+    pair<int,int> node[n+1];
+    node[0].first=-1, node[0].second=-1;
+    for(int i = 1 ; i <= n;i++ ) {
+        re(node[i].first) , re(node[i].second);
+    }
+    BIT bit; bit.init(n+10);
+    sort(node , node+n , cmp);
 
+    int cnt = 0;
+    bit.update(node[1].first,1);
+
+    for(int i = 2 ; i<= n ; i++ ) {
+        if(node[i].first-x-1!=0) 
+            if(bit.query(node[i].first-x-1))cnt++;
+        // if(bit.query(node[i].first-x)) cnt++;
+        bit.update(node[i].first,1);
+    }
+    wr(cnt), putchar('\n');
+}
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-
+    int a;
+    re(a);
+    while(a--){solve();}
     return 0;
 }
