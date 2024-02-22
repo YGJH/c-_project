@@ -8,15 +8,17 @@
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
+#define lowbit(x) (x&-x)
+#define MOD 998244353
+#define MXN 400'500
+
+
 using namespace std;
 
-
-struct Binary_Indexed_Tree{
+typedef struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
-    int lowbit(int x){
-        return x&-x;
-    }
+
     void init(int _n){
         n = _n+1;
         bit = vector<long long>(n,0);
@@ -64,6 +66,10 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
+ll inv(ll x){
+	return poww(x, MOD-2);
+}
+
 inline int mmax(int x ,int y){
     return x > y ? x : y ;
 }
@@ -76,32 +82,48 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
     else return false;
 }
 
+typedef struct {
+    int a, b, c , d;
+}NODE;
+
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-    int n , q; re(n) , re(q);
-    int tmp;
-    BIT.init(n+10);
-    int in[n+3];
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+
+    int n , m;
+    re(n) , re(m);
+
+    NODE node[n];
+    pair<int,int> dis[n+2];// 以1為出發點    
+    for(int i = 1 ; i <= m ; i++) {
+        re(node[i].a) , re(node[i].b) , re(node[i].c);
+        node[i].d = i;
+    }
+    dis[1].first = 0;
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;//以小到大排序
+    pq.push({dis[1].first,0});
+    unordered_map<int,int> vis;
+    while(!pq.empty() ){
+        int u=pq.top().second;
+        pq.pop();
+        if(vis[u])continue;
+        vis[u]=1;
+        for(int i = 1 ; i <= m ; i++){
+            if(node[i].a==u)
+	            if(dis[u].first+node[i].c<dis[node[i].b].first){//鬆弛
+                    dis[node[i].b].first=dis[u].first+node[i].c;
+                    dis[node[i].b].second=node[i].d;
+                    pq.push(mk(dis[node[i].b].first , node[i].b));
+                }
+        }
+    }
+    vis.clear();
     for(int i = 1 ; i <= n ; i++) {
-        re(in[i]);
-        BIT.update(i , tmp);
-
+        if(!vis[dis[i].second])
+            wr(dis[i].second),  putchar(' ') , vis[dis[i].second]++;
     }
-    int comm , a , b , u;
-    for(int i = 0 ; i < q ; i++) {
-        re(comm);
-        if(comm == 1) {
-            re(a) , re(b) , re(u);
-            BIT.update(a,u) , BIT.update(b+1,-u);
-        }
-        else {
-            re(a);
-            wr(BIT.query(a)+in[a]);
-            putchar('\n');
-        }
-    }
-
 
     return 0;
 }

@@ -8,15 +8,62 @@
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
-using namespace std;
+#define lowbit(x) (x&-x)
+#define MOD 998244353
+#define MXN 300000
+#define cr(x) (x<<1)
+#define cl(x) (x<<1)+1
+#define mmax(a,b) (a > b)?a:b
+#define mmin(a,b) (a<b)?a:b
 
+using namespace std;
+int arr[MXN];
+int seg[MXN*4];
+void pull(int id){
+    seg[id]=seg[cl(id)]+seg[cr(id)];
+}
+void build(int id,int l,int r){
+    if(l==r){
+        seg[id]=arr[l];
+        return ;
+    }
+    int mid=(l+r)>>1;
+    build(cl(id),l,mid);
+    build(cr(id),mid+1,r);
+    pull(id);
+}
+void update(int id,int l,int r,int x,int v){
+    if(l==r){
+        seg[id]=v;
+        return ;
+    }
+    int mid=(l+r)>>1;
+    if(x<=mid){
+        update(cl(id),l,mid,x,v);    
+    }
+    if(mid<x){
+        update(cr(id),mid+1,r,x,v);  
+    }
+    pull(id);
+}
+int query(int id,int l,int r,int sl,int sr){
+    if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
+        return seg[id];
+    }
+    int mid=(l+r)>>1,res=0;
+    if(sl<=mid){//左區間跟查詢區間有交集
+        res+=query(cl(id),l,mid,sl,sr);
+    }
+    if(mid<sr){//右區間跟查詢區間有交集
+        res+=query(cr(id),mid+1,r,sl,sr);
+    }
+    return res;
+}
 
 struct Binary_Indexed_Tree{
     int n;
     vector<long long> bit;
-    int lowbit(int x){
-        return x&-x;
-    }
+
     void init(int _n){
         n = _n+1;
         bit = vector<long long>(n,0);
@@ -34,7 +81,6 @@ struct Binary_Indexed_Tree{
         return ret;
     }
 }BIT;
-
 
 inline int poww(int a , int b) {
     int ret = 1;
@@ -64,13 +110,9 @@ inline void wr(int x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-inline int mmax(int x ,int y){
-    return x > y ? x : y ;
+ll inv(ll x){
+	return poww(x, MOD-2);
 }
-inline int mmin(int x ,int y){
-    return x < y?x:y;
-}
-
 bool const operator == (pair<int,int> &a , pair<int,int> &b){
     if(a.first==b.first && a.second == b.second) return true;
     else return false;
@@ -79,29 +121,19 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-    int n , q; re(n) , re(q);
-    int tmp;
-    BIT.init(n+10);
-    int in[n+3];
-    for(int i = 1 ; i <= n ; i++) {
-        re(in[i]);
-        BIT.update(i , tmp);
-
-    }
-    int comm , a , b , u;
-    for(int i = 0 ; i < q ; i++) {
-        re(comm);
-        if(comm == 1) {
-            re(a) , re(b) , re(u);
-            BIT.update(a,u) , BIT.update(b+1,-u);
-        }
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    int n , m , command , st , en ; re(n) , re(m);
+    for(int i = 1 ; i <= n ; i++) re(arr[i]);
+    build(1 , 1 , n);
+    for(int i = 1 ; i <= m ; i++) {
+        re(command) , re(st) , re(en);
+        if(command == 1) {
+            update(1 , 1 , n , st , en);
+        }//update k to u
         else {
-            re(a);
-            wr(BIT.query(a)+in[a]);
-            putchar('\n');
-        }
+            wr(query(1, 1 , n , st , en)), putchar('\n');
+        }// query [a , b]
     }
-
-
     return 0;
 }

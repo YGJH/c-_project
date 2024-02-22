@@ -79,7 +79,6 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // uniform_int_distribution<> gen(1 , 10);
-
     int n , q;
     re(n) , re(q);
     BIT bt; bt.init(n+1);

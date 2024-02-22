@@ -1,0 +1,1 @@
+{"name":"Local: number_th","url":"/home/charles/Documents/c++/problems/number_th.cpp","tests":[{"id":1708436382089,"input":"30 60 3 1","output":"17 9 4"},{"id":1708436390696,"input":"10 51 5 4","output":"-1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/Documents/c++/problems/number_th.cpp","group":"local","local":true}
