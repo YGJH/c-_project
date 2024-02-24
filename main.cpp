@@ -56,7 +56,8 @@
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
-#define int long long
+// #define int long long
+#define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 998244353
 #define MXN 400'500
@@ -184,16 +185,6 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
     else return false;
 }
 
-
-inline __int128 to_int128(string s){
-    int l=s.length();
-    __int128 m=0;
-    for(int i=0;i<l;i++){
-        m*=10;
-        m+=s[i]-48;
-    }
-    return m;
-}
 
 
 void solve() {
