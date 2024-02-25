@@ -56,8 +56,8 @@
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
-#define int long long
-// #define int __int128
+// #define int long long
+#define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 998244353
 #define MXN 400'500
@@ -148,8 +148,8 @@ struct Binary_Indexed_Tree{
 }BIT;
 
 
-inline ll poww(ll a , ll b) {
-    ll ret = 1;
+inline int poww(int a , int b) {
+    int ret = 1;
     for( ; b ; b >>= 1 , a *= a) {
         if(b &  1) {
             ret *= a;
@@ -187,55 +187,23 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 
 typedef struct{
     int a, b ,c;
-}Roads_t;
+}Tunnel_t;
 typedef struct{
     int p , h;
-}Vehicles_t;
+}Vehicle_t;
 
-bool cmp(Roads_t a , Roads_t b){
-    if(a.a > b.a) {
-        return true;
-    }
-    else {
-        return false;
-    }
+void solve() {
+    int n_island , n_tunnels , n_vehicles;
+    re(n_island) , re(n_tunnels) , re(n_vehicles);
+    
 }
-
-
 
 signed main() {
     // mt19937 mt(hash<string>(":poop:"));
     // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
-
-    int n_island , n_tunnel, n_vehicles;
-    vector<Roads_t> roads;
-    vector<Vehicles_t> vehi;
-    int st , en , he;
-    Roads_t tmp;
-    Vehicles_t tmp2;
-    re(n_island) , re(n_tunnel) , re(n_vehicles);
-    for(int i = 0 ; i < n_tunnel ; i++){
-        re(st) , re(en) , re(he);
-        tmp.a = st-1 , tmp.b = en-1 , tmp.c = he;
-        roads.pb(tmp);
-        // int tmp = tmp.a;
-        // tmp.a = tmp.b
-        // tmp.b = tmp.a;
-        // roads.pb(tmp);
-    }
-    for(int i = 0 ; i < n_vehicles ; i++){
-        re(st) , re(en);
-        tmp2.p = st - 1, tmp2.h = en;
-        vehi.pb(tmp2);
-    }
-    sort(roads.begin() , roads.end() , cmp);
-    // for(int i = 0 ; i < n_tunnel ; i++){
-    //     cerr << roads[i].a <<  ' ' << roads[i].b << ' ' << roads[i].c << endl;
-    // }
-    unordered_map<int,int> vis;
-
-       
+    // ishowspeed
+    solve();
     return 0;
 }
