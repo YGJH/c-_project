@@ -10,10 +10,13 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "/home/charles/Documents/c-_project/exe_file/${fileBasenameNoExtension}"
+                // "${fileDirname}/${fileBasenameNoExtension}"
+            
             ],
             "options": {
                 "cwd": "${fileDirname}"
+                // "cwd": "/home/charles/Documents/c-_project/exe_file"
             },
             "problemMatcher": [
                 "$gcc"
