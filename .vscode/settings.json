@@ -5,6 +5,8 @@
         "iostream": "cpp",
         "random": "cpp",
         "span": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp"
     }
 }

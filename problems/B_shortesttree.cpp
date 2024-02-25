@@ -83,7 +83,7 @@ bool const operator == (pair<int,int> &a , pair<int,int> &b){
 }
 
 typedef struct {
-    int a, b, c , d;
+    int a, b, c ,d;
 }NODE;
 
 signed main() {
