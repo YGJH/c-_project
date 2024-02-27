@@ -209,9 +209,9 @@ void solve() {
         re(tun[i].c);
     }
     for(int i = 0 ; i < n_vehicles ; i++) {
-        re(veh[n_vehicles].p);
-        re(veh[n_vehicles].h);
-        veh[n_vehicles].id = i;
+        re(veh[i].p);
+        re(veh[i].h);
+        veh[i].id = i;
     }
     sort(tun , tun + n_tunnels ,cmp);
     sort(veh , veh+n_vehicles , cmp2);
@@ -219,17 +219,16 @@ void solve() {
     unordered_map<int , pii> dsu; //  index , ans , start 
     unordered_map<int,int> island;
     int cnt;
-    vector<int> ans;
-    for(int i = 0 ; i < n_vehicles ; i++) {
-        cout << veh[i].h << ' ' << veh[i].p << ' ' << veh[i].id << endl;
-    }
+    vector<int> ans(n_vehicles , 0);
+    // for(int i = 0 ; i < n_vehicles ; i++) {
+    //     cerr << veh[i].h << ' ' << veh[i].p << ' ' << veh[i].id << endl;
+    // }
     for(int i = 0 ; i < n_vehicles ; i++ ) {
         vis.clear();
         island.clear();
         vis[veh[i].p]=1;
         cnt = dsu[veh[i].p].first + 1;
         for(int j = dsu[veh[i].p].second ; j < n_tunnels ; j++) {
-            cerr << "finish " << endl;
             if(tun[j].c < veh[i].h) {
                 dsu[veh[i].p].second=j;
                 break;
@@ -251,6 +250,7 @@ void solve() {
                 }
             }
         }
+        // cerr << ans[veh[i].id] << endl;
         ans[veh[i].id] = cnt;
         dsu[veh[i].p].first = cnt - 1;
     }
