@@ -56,8 +56,8 @@
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
-// #define int long long
-#define int __int128
+#define int long long
+// #define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 998244353
 #define MXN 400'500
@@ -189,13 +189,75 @@ typedef struct{
     int a, b ,c;
 }Tunnel_t;
 typedef struct{
-    int p , h;
+    int p , h , id;
 }Vehicle_t;
 
+bool cmp(Tunnel_t a , Tunnel_t b) {
+    return (a.c > b.c) ? true : false;
+}
+bool cmp2(Vehicle_t a , Vehicle_t b) {
+    return (a.h > b.h) ? true : false;
+}
 void solve() {
     int n_island , n_tunnels , n_vehicles;
     re(n_island) , re(n_tunnels) , re(n_vehicles);
-    
+    Tunnel_t tun[n_tunnels + 1];
+    Vehicle_t veh[n_vehicles + 1];
+    for(int i = 0 ; i < n_tunnels ; i++) {
+        re(tun[i].a);
+        re(tun[i].b);
+        re(tun[i].c);
+    }
+    for(int i = 0 ; i < n_vehicles ; i++) {
+        re(veh[n_vehicles].p);
+        re(veh[n_vehicles].h);
+        veh[n_vehicles].id = i;
+    }
+    sort(tun , tun + n_tunnels ,cmp);
+    sort(veh , veh+n_vehicles , cmp2);
+    unordered_map<int,int> vis;
+    unordered_map<int , pii> dsu; //  index , ans , start 
+    unordered_map<int,int> island;
+    int cnt;
+    vector<int> ans;
+    for(int i = 0 ; i < n_vehicles ; i++) {
+        cout << veh[i].h << ' ' << veh[i].p << ' ' << veh[i].id << endl;
+    }
+    for(int i = 0 ; i < n_vehicles ; i++ ) {
+        vis.clear();
+        island.clear();
+        vis[veh[i].p]=1;
+        cnt = dsu[veh[i].p].first + 1;
+        for(int j = dsu[veh[i].p].second ; j < n_tunnels ; j++) {
+            cerr << "finish " << endl;
+            if(tun[j].c < veh[i].h) {
+                dsu[veh[i].p].second=j;
+                break;
+            }
+            else {
+                if ( vis[tun[j].a] && !vis[tun[j].b] ) {
+                    cnt++;
+                    vis[tun[j].b] = 1;
+                    cnt += island[tun[j].b];
+                }
+                else if (vis[tun[j].b] && !vis[tun[j].a] ) {
+                    cnt++;
+                    vis[tun[j].a] = 1;
+                    cnt += island[tun[j].a];
+                }
+                else {
+                    island[tun[j].a] = 1;
+                    island[tun[j].b] = 1;
+                }
+            }
+        }
+        ans[veh[i].id] = cnt;
+        dsu[veh[i].p].first = cnt - 1;
+    }
+    for(int i = 0 ; i < n_vehicles ; i++) {
+        wr(ans[i]);putchar('\n');
+    }
+    return ;
 }
 
 signed main() {
