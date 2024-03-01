@@ -56,8 +56,8 @@
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
-// #define int long long
-#define int __int128
+#define int long long
+// #define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 998244353
 #define MXN 400'500
@@ -192,6 +192,7 @@ void solve() {
 }
 
 signed main() {
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
     // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
