@@ -1,271 +1,79 @@
-// #pragma GCC optimize(1)
-// #pragma GCC optimize(2)
-// #pragma GCC optimize(3)
-// #pragma GCC optimize("Ofast")
-// #pragma GCC optimize("inline")
-// #pragma GCC optimize("-fgcse")
-// #pragma GCC optimize("-fgcse-lm")
-// #pragma GCC optimize("-fipa-sra")
-// #pragma GCC optimize("-ftree-pre")
-// #pragma GCC optimize("-ftree-vrp")
-// #pragma GCC optimize("-fpeephole2")
-// #pragma GCC optimize("-ffast-math")
-// #pragma GCC optimize("-fsched-spec")
-// #pragma GCC optimize("unroll-loops")
-// #pragma GCC optimize("-falign-jumps")
-// #pragma GCC optimize("-falign-loops")
-// #pragma GCC optimize("-falign-labels")
-// #pragma GCC optimize("-fdevirtualize")
-// #pragma GCC optimize("-fcaller-saves")
-// #pragma GCC optimize("-fcrossjumping")
-// #pragma GCC optimize("-fthread-jumps")
-// #pragma GCC optimize("-funroll-loops")
-// #pragma GCC optimize("-fwhole-program")
-// #pragma GCC optimize("-freorder-blocks")
-// #pragma GCC optimize("-fschedule-insns")
-// #pragma GCC optimize("inline-functions")
-// #pragma GCC optimize("-ftree-tail-merge")
-// #pragma GCC optimize("-fschedule-insns2")
-// #pragma GCC optimize("-fstrict-aliasing")
-// #pragma GCC optimize("-fstrict-overflow")
-// #pragma GCC optimize("-falign-functions")
-// #pragma GCC optimize("-fcse-skip-blocks")
-// #pragma GCC optimize("-fcse-follow-jumps")
-// #pragma GCC optimize("-fsched-interblock")
-// #pragma GCC optimize("-fpartial-inlining")
-// #pragma GCC optimize("no-stack-protector")
-// #pragma GCC optimize("-freorder-functions")
-// #pragma GCC optimize("-findirect-inlining")
-// #pragma GCC optimize("-frerun-cse-after-loop")
-// #pragma GCC optimize("inline-small-functions")
-// #pragma GCC optimize("-finline-small-functions")
-// #pragma GCC optimize("-ftree-switch-conversion")
-// #pragma GCC optimize("-foptimize-sibling-calls")
-// #pragma GCC optimize("-fexpensive-optimizations")
-// #pragma GCC optimize("-funsafe-loop-optimizations")
-// #pragma GCC optimize("inline-functions-called-once")
-// #pragma GCC optimize("-fdelete-null-pointer-checks")
-
+#include <algorithm>
 #include <bits/stdc++.h>
-#define mk make_pair
-#define pb push_back
-#define pii pair<int,int>
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
-#define ll long long
-#define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
-#define int long long
-// #define int __int128
-#define lowbit(x) (x&-x)
-#define MOD 998244353
-#define MXN 400'500
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
 using namespace std;
-const int N=1e5+5;
-#define LOCAL
-#ifdef LOCAL    // =========== Local ===========
-void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
-#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
-#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#define debug(...) ((void)0)
-#define orange(...) ((void)0)
-#endif
-int arr[N]={};
-int seg[N*4];
-inline void pull(int id) {
-    seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
-}
-void build(int id , int l , int r) {
-    if(l==r){
-        seg[id]=arr[l];
-        return ;
-    }
-    else {
-        int mid=(l+r)/2;
-        build( cl(id) , l , mid);
-        build( cr(id) , mid+1, r);
-        pull(id);
-    }
-}
-void update(int id , int l , int r , int x , int v){
-    if(l==r){
-        seg[id]=v;
-        return;
-    }
-    int mid=(l+r)>>1;
-    if(x<=mid){
-        update(cl(id) , l , mid ,x , v);
-    }
-    if(mid<x){
-        update(cr(id) , mid+1,r,x,v);
-    }
-    pull(id);
-}
-int query(int id,int l,int r,int sl,int sr){
-    if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
-        return seg[id];
-    }
-    int mid=(l+r)>>1,res=0;
-    if(sl<=mid){//左區間跟查詢區間有交集
-        res=mmax(res,query(cl(id),l,mid,sl,sr));
-    }
-    if(mid<sr){//右區間跟查詢區間有交集
-        res=mmax(res,query(cr(id),mid+1,r,sl,sr));
-    }
-    return res;
-}
-
-struct Binary_Indexed_Tree{
-    int n;
-    vector<long long> bit;
-
-    void init(int _n){
-        n = _n+1;
-        bit = vector<long long>(n,0);
-    }
-    void update(int x,int v){
-        for(; x<n; x+=lowbit(x)){
-            bit[x] += v;
-        }
-    }
-    long long query(int x){
-        long long ret = 0;
-        for(; x>0; x-=lowbit(x)){
-            ret += bit[x];
-        }
-        return ret;
-    }
-}BIT;
+#define int long long
+const int N = 3e6+10;
 
 
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a *= a) {
-        if(b &  1) {
-            ret *= a;
-        }
+struct Tun{
+    int a, b, c;
+    bool operator<(const Tun  &aa) const{
+        return c > aa.c;
     }
-    return ret;
-}
-
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
-}
-template <class io>
-inline void wr(io x) {
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
-  static int sta[300];
-  int top = 0;
-  do {
-    sta[top++] = x % 10, x /= 10;
-  } while (x);
-  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
-}
-
-ll inv(ll x){
-	return poww(x, MOD-2);
-}
-bool const operator == (pair<int,int> &a , pair<int,int> &b){
-    if(a.first==b.first && a.second == b.second) return true;
-    else return false;
-}
-
-typedef struct{
-    int a, b ,c;
-}Tunnel_t;
-typedef struct{
+};
+// tun a tun b
+// a < b
+struct Veh{
     int p , h , id;
-}Vehicle_t;
+    bool operator<(const Veh &aa) const{
+        return h > aa.h;
+    }
+};
+int ans[N];
+Tun T[N];
+Veh V[N];
+int con[N];
+int sz[N];
 
-bool cmp(Tunnel_t a , Tunnel_t b) {
-    return (a.c > b.c) ? true : false;
+int find(int a) {
+    return (con[a] == a) ? a : con[a] = find(con[a]);  
 }
-bool cmp2(Vehicle_t a , Vehicle_t b) {
-    return (a.h > b.h) ? true : false;
+void merge(int a , int b) {
+    int aa = find(a);
+    int bb = find(b);
+    if(sz[aa] > sz[bb]) swap(a , b);
+    if(aa == bb) return ;
+    sz[bb] += sz[aa];
+    con[aa] = bb;
 }
-void solve() {
-    int n_island , n_tunnels , n_vehicles;
-    re(n_island) , re(n_tunnels) , re(n_vehicles);
-    Tunnel_t tun[n_tunnels + 1];
-    Vehicle_t veh[n_vehicles + 1];
-    for(int i = 0 ; i < n_tunnels ; i++) {
-        re(tun[i].a);
-        re(tun[i].b);
-        re(tun[i].c);
+// void prin_con(int n_is) {
+//     for(int i = 0 ; i < n_is + 1; i++) {
+//         cout << sz[i] << ' ' ;
+//     }
+//     cout << endl << endl;
+// }
+
+void solve(){
+    int n_is , n_tun, n_ve;
+    cin >> n_is >> n_tun >> n_ve;
+    for(int i = 0 ; i < n_is + 2 ; i++) con[i] = i, sz[i] = 1;
+    for(int i = 0 ; i < n_tun ; i++){
+        cin >> T[i].a >> T[i].b >> T[i].c ;
     }
-    for(int i = 0 ; i < n_vehicles ; i++) {
-        re(veh[i].p);
-        re(veh[i].h);
-        veh[i].id = i;
+    for(int i = 0 ; i < n_ve ; i++) {
+        cin >> V[i].p >> V[i].h;
+        V[i].id = i;
     }
-    sort(tun , tun + n_tunnels ,cmp);
-    sort(veh , veh+n_vehicles , cmp2);
-    unordered_map<int,int> vis;
-    unordered_map<int , pii> dsu; //  index , ans , start 
-    unordered_map<int,int> island;
-    int cnt;
-    vector<int> ans(n_vehicles , 0);
-    // for(int i = 0 ; i < n_vehicles ; i++) {
-    //     cerr << veh[i].h << ' ' << veh[i].p << ' ' << veh[i].id << endl;
-    // }
-    for(int i = 0 ; i < n_vehicles ; i++ ) {
-        vis.clear();
-        island.clear();
-        vis[veh[i].p]=1;
-        cnt = dsu[veh[i].p].first + 1;
-        for(int j = dsu[veh[i].p].second ; j < n_tunnels ; j++) {
-            if(tun[j].c < veh[i].h) {
-                dsu[veh[i].p].second=j;
-                break;
-            }
-            else {
-                if ( vis[tun[j].a] && !vis[tun[j].b] ) {
-                    cnt++;
-                    vis[tun[j].b] = 1;
-                    cnt += island[tun[j].b];
-                }
-                else if (vis[tun[j].b] && !vis[tun[j].a] ) {
-                    cnt++;
-                    vis[tun[j].a] = 1;
-                    cnt += island[tun[j].a];
-                }
-                else {
-                    island[tun[j].a] = 1;
-                    island[tun[j].b] = 1;
-                }
-            }
+    sort(V , V + n_ve);
+    sort(T , T + n_tun);
+    int j = 0;
+    for(int i = 0 ; i < n_ve ; i++) {
+        while(T[j].c >= V[i].h && j < n_tun){
+            merge(T[j].a , T[j].b);
+            j++;
         }
-        // cerr << ans[veh[i].id] << endl;
-        ans[veh[i].id] = cnt;
-        dsu[veh[i].p].first = cnt - 1;
+        // prin_con(n_is);
+        ans[V[i].id] = sz[find(V[i].p)];
     }
-    for(int i = 0 ; i < n_vehicles ; i++) {
-        wr(ans[i]);putchar('\n');
+    // cout << sz[finddd(1)] << endl;
+    for(int i = 0 ; i < n_ve ; i++) {
+        cout << ans[i] << endl;
     }
-    return ;
+
 }
+
 
 signed main() {
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    // ishowspeed
+    ios_base::sync_with_stdio(0) , cin.tie(0) , cout.tie(0);
     solve();
-    return 0;
 }

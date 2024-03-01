@@ -56,8 +56,8 @@
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
-#define int long long
-// #define int __int128
+// #define int long long
+#define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 998244353
 #define MXN 400'500
@@ -80,83 +80,83 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 #define debug(...) ((void)0)
 #define orange(...) ((void)0)
 #endif
-// int arr[N]={};
-// int seg[N*4];
-// inline void pull(int id) {
-//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
-// }
-// void build(int id , int l , int r) {
-//     if(l==r){
-//         seg[id]=arr[l];
-//         return ;
-//     }
-//     else {
-//         int mid=(l+r)/2;
-//         build( cl(id) , l , mid);
-//         build( cr(id) , mid+1, r);
-//         pull(id);
-//     }
-// }
-// void update(int id , int l , int r , int x , int v){
-//     if(l==r){
-//         seg[id]=v;
-//         return;
-//     }
-//     int mid=(l+r)>>1;
-//     if(x<=mid){
-//         update(cl(id) , l , mid ,x , v);
-//     }
-//     if(mid<x){
-//         update(cr(id) , mid+1,r,x,v);
-//     }
-//     pull(id);
-// }
-// int query(int id,int l,int r,int sl,int sr){
-//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
-//         return seg[id];
-//     }
-//     int mid=(l+r)>>1,res=0;
-//     if(sl<=mid){//左區間跟查詢區間有交集
-//         res=mmax(res,query(cl(id),l,mid,sl,sr));
-//     }
-//     if(mid<sr){//右區間跟查詢區間有交集
-//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
-//     }
-//     return res;
-// }
+int arr[N]={};
+int seg[N*4];
+inline void pull(int id) {
+    seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
+}
+void build(int id , int l , int r) {
+    if(l==r){
+        seg[id]=arr[l];
+        return ;
+    }
+    else {
+        int mid=(l+r)/2;
+        build( cl(id) , l , mid);
+        build( cr(id) , mid+1, r);
+        pull(id);
+    }
+}
+void update(int id , int l , int r , int x , int v){
+    if(l==r){
+        seg[id]=v;
+        return;
+    }
+    int mid=(l+r)>>1;
+    if(x<=mid){
+        update(cl(id) , l , mid ,x , v);
+    }
+    if(mid<x){
+        update(cr(id) , mid+1,r,x,v);
+    }
+    pull(id);
+}
+int query(int id,int l,int r,int sl,int sr){
+    if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
+        return seg[id];
+    }
+    int mid=(l+r)>>1,res=0;
+    if(sl<=mid){//左區間跟查詢區間有交集
+        res=mmax(res,query(cl(id),l,mid,sl,sr));
+    }
+    if(mid<sr){//右區間跟查詢區間有交集
+        res=mmax(res,query(cr(id),mid+1,r,sl,sr));
+    }
+    return res;
+}
 
-// struct Binary_Indexed_Tree{
-//     int n;
-//     vector<long long> bit;
+struct Binary_Indexed_Tree{
+    int n;
+    vector<long long> bit;
 
-//     void init(int _n){
-//         n = _n+1;
-//         bit = vector<long long>(n,0);
-//     }
-//     void update(int x,int v){
-//         for(; x<n; x+=lowbit(x)){
-//             bit[x] += v;
-//         }
-//     }
-//     long long query(int x){
-//         long long ret = 0;
-//         for(; x>0; x-=lowbit(x)){
-//             ret += bit[x];
-//         }
-//         return ret;
-//     }
-// }BIT;
+    void init(int _n){
+        n = _n+1;
+        bit = vector<long long>(n,0);
+    }
+    void update(int x,int v){
+        for(; x<n; x+=lowbit(x)){
+            bit[x] += v;
+        }
+    }
+    long long query(int x){
+        long long ret = 0;
+        for(; x>0; x-=lowbit(x)){
+            ret += bit[x];
+        }
+        return ret;
+    }
+}BIT;
 
 
-// inline int poww(int a , int b) {
-//     int ret = 1;
-//     for( ; b ; b >>= 1 , a *= a) {
-//         if(b &  1) {
-//             ret *= a;
-//         }
-//     }
-//     return ret;
-// }
+inline int poww(int a , int b) {
+    int ret = 1;
+    for( ; b ; b >>= 1 , a *= a) {
+        if(b &  1) {
+            ret *= a;
+        }
+    }
+    return ret;
+}
 
 template<class io>
 inline void re(io &x) {
@@ -177,79 +177,27 @@ inline void wr(io x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-// ll inv(ll x){
-// 	return poww(x, MOD-2);
-// }
-// bool const operator == (pair<int,int> &a , pair<int,int> &b){
-//     if(a.first==b.first && a.second == b.second) return true;
-//     else return false;
-// }
+ll inv(ll x){
+	return poww(x, MOD-2);
+}
+bool const operator == (pair<int,int> &a , pair<int,int> &b){
+    if(a.first==b.first && a.second == b.second) return true;
+    else return false;
+}
 
 
-int V;
+
 void solve() {
-    int n, m , k;
-    bool ass = true;
-    int eye = 0;
-    int cnt = 0;
-    bool unfinish = false;
-    int len_sum = 0;
-    int last_sum = 0;
-    int mx = INT32_MAX;
-    re(n) , re(m) , re(k);
-    vector<int> ans;
-    for(int i = 0 ; i < n ; i++) {
-        re(V);
-        len_sum += V;
-        mx = mmin(mx , V);
-        eye = mmax(eye , V);
-        // cerr << "FInish !!" << endl; 
-        if(len_sum >= m) {
-            if(abs(mx - eye) > k ) {
-                if(cnt == 0 || len_sum - V < m) {
-                    ass = false;
-                    break;
-                }
-                ans.pb(cnt);
-                cnt=0;
-                mx = V;
-                eye = V;
-                len_sum = V;
-            }
-            else {
-                unfinish = true;
-            }
-        }
-        last_sum += V;
-        cnt++;
-    }
-    if(!ass){
-        wr(-1) ;
-        return;
-    }
-    else {
-        if(unfinish) {
-            if(abs(mx - eye) <= k && len_sum >= m) {
-                ans.pb(cnt);
-            }
-        }
-        wr(ans.size());
-        putchar('\n');
-        for(auto I : ans) {
-            wr(I) , putchar(' ');
-        }
-    }
-    
-    return;
+
 }
 
 signed main() {
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
     // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
-    solve();
-
+    // ishowspeed
     
     return 0;
 }
