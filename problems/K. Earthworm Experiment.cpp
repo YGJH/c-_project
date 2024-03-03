@@ -80,7 +80,7 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 #define debug(...) ((void)0)
 #define orange(...) ((void)0)
 #endif
-// int arr[N]={};
+int arr[N]={};
 // int seg[N*4];
 // inline void pull(int id) {
 //     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
@@ -189,55 +189,116 @@ inline void wr(io x) {
 int V;
 void solve() {
     int n, m , k;
-    bool ass = true;
-    int eye = 0;
-    int cnt = 0;
-    bool unfinish = false;
-    int len_sum = 0;
-    int last_sum = 0;
-    int mx = INT32_MAX;
-    re(n) , re(m) , re(k);
-    vector<int> ans;
+    re(n);
+    re(m);
+    re(k);
     for(int i = 0 ; i < n ; i++) {
-        re(V);
-        len_sum += V;
-        mx = mmin(mx , V);
-        eye = mmax(eye , V);
-        // cerr << "FInish !!" << endl; 
-        if(len_sum >= m) {
-            if(abs(mx - eye) > k ) {
-                if(cnt == 0 || len_sum - V < m) {
-                    ass = false;
-                    break;
-                }
-                ans.pb(cnt);
-                cnt=0;
-                mx = V;
-                eye = V;
-                len_sum = V;
+        re(arr[i]);
+    }
+    int j = 0;
+    int cnt = 0;
+    vector<int> ans;
+    int now = arr[0];
+    int maxx = arr[0];
+    int minn = now;
+    int index = n-1;
+    int sum = 0;
+    for(int i = 1 ; i < n ; i++) {
+        maxx = mmax(maxx , arr[i]);
+        minn = mmin(minn , arr[i]);
+        if(maxx - minn > k) {
+            if(now<m) {
+                putchar('-'),putchar('1');
+                return;
             }
-            else {
-                unfinish = true;
+            ans.pb(i - j);
+            sum += i - j;
+            j = i;
+            now = arr[i];
+            maxx = now;
+            minn = now;
+            cnt++;
+            // index = i;
+            continue;
+        }
+        else {
+            now += arr[i];
+            // index = i;
+            continue;
+        }
+    }
+    if(sum < n) {
+        int now = arr[n-1];
+        int mmaxx = now;
+        int mminn = now;
+        int anss = 0;
+        // for(auto P : ans) {
+        //     cerr << P << endl;
+        // }
+        for(int i = n - 2 ; i >= 0 ; i--) {
+            // cerr << "kjkkk" << endl;
+            if(mmaxx - mminn < k) {
+                if(now >= m) {
+                    anss = n - i - 1;
+                    ans.pb(anss);
+                    cnt++;
+                    anss--;
+                    auto it = ans.begin();
+                    int cnt2 = 0;
+                    cerr << *it << endl;
+                    it++;
+                    cerr << *it << endl;
+                    for( ; V > 0 && it != ans.end() ; it-- ) {
+                        int temp = *it;
+                        *it -= anss;
+                        if(*it < 0 ) {
+                            // cerr << "fjewiqofjweop" << endl;
+                            cnt2++;
+                        }
+                        anss -= temp;
+                    }
+                    wr(cnt-cnt2);
+                    putchar('\n');
+                    for(auto I : ans) {
+                        wr(I);
+                        putchar(' ');
+                    }
+                    return;
+                }
+            }
+            now+=arr[i];
+            mmaxx = mmax(mmaxx , arr[i]);
+            mminn = mmin(mminn , arr[i]);
+        }
+    }
+    if(cnt == 1) {
+        now = arr[n-1];
+        int maxxx = arr[n-1];
+        int minnn = arr[n-1];
+        for(int i = n-2 ; i >= 0 ; i-- ) {
+            // cerr << "ehjfiuqhioeuf" << endl;
+            maxxx = mmax(maxxx , arr[i]);
+            maxxx = mmin(maxxx , arr[i]);
+            now += arr[i];
+            if(maxxx - minnn < k) {
+                if(now >= m) {
+                    wr(2);
+                    putchar('\n');
+                    wr(i-1+1);
+                    putchar(' ');
+                    wr(n - i);
+                    return ;
+                }
             }
         }
-        last_sum += V;
-        cnt++;
-    }
-    if(!ass){
-        wr(-1) ;
+        wr(-1);
         return;
     }
-    else {
-        if(unfinish) {
-            if(abs(mx - eye) <= k && len_sum >= m) {
-                ans.pb(cnt);
-            }
-        }
-        wr(ans.size());
-        putchar('\n');
-        for(auto I : ans) {
-            wr(I) , putchar(' ');
-        }
+    wr(cnt);
+    putchar('\n');
+    for(auto I : ans) {
+        wr(I);
+        putchar(' ');
     }
     
     return;
