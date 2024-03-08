@@ -96,32 +96,38 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pii pair<int,int>
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+#define pii pair<int, int>
+#define all(x) (x).begin(), (x).end()
+#define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr);
 #define ll long long
 #define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
+#define lcm(a, b) (a * b) / __gcd(a, b)
+#define pause printf("Press any key to continue...\n"), fgetc(stdin);
 #define int long long
 // #define int __int128
-#define lowbit(x) (x&-x)
+#define lowbit(x) (x & -x)
 #define MOD 1000000009
 #define MXN 400'500
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
+#define cr(x) (x << 1)
+#define cl(x) (x << 1) + 1
+#define mmax(a, b) (a > b) ? a : b
+#define mmin(a, b) (a < b) ? a : b
 using namespace std;
-const int N=1e5+5;
+const int N = 1e5 + 5;
 #define LOCAL
-#ifdef LOCAL    // =========== Local ===========
+#ifdef LOCAL // =========== Local ===========
 void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+template <class T, class... U> void dbg(T a, U... b) {
+  cerr << a << ' ', dbg(b...);
+}
+template <class T> void org(T l, T r) {
+  while (l != r)
+    cerr << *l++ << ' ';
+  cerr << '\n';
+}
 #define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
 #define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
+#else // ======== OnlineJudge ========
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #define debug(...) ((void)0)
@@ -194,122 +200,124 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 //     }
 // }BIT;
 
-
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-        if(b &  1) {
-            ret *= a ;
-            ret %= MOD;
-        }
+inline int poww(int a, int b) {
+  int ret = 1;
+  for (; b; b >>= 1, a = (a % MOD) * (a % MOD) % MOD) {
+    if (b & 1) {
+      ret *= a;
+      ret %= MOD;
     }
-    return ret % MOD;
+  }
+  return ret % MOD;
 }
 
-
-// namespace int128IO {
-// 	istream& operator>>(istream& is, __int128& i) {
-// 		string s; is>>s; i = 0;
-// 		auto c=s.begin(); c+=(s[0]=='-');
-// 		for(; c!=s.end(); ++c) i=i*10+(*c-'0');
-// 		if(s[0]=='-') i=-i;
-// 		return is;
-// 	}
-// 	ostream& operator<<(ostream& os, __int128 i) {
-// 		string s; bool neg=false; if(i<0) neg=true, i=-i;
-// 		while(i) s+=('0'+i%10), i/=10;
-// 		if(neg) os<<'-';
-// 		for(auto c=s.rbegin();c!=s.rend();++c) os<<*c;
-// 		return os;
-// 	}
-// }
-
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
+template <class io> inline void re(io &x) {
+  io c = getchar();
+  int w = 0;
+  x = 0;
+  while (c < 48 || c > 57)
+    w |= c == 45, c = getchar();
+  while (c > 47 && c < 58)
+    x = (x << 3) + (x << 1) + (c & 15), c = getchar();
+  x = w ? -x : x;
+  return;
 }
-template <class io>
-inline void wr(io x) {
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
+template <class io> inline void wr(io x) {
+  if (x < 0)
+    putchar('-'), x = ~x, x++;
   static int sta[300];
   int top = 0;
   do {
     sta[top++] = x % 10, x /= 10;
   } while (x);
-  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
+  while (top)
+    putchar(sta[--top] + 48); // 48 是 '0'
 }
 
-ll inv(ll x){
-	return poww(x, MOD-2);
-}
+ll inv(ll x) { return poww(x, MOD - 2); }
+// bool const operator == (pair<int,int> &a , pair<int,int> &b){
+//     if(a.first==b.first && a.second == b.second) return true;
+//     else return false;
+// }
+int tmp = 0;
+vector<vector<int>> dp(200, vector<int>(30, 0)); // dp
+vector<vector<int>> d (200, vector<int>(30, 0));  // sum of distance
+vector<vector<int>> r (200, vector<int>(30, 0)); // the most suitable divide border
 
-using ll = long long;
-
-template<class T, T M> class modular {
-	T value;
-
-	public:
-	modular(T val=T()) {
-		value = val;
-		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+int res[300];
+void solve(int n, int k) {
+  for (int i = 1; i <= n; i++) {
+    // re(res[i]);
+		cin >> res[i] ;
 	}
-	template<class P> modular(P val) {
-		value = val;
-		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	int m ;
+  for (int i = 1; i <= n; i++) {
+  	for (int j = i; j <= n; j++) {
+      m = (i + j) >> 1, d[i][j] = {(ll)0};
+      for (int o = i; o <= j; o++)
+        d[i][j] += abs(res[o] - res[m]); // 如果選（i , j) 當區間的話距離是多少
+    }
+  }
+	cerr << "fin" << endl;
+  for (int p = 1; p <= k; p++) {
+		for(int q = 1 ; q <= n ; q++) {
+			dp[p][q] = (ll)1e9;
+			for(int o = p ; o <= q; o++) {
+				if(dp[p-1][o-1] + d[o][q] < dp[p][q]) {
+					dp[p][q] = dp[p-1][o-1] + d[o][q];
+					r[p][q] = o;
+				}
+			}
+		}
 	}
-	
-	T pow(T a, T b) {
-		T ret=1;
-		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
-		return ret;
+	cerr << dp[3][6] << ' ' << d[3][6] << ' ' << r[3][6] << endl;
+	for(auto I : dp) {
+		for(auto i : I) {
+			cerr << i << ' ';
+		}
+		cerr << endl;
 	}
-  	modular pow(T p) {return pow(value, p);}
-	modular operator+(modular m) {return modular(value+m.value);}
-	modular operator-(modular m) {return modular(value-m.value);}
-	modular operator*(modular m) {return modular(value*m.value);}
-	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
-	modular operator+=(modular m) {*this=operator+(m); return *this;}
-	modular operator-=(modular m) {*this=operator-(m); return *this;}
-	modular operator*=(modular m) {*this=operator*(m); return *this;}
-	modular operator/=(modular m) {*this=operator/(m); return *this;}
-	modular operator++() {*this=operator+(1); return *this;}
-	modular operator++(int) {modular r=*this; operator++(); return r;}
-	modular operator--() {*this=operator-(1); return *this;}
-	modular operator--(int) {modular r=*this; operator--(); return r;}
-	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
-	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
-	T get() {return value;}
-	//operator T() {return value;}
+	cerr << "jeiwfopqjo" << endl;
+	for(auto I : d) {
+		for(auto i : I) {
+			cerr << i << ' ';
+		}
+		cerr << endl;
+	}
+	cerr << "jeiwfopqjo" << endl;
 
-	bool operator==(modular m) {return value==m.value;}
-	bool operator!=(modular m) {return value!=m.value;}
-	bool operator<(modular m) {return value<m.value;}
-	bool operator>(modular m) {return value>m.value;}
-	bool operator<=(modular m) {return value<=m.value;}
-	bool operator>=(modular m) {return value>=m.value;}
-
-	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
-	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
-};
-
-using Mod = modular<ll, (ll)1e9+7>;
-
-
-void solve() {
-
+	for(auto I : r) {
+		for(auto i : I) {
+			cerr << i << ' ';
+		}
+		cerr << endl;
+	}
+  putchar('C');
+  putchar('h');
+  putchar('a');
+  putchar('i');
+  putchar('n');
+  wr(tmp++);
+  putchar('\n');
+	for(int i = 0 ; i < k ; i++) {
+		printf("Depot %d at restaurant %d serves resetaurant %d\n" , i+1 ,  );
+	}
 }
 
 signed main() {
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    // ishowspeed
-    
-    return 0;
+  // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+  // mt19937 mt(hash<string>(":poop:"));
+  // uniform_int_distribution<> gen(1 , 10);
+  // freopen("input.txt", "r", stdin);
+  // freopen("output.txt", "w", stdout);
+  ishowspeed 
+	int a, b;
+  while (cin >> a >> b) {
+    if (a != 0 && b != 0)
+      solve(a, b);
+		else {
+			return 0;
+		}
+  }
+  return 0;
 }

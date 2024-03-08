@@ -94,10 +94,117 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 
 #include <bits/stdc++.h>
-// #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+#define mk make_pair
+#define pb push_back
+#define pii pair<int,int>
+#define all(x) (x).begin(),(x).end()
+#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 #define ll long long
+#define endl '\n'
+#define lcm(a , b) (a * b) / __gcd(a ,b)
+#define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
+// #define int __int128
+#define lowbit(x) (x&-x)
 #define MOD 1000000009
+#define MXN 400'500
+#define cr(x) (x<<1)
+#define cl(x) (x<<1)+1
+#define mmax(a,b) (a > b)?a:b
+#define mmin(a,b) (a<b)?a:b
+using namespace std;
+// const int N=1e5+5;
+// #define LOCAL
+// #ifdef LOCAL    // =========== Local ===========
+// void dbg() { cerr << '\n'; }
+// template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
+// template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+// #define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
+// #define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
+// #else            // ======== OnlineJudge ========
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #define debug(...) ((void)0)
+// #define orange(...) ((void)0)
+// #endif
+// int arr[N]={};
+// int seg[N*4];
+// inline void pull(int id) {
+//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
+// }
+// void build(int id , int l , int r) {
+//     if(l==r){
+//         seg[id]=arr[l];
+//         return ;
+//     }
+//     else {
+//         int mid=(l+r)/2;
+//         build( cl(id) , l , mid);
+//         build( cr(id) , mid+1, r);
+//         pull(id);
+//     }
+// }
+// void update(int id , int l , int r , int x , int v){
+//     if(l==r){
+//         seg[id]=v;
+//         return;
+//     }
+//     int mid=(l+r)>>1;
+//     if(x<=mid){
+//         update(cl(id) , l , mid ,x , v);
+//     }
+//     if(mid<x){
+//         update(cr(id) , mid+1,r,x,v);
+//     }
+//     pull(id);
+// }
+// int query(int id,int l,int r,int sl,int sr){
+//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
+//         return seg[id];
+//     }
+//     int mid=(l+r)>>1,res=0;
+//     if(sl<=mid){//左區間跟查詢區間有交集
+//         res=mmax(res,query(cl(id),l,mid,sl,sr));
+//     }
+//     if(mid<sr){//右區間跟查詢區間有交集
+//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
+//     }
+//     return res;
+// }
+
+// struct Binary_Indexed_Tree{
+//     int n;
+//     vector<long long> bit;
+
+//     void init(int _n){
+//         n = _n+1;
+//         bit = vector<long long>(n,0);
+//     }
+//     void update(int x,int v){
+//         for(; x<n; x+=lowbit(x)){
+//             bit[x] += v;
+//         }
+//     }
+//     long long query(int x){
+//         long long ret = 0;
+//         for(; x>0; x-=lowbit(x)){
+//             ret += bit[x];
+//         }
+//         return ret;
+//     }
+// }BIT;
+
+
+inline int poww(int a , int b) {
+    int ret = 1;
+    for( ; b ; b >>= 1 , a = ((a % MOD) * (a % MOD)) % MOD) {
+        if(b &  1) {
+            ret *= a % MOD;
+            ret %= MOD;
+        }
+    }
+    return ret % MOD;/*  */
+}
 
 template<class io>
 inline void re(io &x) {
@@ -115,29 +222,40 @@ inline void wr(io x) {
   do {
     sta[top++] = x % 10, x /= 10;
   } while (x);
-  while (top) putchar(sta[--top] + 48);
-  return;  // 48 是 '0'
+  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-std::vector<int> dp(1e6+100 , 0);
+ll inv(ll x){
+	return poww(x, MOD-2);
+}
+void solve() {
+    int n;
+    cin>>n;
+    int sum = 0 , sum2 = 0;
+    for(int i = 0 , a ; i < n ; i++) {
+        re(a);
+        sum = (sum + a) % MOD;// 把每個都加起來
+        sum2 = (sum2 + a * a) % MOD; // 把每個平方都加起來
+    }
+    int i2 = inv(2); // (a + b) * (a + b) - ((a)2 + (b)2)
+    int x = (sum * sum - sum2 ) % MOD , d = i2 * n % MOD * (n - 1) % MOD;
+    int inve = inv(d) * i2 % MOD;
+    cout << x * inve % MOD;
+    putchar('\n');
+    return;
+}
 
 signed main() {
-    int n , target;
-    re(n) , re(target);
-    int coin[n];
-    for(auto &i : coin ) {
-        re(i);
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    // mt19937 mt(hash<string>(":poop:"));
+    // uniform_int_distribution<> gen(1 , 10);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // ishowspeed
+    int n;
+    re(n);
+    while(n--) {
+        solve();
     }
-    dp[0] = 1;
-    for(int i = 1 ; i <= target ; i++ ) {
-        for(int j = 0 ; j < n ; j++) {
-            if(coin[j] <= i) {
-                dp[i] += dp[i - coin[j]];
-                dp[i] %= (ll)1e9 + 7;
-            }
-        }
-    }
-    dp[target] %= (ll)1e9+7;
-    wr(dp[target]);
     return 0;
 }

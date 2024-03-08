@@ -94,50 +94,66 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 
 #include <bits/stdc++.h>
-// #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 #define ll long long
 #define int long long
-#define MOD 1000000009
-
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
+#define MOD 1000000007
+template <class io> inline void re(io &x) {
+  io c = getchar();
+  int w = 0;
+  x = 0;
+  while (c < 48 || c > 57)
+    w |= c == 45, c = getchar();
+  while (c > 47 && c < 58)
+    x = (x << 3) + (x << 1) + (c & 15), c = getchar();
+  x = w ? -x : x;
+  return;
 }
-template <class io>
-inline void wr(io x) {
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
+template <class io> inline void wr(io x) {
+  if (x < 0)
+    putchar('-'), x = ~x, x++;
   static int sta[300];
   int top = 0;
   do {
     sta[top++] = x % 10, x /= 10;
   } while (x);
-  while (top) putchar(sta[--top] + 48);
-  return;  // 48 是 '0'
+  while (top)
+    putchar(sta[--top] + 48); // 48 是 '0'
 }
-
-std::vector<int> dp(1e6+100 , 0);
-
-signed main() {
-    int n , target;
-    re(n) , re(target);
-    int coin[n];
-    for(auto &i : coin ) {
-        re(i);
-    }
-    dp[0] = 1;
-    for(int i = 1 ; i <= target ; i++ ) {
-        for(int j = 0 ; j < n ; j++) {
-            if(coin[j] <= i) {
-                dp[i] += dp[i - coin[j]];
-                dp[i] %= (ll)1e9 + 7;
+std::vector<int> dp(62627, 0);
+void solve() {
+  dp[0] = 0;
+  dp[1] = 0;
+  dp[3] = 1;
+  int tmp ;
+  std::unordered_map<int,bool> mp;
+    for(int i = 2;  i <= 500 ; i++) {
+        mp.clear();
+        // tmp = i >> 1;
+        for(int j = i - 1  ; j >= tmp ; j-- ) {
+            if(!mp[i-j] && i - j != j) {
+                dp [i] += dp[i - j];
+                dp[i] %= MOD;
+                mp[j]=1;
             }
         }
     }
-    dp[target] %= (ll)1e9+7;
-    wr(dp[target]);
+    // for(int i = 0 ; i <= 28 ; i++){
+    //    std::cerr << i << ' ' << dp[i] << std::endl;
+    // }
+}
+
+signed main() {
+  int a;
+  re(a);
+  int sum = (a+1) * a;
+  if (sum % 2) {
+    wr(0);
     return 0;
+  }
+  // 62625
+  sum >>= 2;
+  solve();
+  wr((dp[sum]));
+
+  return 0;
 }

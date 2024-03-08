@@ -49,38 +49,44 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pii pair<int,int>
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+#define pii pair<int, int>
+#define all(x) (x).begin(), (x).end()
+#define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr);
 #define ll long long
 #define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
+#define lcm(a, b) (a * b) / __gcd(a, b)
+#define pause printf("Press any key to continue...\n"), fgetc(stdin);
 #define int long long
 // #define int __int128
-#define lowbit(x) (x&-x)
+#define lowbit(x) (x & -x)
 #define MOD 998244353
 #define MXN 400'500
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
+#define cr(x) (x << 1)
+#define cl(x) (x << 1) + 1
+#define mmax(a, b) (a > b) ? a : b
+#define mmin(a, b) (a < b) ? a : b
 using namespace std;
-const int N=1e5+5;
+const int N = 1e5 + 5;
 #define LOCAL
-#ifdef LOCAL    // =========== Local ===========
+#ifdef LOCAL // =========== Local ===========
 void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+template <class T, class... U> void dbg(T a, U... b) {
+  cerr << a << ' ', dbg(b...);
+}
+template <class T> void org(T l, T r) {
+  while (l != r)
+    cerr << *l++ << ' ';
+  cerr << '\n';
+}
 #define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
 #define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
+#else // ======== OnlineJudge ========
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #define debug(...) ((void)0)
 #define orange(...) ((void)0)
 #endif
-int arr[N]={};
+int arr[N] = {};
 // int seg[N*4];
 // inline void pull(int id) {
 //     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
@@ -147,7 +153,6 @@ int arr[N]={};
 //     }
 // }BIT;
 
-
 // inline int poww(int a , int b) {
 //     int ret = 1;
 //     for( ; b ; b >>= 1 , a *= a) {
@@ -158,23 +163,27 @@ int arr[N]={};
 //     return ret;
 // }
 
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
+template <class io> inline void re(io &x) {
+  io c = getchar();
+  int w = 0;
+  x = 0;
+  while (c < 48 || c > 57)
+    w |= c == 45, c = getchar();
+  while (c > 47 && c < 58)
+    x = (x << 3) + (x << 1) + (c & 15), c = getchar();
+  x = w ? -x : x;
+  return;
 }
-template <class io>
-inline void wr(io x) {
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
+template <class io> inline void wr(io x) {
+  if (x < 0)
+    putchar('-'), x = ~x, x++;
   static int sta[300];
   int top = 0;
   do {
     sta[top++] = x % 10, x /= 10;
   } while (x);
-  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
+  while (top)
+    putchar(sta[--top] + 48); // 48 是 '0'
 }
 
 // ll inv(ll x){
@@ -185,132 +194,74 @@ inline void wr(io x) {
 //     else return false;
 // }
 
-
 int V;
 void solve() {
-    int n, m , k;
-    re(n);
-    re(m);
-    re(k);
-    for(int i = 0 ; i < n ; i++) {
-        re(arr[i]);
+  int n, m, k;
+  re(n);
+  re(m);
+  re(k);
+  vector<int> dp(n + 5, -1);
+  for (int i = 1; i <= n; i++) {
+    re(arr[i]);
+    dp[i] = -1;
+  }
+  dp[0] = 0;
+  int cnt = 0;
+  vector<int> ans;
+  for (int i = 1; i <= n; i++) {
+    int now = 0;
+    int maxx = arr[i];
+    int minn = arr[i];
+    int j = i;
+    while (j > 0) {
+      now++;
+      maxx = mmax(maxx, arr[j]);
+      minn = mmin(minn, arr[j]);
+      if (now >= m && (maxx - minn) <= k && dp[j - 1] >= 0) {
+        dp[i] = j;
+        break;
+      }
+      j--;
     }
-    int j = 0;
-    int cnt = 0;
-    vector<int> ans;
-    int now = arr[0];
-    int maxx = arr[0];
-    int minn = now;
-    int index = n-1;
+  }
+  for (int i = n; i > 0; i--) {
     int sum = 0;
-    for(int i = 1 ; i < n ; i++) {
-        maxx = mmax(maxx , arr[i]);
-        minn = mmin(minn , arr[i]);
-        if(maxx - minn > k) {
-            if(now<m) {
-                putchar('-'),putchar('1');
-                return;
-            }
-            ans.pb(i - j);
-            sum += i - j;
-            j = i;
-            now = arr[i];
-            maxx = now;
-            minn = now;
-            cnt++;
-            // index = i;
-            continue;
-        }
-        else {
-            now += arr[i];
-            // index = i;
-            continue;
-        }
+    while (dp[i] > 0 && sum < m) {
+      sum += i - dp[i] + 1;
+      i = dp[i];
     }
-    if(sum < n) {
-        int now = arr[n-1];
-        int mmaxx = now;
-        int mminn = now;
-        int anss = 0;
-        // for(auto P : ans) {
-        //     cerr << P << endl;
-        // }
-        for(int i = n - 2 ; i >= 0 ; i--) {
-            // cerr << "kjkkk" << endl;
-            if(mmaxx - mminn < k) {
-                if(now >= m) {
-                    anss = n - i - 1;
-                    ans.pb(anss);
-                    cnt++;
-                    anss--;
-                    auto it = ans.begin();
-                    int cnt2 = 0;
-                    cerr << *it << endl;
-                    it++;
-                    cerr << *it << endl;
-                    for( ; V > 0 && it != ans.end() ; it-- ) {
-                        int temp = *it;
-                        *it -= anss;
-                        if(*it < 0 ) {
-                            // cerr << "fjewiqofjweop" << endl;
-                            cnt2++;
-                        }
-                        anss -= temp;
-                    }
-                    wr(cnt-cnt2);
-                    putchar('\n');
-                    for(auto I : ans) {
-                        wr(I);
-                        putchar(' ');
-                    }
-                    return;
-                }
-            }
-            now+=arr[i];
-            mmaxx = mmax(mmaxx , arr[i]);
-            mminn = mmin(mminn , arr[i]);
-        }
+    // cerr << sum << endl;
+    if (sum >= m) {
+      ans.pb(sum);
+      cnt++;
+    } else {
+      goto eat_shit;
     }
-    if(cnt == 1) {
-        now = arr[n-1];
-        int maxxx = arr[n-1];
-        int minnn = arr[n-1];
-        for(int i = n-2 ; i >= 0 ; i-- ) {
-            // cerr << "ehjfiuqhioeuf" << endl;
-            maxxx = mmax(maxxx , arr[i]);
-            maxxx = mmin(maxxx , arr[i]);
-            now += arr[i];
-            if(maxxx - minnn < k) {
-                if(now >= m) {
-                    wr(2);
-                    putchar('\n');
-                    wr(i-1+1);
-                    putchar(' ');
-                    wr(n - i);
-                    return ;
-                }
-            }
-        }
-        wr(-1);
-        return;
-    }
-    wr(cnt);
-    putchar('\n');
-    for(auto I : ans) {
-        wr(I);
-        putchar(' ');
-    }
-    
-    return;
+  }
+  if (cnt <= 1) {
+    goto eat_shit;
+  }
+  reverse(ans.begin(), ans.end());
+  wr(cnt);
+  putchar('\n');
+  for (auto I : ans) {
+    wr(I);
+    putchar(' ');
+  }
+  return;
+
+eat_shit:
+  putchar('-');
+  putchar('1');
+  return;
 }
 
 signed main() {
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    solve();
+  // mt19937 mt(hash<string>(":poop:"));
+  // uniform_int_distribution<> gen(1 , 10);
+  // freopen("input.txt", "r", stdin);
+  // freopen("output.txt", "w", stdout);
+  solve();
 
-    
-    return 0;
+  return 0;
 }
