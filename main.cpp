@@ -99,7 +99,8 @@
 #define pii pair<int,int>
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
-#define ll long long
+using ll = long long;
+// #define ll long long
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
@@ -247,7 +248,6 @@ ll inv(ll x){
 	return poww(x, MOD-2);
 }
 
-using ll = long long;
 
 template<class T, T M> class modular {
 	T value;

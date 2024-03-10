@@ -95,8 +95,23 @@
 
 #include <bits/stdc++.h>
 #define ll long long
+#define mmax(a , b) (a > b) ? a : b
 #define int long long
+#define mmin(a , b) (a < b) ? a : b
+using namespace std;
 #define MOD 1000000007
+
+inline int poww(int a , int b) {
+    int ret = 1;
+    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
+        if(b &  1) {
+            ret *= a ;
+            ret %= MOD;
+        }
+    }
+    return ret % MOD;
+}
+
 template <class io> inline void re(io &x) {
   io c = getchar();
   int w = 0;
@@ -119,41 +134,33 @@ template <class io> inline void wr(io x) {
   while (top)
     putchar(sta[--top] + 48); // 48 是 '0'
 }
+int sum,a;
 std::vector<int> dp(62627, 0);
 void solve() {
-  dp[0] = 0;
-  dp[1] = 0;
-  dp[3] = 1;
-  int tmp ;
-  std::unordered_map<int,bool> mp;
-    for(int i = 2;  i <= 500 ; i++) {
-        mp.clear();
-        // tmp = i >> 1;
-        for(int j = i - 1  ; j >= tmp ; j-- ) {
-            if(!mp[i-j] && i - j != j) {
-                dp [i] += dp[i - j];
-                dp[i] %= MOD;
-                mp[j]=1;
-            }
+  dp[0] = 1;
+  for (int i = 1 ; i <= a ; i++ ) {
+    for (int j = sum; j >= 0; j--) {
+        if( j - i >= 0) {dp[j] += dp[j-i];
+        dp[j] %= MOD; 
         }
     }
-    // for(int i = 0 ; i <= 28 ; i++){
-    //    std::cerr << i << ' ' << dp[i] << std::endl;
-    // }
+  }
+//   for (int i = 0; i <= 28; i++) {
+//     std::cerr << i << ' ' << dp[i] << std::endl;
+//   }
 }
 
 signed main() {
-  int a;
   re(a);
-  int sum = (a+1) * a;
-  if (sum % 2) {
+  sum = (a + 1) * a;
+  if (sum % 4) {
     wr(0);
     return 0;
   }
   // 62625
   sum >>= 2;
   solve();
-  wr((dp[sum]));
+  wr((dp[sum]*poww(2,MOD-2))%MOD);
 
   return 0;
 }
