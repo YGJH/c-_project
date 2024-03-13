@@ -99,14 +99,15 @@
 #define pii pair<int,int>
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+using ll = long long;
+// #define ll long long
 #define endl '\n'
 #define lcm(a , b) (a * b) / __gcd(a ,b)
-using ll = long long;
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
 // #define int __int128
 #define lowbit(x) (x&-x)
-#define MOD 1000000007
+#define MOD 1000000009
 #define MXN 400'500
 #define cr(x) (x<<1)
 #define cl(x) (x<<1)+1
@@ -114,16 +115,96 @@ using ll = long long;
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
 const int N=1e5+5;
+#define LOCAL
+#ifdef LOCAL    // =========== Local ===========
+void dbg() { cerr << '\n'; }
+template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
+template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
+#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
+#else            // ======== OnlineJudge ========
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#define debug(...) ((void)0)
+#define orange(...) ((void)0)
+#endif
+// int arr[N]={};
+// int seg[N*4];
+// inline void pull(int id) {
+//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
+// }
+// void build(int id , int l , int r) {
+//     if(l==r){
+//         seg[id]=arr[l];
+//         return ;
+//     }
+//     else {
+//         int mid=(l+r)/2;
+//         build( cl(id) , l , mid);
+//         build( cr(id) , mid+1, r);
+//         pull(id);
+//     }
+// }
+// void update(int id , int l , int r , int x , int v){
+//     if(l==r){
+//         seg[id]=v;
+//         return;
+//     }
+//     int mid=(l+r)>>1;
+//     if(x<=mid){
+//         update(cl(id) , l , mid ,x , v);
+//     }
+//     if(mid<x){
+//         update(cr(id) , mid+1,r,x,v);
+//     }
+//     pull(id);
+// }
+// int query(int id,int l,int r,int sl,int sr){
+//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
+//         return seg[id];
+//     }
+//     int mid=(l+r)>>1,res=0;
+//     if(sl<=mid){//左區間跟查詢區間有交集
+//         res=mmax(res,query(cl(id),l,mid,sl,sr));
+//     }
+//     if(mid<sr){//右區間跟查詢區間有交集
+//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
+//     }
+//     return res;
+// }
+
+// struct Binary_Indexed_Tree{
+//     int n;
+//     vector<long long> bit;
+
+//     void init(int _n){
+//         n = _n+1;
+//         bit = vector<long long>(n,0);
+//     }
+//     void update(int x,int v){
+//         for(; x<n; x+=lowbit(x)){
+//             bit[x] += v;
+//         }
+//     }
+//     long long query(int x){
+//         long long ret = 0;
+//         for(; x>0; x-=lowbit(x)){
+//             ret += bit[x];
+//         }
+//         return ret;
+//     }
+// }BIT;
+
 
 inline int poww(int a , int b) {
-	int ret = 1;
-	for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-		if(b &  1) {
-			ret *= a ;
-			ret %= MOD;
-		}
-	}
-	return ret % MOD;
+    int ret = 1;
+    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
+        if(b &  1) {
+            ret *= a ;
+            ret %= MOD;
+        }
+    }
+    return ret % MOD;
 }
 
 
@@ -146,19 +227,19 @@ inline int poww(int a , int b) {
 
 template<class io>
 inline void re(io &x) {
-	io c = getchar();int w = 0 ; x = 0;
-	while(c < 48 || c > 57) w|=c==45,c=getchar();
-	while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-	x=w?-x:x;return;
+    io c = getchar();int w = 0 ; x = 0;
+    while(c < 48 || c > 57) w|=c==45,c=getchar();
+    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
+    x=w?-x:x;return;
 }
 template <class io>
 inline void wr(io x) {
-	if(x < 0) 
-		putchar('-'), x=~x,x++;
+    if(x < 0) 
+        putchar('-'), x=~x,x++;
   static int sta[300];
   int top = 0;
   do {
-	sta[top++] = x % 10, x /= 10;
+    sta[top++] = x % 10, x /= 10;
   } while (x);
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
@@ -170,6 +251,7 @@ ll inv(ll x){
 
 template<class T, T M> class modular {
 	T value;
+
 	public:
 	modular(T val=T()) {
 		value = val;
@@ -215,64 +297,90 @@ template<class T, T M> class modular {
 };
 
 using Mod = modular<ll, (ll)1e9+7>;
-int factor[(ll)(2e6+3)];
-int n , m;
-vector<int> dp(2003 , 0);
-pair<int,int> trap[2003];
-inline void fac() {
-	factor[0] = 1;
-	for(int i = 1 ; i < (ll)2e6 + 1 ; i++) {
-		factor[i] = (factor[i-1]%MOD) * (i%MOD) % MOD;
+int cas = 1;
+vector<int> arr(202 ,0);
+vector<vector<int>> dp(202 , vector<int>(32, 0));
+vector<vector<int>> d(202 , vector<int>(32, 0));
+vector<vector<int>> r(202 , vector<int>(32 ,0));
+
+void p_Median(int N , int P){
+	int m;
+	for(int i = 0 ; i < N ; i++) {
+		re(arr[i]);
 	}
-}
-bool cmp(pair<int,int> a , pair<int,int> b) {
-	return a.first + a.second < b.first + b.second;
-}
-int C_cal(int n , int m) {
-	if(n <= 0 || m <= 0) {
-		return 0 ;
-	}
-	int tmp = factor[n + m] ;
-	m = factor[m];
-	n = factor[n];
-	return ( ( ((tmp%MOD) * (inv(m)%MOD)) % MOD ) * (inv(n) % MOD) ) % MOD;
-}
-void print_dp(int m ) {
-	for(int i = 0 ; i <=  m ; i ++) {
-		cerr << dp[i] << ' ' ;
+	for (int i=1; i<=N; ++i)
+		for (int j=i; j<=N; ++j){
+			m = (i+j)/2,d[i][j] = 0;		// m是中位數，d[i][j]為距離的總和
+			for (int k=i; k<=j; ++k) d[i][j] += abs(arr[k] - arr[m]);
+		}
+	for (int p=1; p<=P; ++p)
+		for (int n=1; n<=N; ++n){
+			dp[p][n] = 1e9;
+			for (int k=p; k<=n; ++k)
+				if (dp[p-1][k-1] + d[k][n] < dp[p][n]){
+					dp[p][n] = dp[p-1][k-1] + d[k][n];
+					r[p][n] = k;	// 從第k個位置往右到第j個位置
+				}
+		}
+
+	// for(int i =  1 ; i <= N ; i++ ){
+	// 	cerr << r[P][i] << ' ';
+	// }
+	// cerr << endl;
+	// for(int i =  1 ; i <= N ; i++ ){
+	// 	cerr << d[P][i] << ' ';
+	// }
+	// cerr << endl;
+	// for(int i = 1 ;  i <= N ; i++) {
+	// 	cerr << dp[P][i] << ' ' ;
+	// }
+	// cerr << endl;
+	int sum = 0;
+	cout << "Chain " << cas++ << endl;
+	vector<pii> ans;
+	int now = r[P][1];
+	for(int i = 2 ; i <= N ; i++) {
+		if(r[P][i] != now) {
+			if(now == 0)
+				now++;
+			ans.pb(mk(now , r[P][i]));
+			sum += d[P][r[P][i]] - d[P][now];
+			now = r[P][i+1];
+		}
 	}
 	cerr << endl;
-}
-
-void solve() {
-	re(n);
-	re(m);
-	for(int i = 0 ; i < m ; i++) {
-		re(trap[i].first) ,  re(trap[i].second);
-		if(trap[i].first == n && trap[i].second == n ) {
-			wr(0);
-			return;
+	sum++;
+	if(ans.size() < P) 
+		ans.pb(mk(now,N));
+	now = 1;
+	for(auto [x , y] : ans) {
+		sum += d[y][x];
+		cout << "Depot " << now++ << " at restaurant " << (x + y) / 2 << " serves restaurant " ;
+		if(x != y) {
+			cout << x << " to " << y << endl;
 		}
-		trap[i].first -= 1;
-		trap[i].second -= 1;
-	}
-	int x = n - 1, y = n - 1 ;
-	// m++;
-	// trap[m-1] = {n - 1, n - 1};
-	sort(trap , trap + m , cmp);
-	int ans = C_cal(x , y) ;
-	for(int i = 0 ; i < m ;i++) {
-		ans -= (C_cal(trap[i].first , trap[i].second) * C_cal(x - trap[i].first , y - trap[i].second));
-		for(int j = 0 ; j < i ; j++) {
-			ans += 
+		else {
+			cout << x << endl;
 		}
 	}
+	cout << "Total distance sum = " << sum << endl;
+	cout << endl;
 }
 
 signed main() {
-
-	// ishowspeed
-	fac();
-	solve();
-	return 0;
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    // mt19937 mt(hash<string>(":poop:"));
+    // uniform_int_distribution<> gen(1 , 10);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    // ishowspeed
+	int a , b;
+	while(cin >> a >> b ) {
+		if( a != 0 && b != 0) 
+			p_Median(a , b);
+		else{
+			return 0;
+		}
+	}
+    return 0;
 }

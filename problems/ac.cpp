@@ -303,7 +303,7 @@ int cnt = 0;
 int xx[] = {0 , 1};
 int yy[] = {1 , 0};
 map<pii, bool> mp;
-void bfs(int x , int y) {
+void dfs(int x , int y) {
     if(y == n && x == n && !mp[{x , y}] ) {
         cnt++;
         return;
@@ -314,7 +314,7 @@ void bfs(int x , int y) {
             now1 = y+yy[i];
             now2 = x+xx[i];
             if(!mp[{now2,now1}] && now1 <= n && now2 <= n ) {
-                bfs(now1 ,now2);
+                dfs(now1 ,now2);
             }
             else {
                 continue;
@@ -338,7 +338,7 @@ signed main() {
         re(b);
         mp[{a,b}]=1;
     }
-    bfs(1 , 1);
+    dfs(1 , 1);
     cout << cnt << endl;
     return 0;
 }
