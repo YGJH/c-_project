@@ -296,7 +296,7 @@ template<class T, T M> class modular {
 };
 
 using Mod = modular<ll, (ll)1e9+7>;
-vector<pair<int,bool>> ans(N , {0 ,false});
+vector<int> ans(N , 0);
 vector<int> parent(N, 0);
 vector<vector<int>> con(N);
 void solve() {
@@ -312,7 +312,7 @@ void solve() {
 		parent[i] = i;
 	}
 	queue<int> que;
-	ans[1].first = 1;
+	ans[1] = 1;
 	que.push(1);
 	int index = -1;
 	int ANS = -1;
@@ -320,39 +320,37 @@ void solve() {
 	while(!que.empty()) {
 		int now = que.front();
 		que.pop();
-		if(ANS < ans[now].first && ans[now].second) {
-			ANS = ans[now].first;
+		if(ANS < ans[now]) {
+			ANS = ans[now];
 			index = now;
 		}
 		for(auto i : con[now]) {
-			if(ans[i].first < ans[now].first + 1) {
+			if(ans[i] < ans[now] + 1 && ans[i] != 0) {
+				cerr << index << endl;
+				if(ANS < ans[index] + (ans[now]+1 - ans[i])) {
+					ANS = ans[index] + (ans[now]+1 - ans[i]);
+				}
+				parent[i] = now;
+			}
+			else if(ans[i] < ans[now] + 1) {
 				que.push(i);
-				ans[i].first = ans[now].first+1;
-				if(i == n) {
-					ans[i].second = 1;
-				}
-				else {
-					ans[i].second = ans[now].second;
-				}
-                parent[i] = now;
+				ans[i] = ans[now]+1;
+				parent[i] = now;
 			}
 		}
 	}
 	vector<int> out;
-	// cerr << index << endl;
-	// cerr << ANS << endl;
-	// cerr << ans[index].second << endl;
-	if(index == -1 || ANS == -1 || !ans[index].second ) {
-		cout << "IMPOSSIBLE" << endl;
-		return;
-	}
 	while (parent[index] != index)
 	{
 		out.pb(index);
 		if(index == n) {
 			ok = 1;
-		}  
+		} 
 		index = parent[index];
+	}
+	if(!ok) {
+		cout << "IMPOSSIBLE" << endl;
+		return;
 	}
 	out.pb(index);
 	reverse(all(out));
