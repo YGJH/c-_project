@@ -44,6 +44,7 @@ inline void wr(int x) {
 }
 
 int inv(int x) { return poww(x, MOD - (ll)2); }
+std::mutex mtx;
 
 int factor[1000009];
 
@@ -67,17 +68,21 @@ void solve() {
   wr(p);
   putchar('\n');
 }
-signed main() {
-  int a;
-  re(a);
-  factor[0] = 1;
+void fac() {
+    factor[0] = 1;
   for (int i = 1; i <= 1000000 + 8; i++) {
+      std::lock_guard<std::mutex> lock(mtx);
     factor[i] = (factor[i - 1] % MOD) * (i % MOD);
     factor[i] %= MOD;
   }
-  //   cerr << endl;
+}
+signed main() {
+  int a;
+  re(a);
+  std::thread t1[2] = {fac() , solve()};
+  std::thread t2);
   while (a--) {
-    solve();
+    t1.solve()
   }
 
   return 0;

@@ -94,6 +94,8 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 
 #include <bits/stdc++.h>
+#include<atomic>
+#include <thread>
 #define mk make_pair
 #define pb push_back
 #define pii pair<int,int>
@@ -305,9 +307,6 @@ void solve() {
 	for(int i = 1 ; i <= m ; i++) {
 		int tmp1 , tmp2 ;
 		re(tmp1); re(tmp2);
-		if(tmp1 == tmp2) {
-			continue;
-		}
 		con[tmp1].pb(tmp2);
 		parent[i] = i;
 	}

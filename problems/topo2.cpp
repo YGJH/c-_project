@@ -114,7 +114,7 @@ using ll = long long;
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
-const int N=2e6+5;
+const int N=1e5+5;
 #define LOCAL
 #ifdef LOCAL    // =========== Local ===========
 void dbg() { cerr << '\n'; }
@@ -208,6 +208,23 @@ inline int poww(int a , int b) {
 }
 
 
+// namespace int128IO {
+// 	istream& operator>>(istream& is, __int128& i) {
+// 		string s; is>>s; i = 0;
+// 		auto c=s.begin(); c+=(s[0]=='-');
+// 		for(; c!=s.end(); ++c) i=i*10+(*c-'0');
+// 		if(s[0]=='-') i=-i;
+// 		return is;
+// 	}
+// 	ostream& operator<<(ostream& os, __int128 i) {
+// 		string s; bool neg=false; if(i<0) neg=true, i=-i;
+// 		while(i) s+=('0'+i%10), i/=10;
+// 		if(neg) os<<'-';
+// 		for(auto c=s.rbegin();c!=s.rend();++c) os<<*c;
+// 		return os;
+// 	}
+// }
+
 template<class io>
 inline void re(io &x) {
     io c = getchar();int w = 0 ; x = 0;
@@ -280,54 +297,74 @@ template<class T, T M> class modular {
 };
 
 using Mod = modular<ll, (ll)1e9+7>;
+
+vector<int> ans(N , 0);
+vector<int> deg(N , 0);
+vector<int> ANS(N);
 vector<vector<int>> con(N);
-vector<int> ans;
-vector<int> deg(N, 0);
+void PRINT(int n) {
+	for(int i = 1; i <= n ; i++) {
+		cout << ans[i] << ' ' ;
+	}
+	cout << endl;
+}
+
 void solve() {
 	int n , m;
-	re(n) , re(m);
-	for(int i = 1 ; i <= m ; i++) {
+	re(n);re(m);
+	for(int i = 1; i <= m ; i++) {
 		int tmp1 , tmp2;
-		re(tmp1) , re(tmp2);
-		if(tmp1 == tmp2) {
-			continue;
-		}
-		deg[tmp2]++;
+		re(tmp1) ;re(tmp2);
 		con[tmp1].pb(tmp2);
+		deg[tmp2]++;
 	}
 	queue<int> que;
-	bool ok = 0;
 	for(int i = 1 ; i <= n ; i++) {
 		if(deg[i] == 0) {
+			ans[i] = 1;
 			que.push(i);
-			ans.pb(i);
-			ok = 1;
 		}
 	}
-	if(!ok) {
-		cout << "IMPOSSIBLE" << endl;
-		return;
-	}
+	// PRINT(n);
 	while(!que.empty()) {
 		int now = que.front();
 		que.pop();
-		for(auto i : con[now]){
+		for(auto i :con[now]) {
 			deg[i]--;
 			if(deg[i] == 0) {
-				ans.pb(i);
 				que.push(i);
+				ans[i] = ans[now] + 1;
 			}
 		}
+		// PRINT(n);
 	}
-	if(ans.size() < n) {
-		cout << "IMPOSSIBLE" << endl;
-		return;
-	}
-	for(auto i : ans) {
-		wr(i);putchar(' ');
-	}
+	// for(int i = 1 ; i <= n ; i++) {
+	// 	cerr << ans[i] << ' ';
+	// }
+	// cerr << endl;
+	int now = 1;
+	// unordered_map<int,bool> mp;
+	// for(int i = 1 ; i <= n ; i++) {
+	// 	if(!mp[ans[i]]) {
+	// 		mp[ans[i]]=1;
+	// 	}
+	// 	else {
+	// 		while(mp[now] || now == ans[i]) {
+	// 			if(now > n) {
+	// 				n = 1;
+	// 			}
+	// 			now++;
+	// 		}
+	// 		mp[now] = 1;
+	// 		ans[i] = now++;
+	// 	}
+	// }
 
+	for(int i = 1 ; i <= n ;i++) {
+		wr(ans[i]);putchar(' ');
+	}
 }
+
 
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
