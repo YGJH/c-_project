@@ -298,70 +298,9 @@ template<class T, T M> class modular {
 };
 
 using Mod = modular<ll, (ll)1e9+7>;
-vector<pair<int,bool>> ans(N , {0 ,false});
-vector<int> parent(N, 0);
-vector<vector<int>> con(N);
 void solve() {
-	int n , m;
-	re(n) , re(m);
-	for(int i = 1 ; i <= m ; i++) {
-		int tmp1 , tmp2 ;
-		re(tmp1); re(tmp2);
-		con[tmp1].pb(tmp2);
-		parent[i] = i;
-	}
-	queue<int> que;
-	ans[1].first = 1;
-	que.push(1);
-	int index = -1;
-	int ANS = -1;
-	bool ok = false;
-	while(!que.empty()) {
-		int now = que.front();
-		que.pop();
-		if(ANS < ans[now].first && ans[now].second) {
-			ANS = ans[now].first;
-			index = now;
-		}
-		for(auto i : con[now]) {
-			if(ans[i].first < ans[now].first + 1) {
-				que.push(i);
-				ans[i].first = ans[now].first+1;
-				if(i == n) {
-					ans[i].second = 1;
-				}
-				else {
-					ans[i].second = ans[now].second;
-				}
-                parent[i] = now;
-			}
-		}
-	}
-	vector<int> out;
-	// cerr << index << endl;
-	// cerr << ANS << endl;
-	// cerr << ans[index].second << endl;
-	if(index == -1 || ANS == -1 || !ans[index].second ) {
-		cout << "IMPOSSIBLE" << endl;
-		return;
-	}
-	while (parent[index] != index)
-	{
-		out.pb(index);
-		if(index == n) {
-			ok = 1;
-		}  
-		index = parent[index];
-	}
-	out.pb(index);
-	reverse(all(out));
-	wr(ANS);
-	putchar('\n');
-	for(auto O : out) {
-		wr(O), putchar(' ');
-	}
-}
 
+}
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));

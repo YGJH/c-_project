@@ -100,15 +100,13 @@
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 using ll = long long;
-// #define ll long long
 #define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
+#define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
 // #define int __int128
 #define lowbit(x) (x&-x)
 #define MOD 1000000009
-#define MXN 400'500
 #define cr(x) (x<<1)
 #define cl(x) (x<<1)+1
 #define mmax(a,b) (a > b)?a:b
@@ -310,6 +308,6 @@ signed main() {
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     // ishowspeed
-    
+
     return 0;
 }

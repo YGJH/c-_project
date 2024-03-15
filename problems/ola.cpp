@@ -1,50 +1,50 @@
 #pragma GCC optimize(1)
 #pragma GCC optimize(2)
 #pragma GCC optimize(3)
-// #pragma GCC optimize("Ofast")
-// #pragma GCC optimize("inline")
-// #pragma GCC optimize("-fgcse")
-// #pragma GCC optimize("-fgcse-lm")
-// #pragma GCC optimize("-fipa-sra")
-// #pragma GCC optimize("-ftree-pre")
-// #pragma GCC optimize("-ftree-vrp")
-// #pragma GCC optimize("-fpeephole2")
-// #pragma GCC optimize("-ffast-math")
-// #pragma GCC optimize("-fsched-spec")
-// #pragma GCC optimize("unroll-loops")
-// #pragma GCC optimize("-falign-jumps")
-// #pragma GCC optimize("-falign-loops")
-// #pragma GCC optimize("-falign-labels")
-// #pragma GCC optimize("-fdevirtualize")
-// #pragma GCC optimize("-fcaller-saves")
-// #pragma GCC optimize("-fcrossjumping")
-// #pragma GCC optimize("-fthread-jumps")
-// #pragma GCC optimize("-funroll-loops")
-// #pragma GCC optimize("-fwhole-program")
-// #pragma GCC optimize("-freorder-blocks")
-// #pragma GCC optimize("-fschedule-insns")
-// #pragma GCC optimize("inline-functions")
-// #pragma GCC optimize("-ftree-tail-merge")
-// #pragma GCC optimize("-fschedule-insns2")
-// #pragma GCC optimize("-fstrict-aliasing")
-// #pragma GCC optimize("-fstrict-overflow")
-// #pragma GCC optimize("-falign-functions")
-// #pragma GCC optimize("-fcse-skip-blocks")
-// #pragma GCC optimize("-fcse-follow-jumps")
-// #pragma GCC optimize("-fsched-interblock")
-// #pragma GCC optimize("-fpartial-inlining")
-// #pragma GCC optimize("no-stack-protector")
-// #pragma GCC optimize("-freorder-functions")
-// #pragma GCC optimize("-findirect-inlining")
-// #pragma GCC optimize("-frerun-cse-after-loop")
-// #pragma GCC optimize("inline-small-functions")
-// #pragma GCC optimize("-finline-small-functions")
-// #pragma GCC optimize("-ftree-switch-conversion")
-// #pragma GCC optimize("-foptimize-sibling-calls")
-// #pragma GCC optimize("-fexpensive-optimizations")
-// #pragma GCC optimize("-funsafe-loop-optimizations")
-// #pragma GCC optimize("inline-functions-called-once")
-// #pragma GCC optimize("-fdelete-null-pointer-checks")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("inline")
+#pragma GCC optimize("-fgcse")
+#pragma GCC optimize("-fgcse-lm")
+#pragma GCC optimize("-fipa-sra")
+#pragma GCC optimize("-ftree-pre")
+#pragma GCC optimize("-ftree-vrp")
+#pragma GCC optimize("-fpeephole2")
+#pragma GCC optimize("-ffast-math")
+#pragma GCC optimize("-fsched-spec")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("-falign-jumps")
+#pragma GCC optimize("-falign-loops")
+#pragma GCC optimize("-falign-labels")
+#pragma GCC optimize("-fdevirtualize")
+#pragma GCC optimize("-fcaller-saves")
+#pragma GCC optimize("-fcrossjumping")
+#pragma GCC optimize("-fthread-jumps")
+#pragma GCC optimize("-funroll-loops")
+#pragma GCC optimize("-fwhole-program")
+#pragma GCC optimize("-freorder-blocks")
+#pragma GCC optimize("-fschedule-insns")
+#pragma GCC optimize("inline-functions")
+#pragma GCC optimize("-ftree-tail-merge")
+#pragma GCC optimize("-fschedule-insns2")
+#pragma GCC optimize("-fstrict-aliasing")
+#pragma GCC optimize("-fstrict-overflow")
+#pragma GCC optimize("-falign-functions")
+#pragma GCC optimize("-fcse-skip-blocks")
+#pragma GCC optimize("-fcse-follow-jumps")
+#pragma GCC optimize("-fsched-interblock")
+#pragma GCC optimize("-fpartial-inlining")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("-freorder-functions")
+#pragma GCC optimize("-findirect-inlining")
+#pragma GCC optimize("-frerun-cse-after-loop")
+#pragma GCC optimize("inline-small-functions")
+#pragma GCC optimize("-finline-small-functions")
+#pragma GCC optimize("-ftree-switch-conversion")
+#pragma GCC optimize("-foptimize-sibling-calls")
+#pragma GCC optimize("-fexpensive-optimizations")
+#pragma GCC optimize("-funsafe-loop-optimizations")
+#pragma GCC optimize("inline-functions-called-once")
+#pragma GCC optimize("-fdelete-null-pointer-checks")
 #pragma G++ optimize(1)
 #pragma G++ optimize(2)
 #pragma G++ optimize(3)
@@ -96,14 +96,13 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define eb emplace_back
 #define pii pair<int,int>
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 using ll = long long;
 // #define ll long long
 #define endl '\n'
-#define lcm(a , b) (((a) * (b)) / __gcd(a ,b))
+#define lcm(a , b) (a * b) / __gcd(a ,b)
 #define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
 // #define int __int128
@@ -116,88 +115,192 @@ using ll = long long;
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
 const int N=1e5+5;
+#define LOCAL
+#ifdef LOCAL    // =========== Local ===========
+void dbg() { cerr << '\n'; }
+template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
+template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
+#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
+#else            // ======== OnlineJudge ========
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#define debug(...) ((void)0)
+#define orange(...) ((void)0)
+#endif
+// int arr[N]={};
+// int seg[N*4];
+// inline void pull(int id) {
+//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
+// }
+// void build(int id , int l , int r) {
+//     if(l==r){
+//         seg[id]=arr[l];
+//         return ;
+//     }
+//     else {
+//         int mid=(l+r)/2;
+//         build( cl(id) , l , mid);
+//         build( cr(id) , mid+1, r);
+//         pull(id);
+//     }
+// }
+// void update(int id , int l , int r , int x , int v){
+//     if(l==r){
+//         seg[id]=v;
+//         return;
+//     }
+//     int mid=(l+r)>>1;
+//     if(x<=mid){
+//         update(cl(id) , l , mid ,x , v);
+//     }
+//     if(mid<x){
+//         update(cr(id) , mid+1,r,x,v);
+//     }
+//     pull(id);
+// }
+// int query(int id,int l,int r,int sl,int sr){
+//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
+//         return seg[id];
+//     }
+//     int mid=(l+r)>>1,res=0;
+//     if(sl<=mid){//左區間跟查詢區間有交集
+//         res=mmax(res,query(cl(id),l,mid,sl,sr));
+//     }
+//     if(mid<sr){//右區間跟查詢區間有交集
+//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
+//     }
+//     return res;
+// }
 
-pii last;
-int xx[] = {-1 , 0 , 1};
-vector<vector<int>> arr(N, vector<int> (5 , 0));
-int ans = INT32_MAX;
-int n;
-void dfs(int now ,int y , int x) {
-	int tmp = INT32_MAX;
-	cerr << now << ' ' << y << ' ' << x << endl;
-	if(y == n - 1) {
-		ans = now + arr[y+1][2];
-		return;
-	}
-	else {
-		int tar = 1;
-		int cnt = 0;
-		for(int i = 0 ; i < 3; i++) {
-			int k = x + xx[i];
-			if(k <= 3 && k > 0) {
-				if(tmp > arr[y+1][k]) {
-					tmp = arr[y+1][k];
-					tar = k;
-					cnt = 0;
-				}
-				else if(tmp == arr[y+1][k] && k == 2) {
-					tar = k;
-					cnt = 0;
-				}
-			}
-			else if( k > 3 ) {
-				// cerr << tmp << endl;
-				// int now2 = now;
-				// int tmp2 = tmp;
-				int cnt = arr[y][x];
-				if(now - arr[y][x] + arr[y][2] + arr[y+1][1] < tmp + now) {
-					cerr << "kkkkk" << endl;
-					now = now - arr[y][x] + arr[y][2];
-					tmp = arr[y+1][1];
-					cnt = arr[y][2];
-					tar = 1;
-				}
-				if(now - cnt + arr[y][1] + arr[y+1][1] < tmp + now && last.second <= 2) {
-					cerr << "aaaaa" << endl;
-					now = now - cnt + arr[y][1];
-					tmp = arr[y+1][1];
-					tar = 1;
-				}
-			}
-		}
-		if(x == 1) {
-			int cnt = arr[y][x];
-				if(now - arr[y][x] + arr[y][2] + arr[y+1][3] < tmp + now) {
-					// cerr << "aaaaa" << endl;
-					now = now - arr[y][x] + arr[y][2];
-					tmp = arr[y+1][3];
-					cnt = arr[y][2];
-					tar = 3;
-				}
-				// cerr << now << ' ' << tmp << endl;
-				if(now - cnt + arr[y][3] + arr[y+1][3] < tmp + now && last.second >= 2) {
-					// cerr << "fefefe" << endl;
-					now = now - cnt + arr[y][3];
-					tmp = arr[y+1][3];
-					tar = 3;
-				}
-		}
-		last.first = y ; last.second = x;
-		dfs(now + arr[y+1][tar] , y + 1 , tar);
-	}
+// struct Binary_Indexed_Tree{
+//     int n;
+//     vector<long long> bit;
+
+//     void init(int _n){
+//         n = _n+1;
+//         bit = vector<long long>(n,0);
+//     }
+//     void update(int x,int v){
+//         for(; x<n; x+=lowbit(x)){
+//             bit[x] += v;
+//         }
+//     }
+//     long long query(int x){
+//         long long ret = 0;
+//         for(; x>0; x-=lowbit(x)){
+//             ret += bit[x];
+//         }
+//         return ret;
+//     }
+// }BIT;
+
+
+inline int poww(int a , int b) {
+    int ret = 1;
+    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
+        if(b &  1) {
+            ret *= a ;
+            ret %= MOD;
+        }
+    }
+    return ret % MOD;
 }
-int cas = 1;
-void solve() {
-	ans = INT32_MAX;
-	for(int i = 1 ; i <= n ; i++) {
-		for(int j = 1 ; j <= 3; j++) {
-			cin >> arr[i][j];
-		}
-	}
-	dfs(arr[1][2], 1 ,2);
 
-	// cerr << ans << endl;
-	cout << cas++ << ". " << ans << endl;
+
+// namespace int128IO {
+// 	istream& operator>>(istream& is, __int128& i) {
+// 		string s; is>>s; i = 0;
+// 		auto c=s.begin(); c+=(s[0]=='-');
+// 		for(; c!=s.end(); ++c) i=i*10+(*c-'0');
+// 		if(s[0]=='-') i=-i;
+// 		return is;
+// 	}
+// 	ostream& operator<<(ostream& os, __int128 i) {
+// 		string s; bool neg=false; if(i<0) neg=true, i=-i;
+// 		while(i) s+=('0'+i%10), i/=10;
+// 		if(neg) os<<'-';
+// 		for(auto c=s.rbegin();c!=s.rend();++c) os<<*c;
+// 		return os;
+// 	}
+// }
+
+template<class io>
+inline void re(io &x) {
+    io c = getchar();int w = 0 ; x = 0;
+    while(c < 48 || c > 57) w|=c==45,c=getchar();
+    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
+    x=w?-x:x;return;
+}
+template <class io>
+inline void wr(io x) {
+    if(x < 0) 
+        putchar('-'), x=~x,x++;
+  static int sta[300];
+  int top = 0;
+  do {
+    sta[top++] = x % 10, x /= 10;
+  } while (x);
+  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
+}
+
+ll inv(ll x){
+	return poww(x, MOD-2);
+}
+
+
+template<class T, T M> class modular {
+	T value;
+
+	public:
+	modular(T val=T()) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	template<class P> modular(P val) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	
+	T pow(T a, T b) {
+		T ret=1;
+		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
+		return ret;
+	}
+  	modular pow(T p) {return pow(value, p);}
+	modular operator+(modular m) {return modular(value+m.value);}
+	modular operator-(modular m) {return modular(value-m.value);}
+	modular operator*(modular m) {return modular(value*m.value);}
+	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
+	modular operator+=(modular m) {*this=operator+(m); return *this;}
+	modular operator-=(modular m) {*this=operator-(m); return *this;}
+	modular operator*=(modular m) {*this=operator*(m); return *this;}
+	modular operator/=(modular m) {*this=operator/(m); return *this;}
+	modular operator++() {*this=operator+(1); return *this;}
+	modular operator++(int) {modular r=*this; operator++(); return r;}
+	modular operator--() {*this=operator-(1); return *this;}
+	modular operator--(int) {modular r=*this; operator--(); return r;}
+	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
+	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
+	T get() {return value;}
+	//operator T() {return value;}
+
+	bool operator==(modular m) {return value==m.value;}
+	bool operator!=(modular m) {return value!=m.value;}
+	bool operator<(modular m) {return value<m.value;}
+	bool operator>(modular m) {return value>m.value;}
+	bool operator<=(modular m) {return value<=m.value;}
+	bool operator>=(modular m) {return value>=m.value;}
+
+	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
+	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
+};
+
+using Mod = modular<ll, (ll)1e9+7>;
+
+
+void solve() {
+
 }
 
 signed main() {
@@ -206,14 +309,7 @@ signed main() {
     // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
-    ishowspeed
-	while(cin >> n) {
-		if(n == 0) {
-			// cerr << "exiting\n";
-			return 0;
-		}
-		solve();
-		// cerr << "OUT solve()\n";
-	}
+    // ishowspeed
+    
     return 0;
 }
