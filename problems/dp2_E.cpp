@@ -115,19 +115,19 @@ using ll = long long;
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
 const int N=1e5+5;
-#define LOCAL
-#ifdef LOCAL    // =========== Local ===========
-void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
-#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
-#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#define debug(...) ((void)0)
-#define orange(...) ((void)0)
-#endif
+// #define LOCAL
+// #ifdef LOCAL    // =========== Local ===========
+// void dbg() { cerr << '\n'; }
+// template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
+// template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+// #define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
+// #define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
+// #else            // ======== OnlineJudge ========
+// #pragma GCC optimize("O3,unroll-loops")
+// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+// #define debug(...) ((void)0)
+// #define orange(...) ((void)0)
+// #endif
 // int arr[N]={};
 // int seg[N*4];
 // inline void pull(int id) {
@@ -196,16 +196,16 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 // }BIT;
 
 
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-        if(b &  1) {
-            ret *= a ;
-            ret %= MOD;
-        }
-    }
-    return ret % MOD;
-}
+// inline int poww(int a , int b) {
+//     int ret = 1;
+//     for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
+//         if(b &  1) {
+//             ret *= a ;
+//             ret %= MOD;
+//         }
+//     }
+//     return ret % MOD;
+// }
 
 
 // namespace int128IO {
@@ -244,69 +244,69 @@ inline void wr(io x) {
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
 
-ll inv(ll x){
-	return poww(x, MOD-2);
-}
+// ll inv(ll x){
+// 	return poww(x, MOD-2);
+// }
 
 
-template<class T, T M> class modular {
-	T value;
+// template<class T, T M> class modular {
+// 	T value;
 
-	public:
-	modular(T val=T()) {
-		value = val;
-		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-	}
-	template<class P> modular(P val) {
-		value = val;
-		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-	}
+// 	public:
+// 	modular(T val=T()) {
+// 		value = val;
+// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+// 	}
+// 	template<class P> modular(P val) {
+// 		value = val;
+// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+// 	}
 	
-	T pow(T a, T b) {
-		T ret=1;
-		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
-		return ret;
-	}
-  	modular pow(T p) {return pow(value, p);}
-	modular operator+(modular m) {return modular(value+m.value);}
-	modular operator-(modular m) {return modular(value-m.value);}
-	modular operator*(modular m) {return modular(value*m.value);}
-	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
-	modular operator+=(modular m) {*this=operator+(m); return *this;}
-	modular operator-=(modular m) {*this=operator-(m); return *this;}
-	modular operator*=(modular m) {*this=operator*(m); return *this;}
-	modular operator/=(modular m) {*this=operator/(m); return *this;}
-	modular operator++() {*this=operator+(1); return *this;}
-	modular operator++(int) {modular r=*this; operator++(); return r;}
-	modular operator--() {*this=operator-(1); return *this;}
-	modular operator--(int) {modular r=*this; operator--(); return r;}
-	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
-	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
-	T get() {return value;}
-	//operator T() {return value;}
+// 	T pow(T a, T b) {
+// 		T ret=1;
+// 		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
+// 		return ret;
+// 	}
+//   	modular pow(T p) {return pow(value, p);}
+// 	modular operator+(modular m) {return modular(value+m.value);}
+// 	modular operator-(modular m) {return modular(value-m.value);}
+// 	modular operator*(modular m) {return modular(value*m.value);}
+// 	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
+// 	modular operator+=(modular m) {*this=operator+(m); return *this;}
+// 	modular operator-=(modular m) {*this=operator-(m); return *this;}
+// 	modular operator*=(modular m) {*this=operator*(m); return *this;}
+// 	modular operator/=(modular m) {*this=operator/(m); return *this;}
+// 	modular operator++() {*this=operator+(1); return *this;}
+// 	modular operator++(int) {modular r=*this; operator++(); return r;}
+// 	modular operator--() {*this=operator-(1); return *this;}
+// 	modular operator--(int) {modular r=*this; operator--(); return r;}
+// 	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
+// 	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
+// 	T get() {return value;}
+// 	//operator T() {return value;}
 
-	bool operator==(modular m) {return value==m.value;}
-	bool operator!=(modular m) {return value!=m.value;}
-	bool operator<(modular m) {return value<m.value;}
-	bool operator>(modular m) {return value>m.value;}
-	bool operator<=(modular m) {return value<=m.value;}
-	bool operator>=(modular m) {return value>=m.value;}
+// 	bool operator==(modular m) {return value==m.value;}
+// 	bool operator!=(modular m) {return value!=m.value;}
+// 	bool operator<(modular m) {return value<m.value;}
+// 	bool operator>(modular m) {return value>m.value;}
+// 	bool operator<=(modular m) {return value<=m.value;}
+// 	bool operator>=(modular m) {return value>=m.value;}
 
-	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
-	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
-};
+// 	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
+// 	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
+// };
 
-using Mod = modular<ll, (ll)1e9+7>;
+// using Mod = modular<ll, (ll)1e9+7>;
 int cas = 1;
-vector<int> arr(202 ,0);
-vector<vector<int>> dp(202 , vector<int>(32, 0));
-vector<vector<int>> d(202 , vector<int>(32, 0));
-vector<vector<int>> r(202 , vector<int>(32 ,0));
+vector<int> arr(502 ,0);
+vector<vector<int>> dp(502 , vector<int>(50, 0));
+vector<vector<int>> d(502 , vector<int>(50, 0));
+vector<vector<int>> r(502 , vector<int>(50 ,0));
 
 void p_Median(int N , int P){
 	int m;
 	for(int i = 1 ; i <= N ; i++) {
-		re(arr[i]);		
+		cin >> arr[i];
 	}
 	
 	for (int i=1; i<=N; ++i)
@@ -314,10 +314,17 @@ void p_Median(int N , int P){
 			m = (i+j)/2,d[i][j] = 0;		// m是中位數，d[i][j]為距離的總和
 			for (int k=i; k<=j; ++k) d[i][j] += abs(arr[k] - arr[m]);
 		}
-	r[1][1] 
-	for(int i = 0 ; i <= N; i++) {
-		dp[1][i] = d[1][i];
+
+	for(int i = 1 ; i <= N ; i++ ) 
+		for(int j = 1 ; j <= N ; j++) {
+			dp[i][j] = d[i][j];
+		}
+	int index_init = 0;
+	int minn = INT32_MAX;
+	for(int i = 1 ; i <= N ; i++) {
+		r[1][i] = 1;
 	}
+
 	for (int p=2; p<=P; ++p)
 		for (int n=1; n<=N; ++n){
 			dp[p][n] = 1e9;
@@ -327,64 +334,59 @@ void p_Median(int N , int P){
 					r[p][n] = k;// 從第k個位置往右到第j個位置
 				}
 		}
-	for(int k = 0 ; k <= N ; k++) {
-		for(int i =  1 ; i <= N ; i++ ){
-			cerr << r[k][i] << ' ';
-		}
-		cerr << endl;
-	}
-	cerr << endl;
-	for(int i =  1 ; i <= N ; i++ ){
-		cerr << d[P][i] << ' ';
-	}
-	cerr << endl;
-	for(int i = 1 ;  i <= N ; i++) {
-		cerr << dp[P][i] << ' ' ;
-	}
-	cerr << endl;
-	int sum = 0;
+	// for(int k = 0 ; k <= N ; k++) {
+	// 	for(int i =  1 ; i <= N ; i++ ){
+	// 		cerr << r[k][i] << ' ';
+	// 	}
+	// 	cerr << endl;
+	// }
+	// cerr << endl;
+	// for(int i =  1 ; i <= N ; i++ ){
+	// 	cerr << d[P][i] << ' ';
+	// }
+	// cerr << endl;
+	// for(int i = 1 ;  i <= N ; i++) {
+	// 	cerr << dp[P][i] << ' ' ;
+	// }
+	// cerr << endl;
+	int sum = dp[P][N];
 	cout << "Chain " << cas++ << endl;
 	vector<pii> ans;
-	int now = r[P][1];
-	for(int i = 2 ; i <= N ; i++) {
-		if(r[P][i] != now) {
-			if(now == 0)
-				now++;
-			ans.pb(mk(now , r[P][i]));
-			sum += d[P][r[P][i]] - d[P][now];
-			now = r[P][i+1];
+	int cnt = P;
+	int en = N;
+	int now = r[P][N];
+	int tmp = 0;
+	for(int i = N ; i > 0 ; i-- ){
+		if(r[cnt][i] != now ) {
+			ans.pb( mk(i + 1 , en) );
+			cnt--;
+			now = r[cnt][i];
+			en = i;
+			tmp++;
 		}
 	}
-	cerr << endl;
-	sum++;
-	if(ans.size() < P) 
-		ans.pb(mk(now,N));
-	now = 1;
-	for(auto [x , y] : ans) {
-		sum += d[y][x];
-		cout << "Depot " << now++ << " at restaurant " << (x + y) / 2 << " serves restaurant " ;
-		if(x != y) {
-			cout << x << " to " << y << endl;
-		}
-		else {
-			cout << x << endl;
-		}
+	cnt = 1;
+	if(tmp < P)
+		ans.pb(mk(1 , en));
+	reverse(all(ans));
+	for(auto p : ans) {
+		if(p.first != p.second)
+			cout << "Depot " << cnt++ << " at restaurant " << ((p.first + p.second) >> 1) << " serves restaurants " << p.first << " to " << p.second << endl;
+		else 
+			cout << "Depot " << cnt++ << " at restaurant " << p.first << " serves restaurant " << p.first << endl;
 	}
-	cout << "Total distance sum = " << sum << endl;
-	cout << endl;
+	cout << "Total distance sum = " << sum << endl << endl;
 }
 
 signed main() {
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    // ishowspeed
+    ishowspeed
 	int a , b;
 	while(cin >> a >> b ) {
 		if( a != 0 && b != 0) 
 			p_Median(a , b);
+		else if(a == 0 && b != 0) {
+			
+		}
 		else{
 			return 0;
 		}
