@@ -96,300 +96,100 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pii pair<int,int>
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+#define pii pair<int, int>
+#define all(x) (x).begin(), (x).end()
+#define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr);
 using ll = long long;
 // #define ll long long
 #define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
+#define lcm(a, b) (a * b) / __gcd(a, b)
+#define pause printf("Press any key to continue...\n"), fgetc(stdin);
 #define int long long
 // #define int __int128
-#define lowbit(x) (x&-x)
+#define lowbit(x) (x & -x)
 #define MOD 1000000009
-#define MXN 400'500
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
+#define cr(x) (x << 1)
+#define cl(x) (x << 1) + 1
+#define mmax(a, b) (a > b) ? a : b
+#define mmin(a, b) (a < b) ? a : b
 using namespace std;
-const int N=1e5+5;
-// #define LOCAL
-// #ifdef LOCAL    // =========== Local ===========
-// void dbg() { cerr << '\n'; }
-// template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-// template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
-// #define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
-// #define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-// #else            // ======== OnlineJudge ========
-// #pragma GCC optimize("O3,unroll-loops")
-// #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-// #define debug(...) ((void)0)
-// #define orange(...) ((void)0)
-// #endif
-// int arr[N]={};
-// int seg[N*4];
-// inline void pull(int id) {
-//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
-// }
-// void build(int id , int l , int r) {
-//     if(l==r){
-//         seg[id]=arr[l];
-//         return ;
-//     }
-//     else {
-//         int mid=(l+r)/2;
-//         build( cl(id) , l , mid);
-//         build( cr(id) , mid+1, r);
-//         pull(id);
-//     }
-// }
-// void update(int id , int l , int r , int x , int v){
-//     if(l==r){
-//         seg[id]=v;
-//         return;
-//     }
-//     int mid=(l+r)>>1;
-//     if(x<=mid){
-//         update(cl(id) , l , mid ,x , v);
-//     }
-//     if(mid<x){
-//         update(cr(id) , mid+1,r,x,v);
-//     }
-//     pull(id);
-// }
-// int query(int id,int l,int r,int sl,int sr){
-//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
-//         return seg[id];
-//     }
-//     int mid=(l+r)>>1,res=0;
-//     if(sl<=mid){//左區間跟查詢區間有交集
-//         res=mmax(res,query(cl(id),l,mid,sl,sr));
-//     }
-//     if(mid<sr){//右區間跟查詢區間有交集
-//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
-//     }
-//     return res;
-// }
+const int N = 1e5 + 5;
 
-// struct Binary_Indexed_Tree{
-//     int n;
-//     vector<long long> bit;
-
-//     void init(int _n){
-//         n = _n+1;
-//         bit = vector<long long>(n,0);
-//     }
-//     void update(int x,int v){
-//         for(; x<n; x+=lowbit(x)){
-//             bit[x] += v;
-//         }
-//     }
-//     long long query(int x){
-//         long long ret = 0;
-//         for(; x>0; x-=lowbit(x)){
-//             ret += bit[x];
-//         }
-//         return ret;
-//     }
-// }BIT;
-
-
-// inline int poww(int a , int b) {
-//     int ret = 1;
-//     for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-//         if(b &  1) {
-//             ret *= a ;
-//             ret %= MOD;
-//         }
-//     }
-//     return ret % MOD;
-// }
-
-
-// namespace int128IO {
-// 	istream& operator>>(istream& is, __int128& i) {
-// 		string s; is>>s; i = 0;
-// 		auto c=s.begin(); c+=(s[0]=='-');
-// 		for(; c!=s.end(); ++c) i=i*10+(*c-'0');
-// 		if(s[0]=='-') i=-i;
-// 		return is;
-// 	}
-// 	ostream& operator<<(ostream& os, __int128 i) {
-// 		string s; bool neg=false; if(i<0) neg=true, i=-i;
-// 		while(i) s+=('0'+i%10), i/=10;
-// 		if(neg) os<<'-';
-// 		for(auto c=s.rbegin();c!=s.rend();++c) os<<*c;
-// 		return os;
-// 	}
-// }
-
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
-}
-template <class io>
-inline void wr(io x) {
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
-  static int sta[300];
-  int top = 0;
-  do {
-    sta[top++] = x % 10, x /= 10;
-  } while (x);
-  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
-}
-
-// ll inv(ll x){
-// 	return poww(x, MOD-2);
-// }
-
-
-// template<class T, T M> class modular {
-// 	T value;
-
-// 	public:
-// 	modular(T val=T()) {
-// 		value = val;
-// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-// 	}
-// 	template<class P> modular(P val) {
-// 		value = val;
-// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-// 	}
-	
-// 	T pow(T a, T b) {
-// 		T ret=1;
-// 		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
-// 		return ret;
-// 	}
-//   	modular pow(T p) {return pow(value, p);}
-// 	modular operator+(modular m) {return modular(value+m.value);}
-// 	modular operator-(modular m) {return modular(value-m.value);}
-// 	modular operator*(modular m) {return modular(value*m.value);}
-// 	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
-// 	modular operator+=(modular m) {*this=operator+(m); return *this;}
-// 	modular operator-=(modular m) {*this=operator-(m); return *this;}
-// 	modular operator*=(modular m) {*this=operator*(m); return *this;}
-// 	modular operator/=(modular m) {*this=operator/(m); return *this;}
-// 	modular operator++() {*this=operator+(1); return *this;}
-// 	modular operator++(int) {modular r=*this; operator++(); return r;}
-// 	modular operator--() {*this=operator-(1); return *this;}
-// 	modular operator--(int) {modular r=*this; operator--(); return r;}
-// 	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
-// 	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
-// 	T get() {return value;}
-// 	//operator T() {return value;}
-
-// 	bool operator==(modular m) {return value==m.value;}
-// 	bool operator!=(modular m) {return value!=m.value;}
-// 	bool operator<(modular m) {return value<m.value;}
-// 	bool operator>(modular m) {return value>m.value;}
-// 	bool operator<=(modular m) {return value<=m.value;}
-// 	bool operator>=(modular m) {return value>=m.value;}
-
-// 	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
-// 	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
-// };
-
-// using Mod = modular<ll, (ll)1e9+7>;
 int cas = 1;
-vector<int> arr(502 ,0);
-vector<vector<int>> dp(502 , vector<int>(50, 0));
-vector<vector<int>> d(502 , vector<int>(50, 0));
-vector<vector<int>> r(502 , vector<int>(50 ,0));
+vector<vector<int>> dp(300, vector<int>(300, 0));
+vector<vector<int>> d(300, vector<int>(300, 0));
+vector<vector<int>> r(300, vector<int>(300, 0));
 
-void p_Median(int N , int P){
-	int m;
-	for(int i = 1 ; i <= N ; i++) {
-		cin >> arr[i];
-	}
+void p_Median(int N, int P) {
+  int m;
+  vector<int> arr(N + 1, 0);
+  for (int i = 1; i <= N; i++) {
+    cin >> arr[i];
+  }
+  for (int i = 1; i <= N; ++i)
+    for (int j = i; j <= N; ++j) {
+      m = (i + j) / 2, d[i][j] = 0; // m是中位數，d[i][j]為距離的總和
+      for (int k = i; k <= j; ++k)
+        d[i][j] += abs(arr[k] - arr[m]);
+    }
+
+  for (int j = 1; j <= N; j++) {
+    dp[1][j] = d[1][j];
+  }
+
+  for (int i = 1 ; i <= N; i++) {
+    r[1][i] = 1;
+  }
+  for (int p = 2; p <= P; ++p) {
+    for (int n = N; n >= 1; --n) {
+      dp[p][n] = 1e9;
+      for (int k = p; k <= n; ++k)
+        if (dp[p - 1][k - 1] + d[k][n] < dp[p][n]) {
+          dp[p][n] = dp[p - 1][k - 1] + d[k][n];
+          r[p][n] = k; // 從第k個位置往右到第j個位置
+        }
+    }
+  }
+//   for (int i = 1; i <= P; i++) {
+//     for (int j = 1; j <= N; j++) {
+//       cerr << r[i][j] << ' ';
+//     }
+//     cerr << endl;
+//   }
+  int sum = dp[P][N];
+  cout << "Chain " << cas++ << endl;
+  vector<pii> ans;
+  int now = r[P][N];
+  int en = N;
+  int cnt = P;
+  while (cnt > 0) {
+    ans.pb(mk(now, en));
+    en = now - 1;
+    now = r[--cnt][now - 1];
 	
-	for (int i=1; i<=N; ++i)
-		for (int j=i; j<=N; ++j){
-			m = (i+j)/2,d[i][j] = 0;		// m是中位數，d[i][j]為距離的總和
-			for (int k=i; k<=j; ++k) d[i][j] += abs(arr[k] - arr[m]);
-		}
-
-	for(int i = 1 ; i <= N ; i++ ) 
-		for(int j = 1 ; j <= N ; j++) {
-			dp[i][j] = d[i][j];
-		}
-	int index_init = 0;
-	int minn = INT32_MAX;
-	for(int i = 1 ; i <= N ; i++) {
-		r[1][i] = 1;
-	}
-
-	for (int p=2; p<=P; ++p)
-		for (int n=1; n<=N; ++n){
-			dp[p][n] = 1e9;
-			for (int k=p; k<=n; ++k)
-				if (dp[p-1][k-1] + d[k][n] < dp[p][n]){
-					dp[p][n] = dp[p-1][k-1] + d[k][n];
-					r[p][n] = k;// 從第k個位置往右到第j個位置
-				}
-		}
-	// for(int k = 0 ; k <= N ; k++) {
-	// 	for(int i =  1 ; i <= N ; i++ ){
-	// 		cerr << r[k][i] << ' ';
-	// 	}
-	// 	cerr << endl;
-	// }
-	// cerr << endl;
-	// for(int i =  1 ; i <= N ; i++ ){
-	// 	cerr << d[P][i] << ' ';
-	// }
-	// cerr << endl;
-	// for(int i = 1 ;  i <= N ; i++) {
-	// 	cerr << dp[P][i] << ' ' ;
-	// }
-	// cerr << endl;
-	int sum = dp[P][N];
-	cout << "Chain " << cas++ << endl;
-	vector<pii> ans;
-	int cnt = P;
-	int en = N;
-	int now = r[P][N];
-	int tmp = 0;
-	for(int i = N ; i > 0 ; i-- ){
-		if(r[cnt][i] != now ) {
-			ans.pb( mk(i + 1 , en) );
-			cnt--;
-			now = r[cnt][i];
-			en = i;
-			tmp++;
-		}
-	}
-	cnt = 1;
-	if(tmp < P)
-		ans.pb(mk(1 , en));
-	reverse(all(ans));
-	for(auto p : ans) {
-		if(p.first != p.second)
-			cout << "Depot " << cnt++ << " at restaurant " << ((p.first + p.second) >> 1) << " serves restaurants " << p.first << " to " << p.second << endl;
-		else 
-			cout << "Depot " << cnt++ << " at restaurant " << p.first << " serves restaurant " << p.first << endl;
-	}
-	cout << "Total distance sum = " << sum << endl << endl;
+  }
+  cnt = 1;
+  reverse(all(ans));
+  for (auto p : ans) {
+    if (p.first != p.second)
+      cout << "Depot " << cnt++ << " at restaurant "
+           << ((p.first + p.second) >> 1) << " serves restaurants " << p.first
+           << " to " << p.second << endl;
+    else
+      cout << "Depot " << cnt++ << " at restaurant " << p.first
+           << " serves restaurant " << p.first << endl;
+  }
+  cout << "Total distance sum = " << sum << endl << endl;
 }
 
 signed main() {
-    ishowspeed
-	int a , b;
-	while(cin >> a >> b ) {
-		if( a != 0 && b != 0) 
-			p_Median(a , b);
-		else if(a == 0 && b != 0) {
-			
-		}
-		else{
-			return 0;
-		}
-	}
-    return 0;
+  ishowspeed int a, b;
+  while (cin >> a >> b) {
+    if (a != 0 && b != 0)
+      p_Median(a, b);
+    else {
+      return 0;
+    }
+  }
+  return 0;
 }

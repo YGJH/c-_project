@@ -96,7 +96,7 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pii pair<int,int>
+#define pll pair<long long ,long long>
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 using ll = long long;
