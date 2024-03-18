@@ -4,7 +4,7 @@ int main() {
     while(1) {
         system("./gen_testcases > input.out");
         system("./ac < input.out > a.out");
-        system("./DPonDag < input.out > b.out");
+        system("./dpondag1 < input.out > b.out");
         FILE * ac = fopen("a.out" , "r");
         FILE * wa = fopen("b.out" , "r");
         char tmp[3000], tmp2[3000] ;
