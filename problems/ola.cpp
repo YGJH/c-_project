@@ -92,10 +92,10 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 #include <bits/stdc++.h>
 #define mk make_pair
-#define pii pair<int,int>
+#define pii pair<int, int>
 #define pb push_back
 #define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr);
-using ll = long long;
+    using ll = long long;
 #define endl '\n'
 #define int long long
 using namespace std;
@@ -126,18 +126,21 @@ int n, m;
 vector<int> route;
 vector<vector<int>> cross(200010);
 vector<int> in(200010, 0);
-map<pii , bool> mp;
-int cnt=0;
-int tmp1 , tmp2;
-void dfs (int now) {
+map<pii, bool> mp;
+int cnt = 0;
+int tmp1, tmp2;
+void dfs(int now) {
   in[now]++;
-  for (auto it = cross[now].begin(); it != cross[now].end(); it++) {
-	if (!mp[{now,*it}]) {
-		mp[{now,*it}]=1;
-		mp[{*it,now}]=1;
-		cnt+=1;
+  while (cross[now].size()) {
+    // cerr << "fewfe" << endl;
+    auto u = cross[now].back();
+    cross[now].pop_back();
+    if (!mp[{now, u}]) {
       in[now]++;
-      dfs(*it);
+      mp[{now, u}] = 1;
+      mp[{u, now}] = 1;
+      cnt++;
+      dfs(u);
     }
   }
   route.pb(now);
@@ -146,7 +149,6 @@ void dfs (int now) {
 void solve() {
   re(n);
   re(m);
-//  int tmp1 , tmp2;
   for (int i = 1; i <= m; i++) {
     re(tmp1);
     re(tmp2);
@@ -154,9 +156,10 @@ void solve() {
     cross[tmp2].pb(tmp1);
   }
   bool sam = 0;
-  in[1]+=1;
+  in[1] += 1;
   dfs(1);
   for (int i = 1; i <= n; i++) {
+    // cerr << in[i] << endl;
     if (in[i] & 1) {
       sam = 1;
       break;
