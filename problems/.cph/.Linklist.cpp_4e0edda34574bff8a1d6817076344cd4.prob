@@ -1,0 +1,1 @@
+{"name":"Local: Linklist","url":"/home/charles/Documents/c-_project/problems/Linklist.cpp","tests":[{"id":1711125442512,"input":"32 27 8 65 17","output":"8 17 27 32 65"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/Documents/c-_project/problems/Linklist.cpp","group":"local","local":true}

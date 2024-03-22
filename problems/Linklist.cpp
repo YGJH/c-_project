@@ -32,6 +32,7 @@ void sortDLL() {
             now->previous = hh;
             tt = now;
             hh->next = now;
+            tail = now;
         }
         else {
             now->previous = hh->previous;
@@ -40,10 +41,6 @@ void sortDLL() {
             else 
                 head = now;
             hh->previous = now;
-            if(hh == tt)
-                hh->next = now->next,tt=hh;
-            else 
-                tt=tt;
             tt->next = now->next;
             now->next = hh;
         }
