@@ -1,3 +1,4 @@
+
 #pragma GCC optimize(1)
 #pragma GCC optimize(2)
 #pragma GCC optimize(3)
@@ -94,36 +95,8 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 
 #include <bits/stdc++.h>
-#define mk make_pair
-#define pb push_back
-#define pll pair<long long ,long long>
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
-using ll = long long;
-#define endl '\n'
-#define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
-// #define int __int128
-#define lowbit(x) (x&-x)
-#define MOD 1000000009
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
-using namespace std;
-
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-        if(b &  1) {
-            ret *= a ;
-            ret %= MOD;
-        }
-    }
-    return ret % MOD;
-}
-
+using ll = long long;
 template<class io>
 inline void re(io &x) {
     io c = getchar();int w = 0 ; x = 0;
@@ -142,90 +115,89 @@ inline void wr(io x) {
   } while (x);
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
-const int N = 1e5+3;
-int n , m;
-// using Mod = modular<ll, (ll)1e9+7>;
-vector<int> dp(N , 1);
-vector<vector<int>> rr(N);
-vector<int> degree(N,0);
-vector<int> way(N);
+template<class T, T M> 
+class modular {
+	T value;
 
-bool dfs(int now) {
-    // cerr << now << endl;
-    if(now == n) {
-        return true;
-    }
-    stack<int> tmp;
-    bool fin = false;
-    bool nxt = false;
-    int mmin_deg = N;
-    int nxt_node;
-    for(auto i:rr[now]){
-        degree[i]--;
-        if(dp[i] >= dp[now] + 1) {
-            continue;
-        }
-        else if(degree[i] == 0) {
-            dp[i] = dp[now]+1;
-            way[i] = now;
-            nxt = true;
-            fin = dfs(i);
-        }
-        else {
-            tmp.push(i);
-        }
-    }
-    if(!nxt || !fin) {
-        while(!tmp.empty()){
-            int kk = tmp.top();
-            tmp.pop();
-            if(dp[kk] < dp[now] + 1) {
-                dp[kk] = dp[now] + 1;
-                way[kk] = now;
-                fin = dfs(kk);
-            }
-        }
-    }
-    return false;
-}
+	public:
+	modular(T val=T()) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	template<class P> modular(P val) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	
+	T pow(T a, T b) {
+		T ret=1;
+		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
+		return ret;
+	}
+  	modular pow(T p) {return pow(value, p);}
+	modular operator+(modular m) {return modular(value+m.value);}
+	modular operator-(modular m) {return modular(value-m.value);}
+	modular operator*(modular m) {return modular(value*m.value);}
+	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
+	modular operator+=(modular m) {*this=operator+(m); return *this;}
+	modular operator-=(modular m) {*this=operator-(m); return *this;}
+	modular operator*=(modular m) {*this=operator*(m); return *this;}
+	modular operator/=(modular m) {*this=operator/(m); return *this;}
+	modular operator++() {*this=operator+(1); return *this;}
+	modular operator++(int) {modular r=*this; operator++(); return r;}
+	modular operator--() {*this=operator-(1); return *this;}
+	modular operator--(int) {modular r=*this; operator--(); return r;}
+	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
+	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
+	T get() {return value;}
+	//operator T() {return value;}
 
-void solve() {
-    re(n); re(m);
-    int t1 , t2;
-    for(int i = 1 ; i <= m ; i++) {
-        re(t1) ; re(t2);
-        rr[t1].pb(t2);
-        degree[t2]++;
-    }
-    way[1] = -1;
-    dfs(1);
-    int now = n;
-    stack<int> ans;
-    // for(int i = 1; i <= n ; i++ )
-        // cerr << way[i] << ' ';
-    if(dp[n]==1) {
-        cout<<"IMPOSSIBLE" << endl;
-        return;
-    }
-    wr(dp[n]);
-    putchar('\n');
-    while(now != -1) {
-        ans.push(now); now = way[now];
-    }
-    while(!ans.empty()) {
-        wr(ans.top());
-        putchar(' ');
-        ans.pop();
-    }
-}
+	bool operator==(modular m) {return value==m.value;}
+	bool operator!=(modular m) {return value!=m.value;}
+	bool operator<(modular m) {return value<m.value;}
+	bool operator>(modular m) {return value>m.value;}
+	bool operator<=(modular m) {return value<=m.value;}
+	bool operator>=(modular m) {return value>=m.value;}
+
+	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
+	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
+};
+
+using Mod = modular<ll, (ll)1e9+7>;
+	
 
 signed main() {
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    ishowspeed
-    solve();
-    return 0;
+	int n , m;
+	re(n) ; re(m);
+	int arr[n];
+	std::unordered_map<int,int> mp;
+	std::unordered_map<int,int> cnt;
+	int now = 0;
+	int index = 0;
+	int sum = 0;
+	for(int i = 0 ; i < n ; i++) {
+		re(arr[i]);
+	} 
+	while(now<m && !mp[index]) {
+		mp[index] = sum;
+		cnt[index] = now;
+		sum += arr[index];
+		now++;
+		index = sum % n;
+	}
+	if(now < m) {
+		cnt[index] = now - cnt[index];
+		mp[index] = sum - mp[index];
+		int multiple = (m-now) / cnt[index];
+		sum += multiple * mp[index];
+		now += multiple * cnt[index];
+		while(now < m) {
+			index=sum % n;
+			sum += arr[index];
+			now++;
+			index = sum % n;
+		}
+	}
+	wr(sum);
+	return 0;
 }

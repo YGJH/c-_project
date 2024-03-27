@@ -96,35 +96,28 @@
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pii pair<int,int>
+#define pll pair<long long ,long long>
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
 using ll = long long;
-// #define ll long long
 #define endl '\n'
-#define lcm(a , b) (a * b) / __gcd(a ,b)
 #define int long long
 // #define int __int128
-#define lowbit(x) (x&-x)
-#define MOD 1000000009
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
+#define MOD 998244353
 using namespace std;
-#define LOCAL
-#ifdef LOCAL    // =========== Local ===========
-void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
-#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
-#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#define debug(...) ((void)0)
-#define orange(...) ((void)0)
-#endif
+
+
+inline int poww(int a , int b) {
+    int ret = 1;
+    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
+        if(b &  1) {
+            ret *= a ;
+            ret %= MOD;
+        }
+    }
+    return ret % MOD;
+}
+
 template<class io>
 inline void re(io &x) {
     io c = getchar();int w = 0 ; x = 0;
@@ -143,39 +136,92 @@ inline void wr(io x) {
   } while (x);
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
-const int N = 2e6;
-vector<int> dp(N,1);
-int n , m;
-vector<vector<int>> node(N);
-vector<int> degree(N,0);
 
-void dfs(int now) {
-	// cerr << now << endl;
-	if(now == n) {
-		return;
-	}
-	for(auto i = node[now].begin() ; i != node[now].end() ; i++ ) {
-		degree[*i]--;
-		if(degree[*i]==0) {
-			dfs(*i);
-			dp[now] = mmax(dp[now] , dp[*i] + 1);
-		}
-	}
+ll inv(ll x){
+	return poww(x, MOD-2);
 }
-void solve() {
-	int tmp1 , tmp2;
-	re(n);re(m);
-	for(int i = 0 ; i <= m ; i++) {
-		re(tmp1);
-		re(tmp2);
-		degree[tmp2]++;
-		node[tmp1].pb(tmp2);
-	}
-	dp[1] = 1;
-	dfs(1);
-	cout << dp[1] << endl;
+
+
+// template<class T, T M> class modular {
+// 	T value;
+
+// 	public:
+// 	modular(T val=T()) {
+// 		value = val;
+// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+// 	}
+// 	template<class P> modular(P val) {
+// 		value = val;
+// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+// 	}
 	
+// 	T pow(T a, T b) {
+// 		T ret=1;
+// 		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
+// 		return ret;
+// 	}
+//   	modular pow(T p) {return pow(value, p);}
+// 	modular operator+(modular m) {return modular(value+m.value);}
+// 	modular operator-(modular m) {return modular(value-m.value);}
+// 	modular operator*(modular m) {return modular(value*m.value);}
+// 	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
+// 	modular operator+=(modular m) {*this=operator+(m); return *this;}
+// 	modular operator-=(modular m) {*this=operator-(m); return *this;}
+// 	modular operator*=(modular m) {*this=operator*(m); return *this;}
+// 	modular operator/=(modular m) {*this=operator/(m); return *this;}
+// 	modular operator++() {*this=operator+(1); return *this;}
+// 	modular operator++(int) {modular r=*this; operator++(); return r;}
+// 	modular operator--() {*this=operator-(1); return *this;}
+// 	modular operator--(int) {modular r=*this; operator--(); return r;}
+// 	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
+// 	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
+// 	T get() {return value;}
+// 	//operator T() {return value;}
+
+// 	bool operator==(modular m) {return value==m.value;}
+// 	bool operator!=(modular m) {return value!=m.value;}
+// 	bool operator<(modular m) {return value<m.value;}
+// 	bool operator>(modular m) {return value>m.value;}
+// 	bool operator<=(modular m) {return value<=m.value;}
+// 	bool operator>=(modular m) {return value>=m.value;}
+
+// 	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
+// 	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
+// };
+
+// using Mod = modular<ll, (ll)1e9+7>;
+vector<vector<int>> dp(3000 , vector<int>(3000 , 0));
+void solve() {
+    int n , m , k;
+    re(n);re(m);re(k);
+
+    for(int i = 1 ; i <= m ; i++) {
+        dp[1][i]=1;
+    }
+    int now = 1;
+    for(int i = 2 ; i <= n ; i++) {
+        for(int j = 1 ; j <= now * m ; j++) {
+            for(int k = 1 ; k <= m ; k++ ) {
+                dp[i][j+k]+=dp[i-1][j];
+                dp[i][j+k]%=MOD;
+            }
+        }
+        now++;
+    }
+    // for(int i = 1 ; i <= n ; i++) {
+    //     for(int j = 1 ; j <= m * i; j++) {
+    //         cerr << dp[i][j] << ' ';
+    //     }
+    //     cerr << endl;
+    // }
+    int sum = 0;
+    for(int i = k + 1 ; i <= n * m ; i++ ) {
+        sum += dp[n][i];
+        sum %= MOD;
+    }
+    wr(sum);
 }
+
 signed main() {
     // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
@@ -183,6 +229,6 @@ signed main() {
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     // ishowspeed
-	solve();
+    solve();
     return 0;
 }
