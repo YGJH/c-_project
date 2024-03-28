@@ -98,14 +98,12 @@
 #define pb push_back
 #define pll pair<long long ,long long>
 #define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr);
+#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
 using ll = long long;
 #define endl '\n'
 #define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
-#define pause printf("Press any key to continue...\n") , fgetc(stdin);
 #define int long long
 // #define int __int128
-#define lowbit(x) (x&-x)
 #define MOD 1000000009
 #define cr(x) (x<<1)
 #define cl(x) (x<<1)+1
@@ -125,85 +123,6 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 #define debug(...) ((void)0)
 #define orange(...) ((void)0)
 #endif
-// int arr[N]={};
-// int seg[N*4];
-// inline void pull(int id) {
-//     seg[id] = mmax(seg[cl(id)] , seg[cr(id)]);
-// }
-// void build(int id , int l , int r) {
-//     if(l==r){
-//         seg[id]=arr[l];
-//         return ;
-//     }
-//     else {
-//         int mid=(l+r)/2;
-//         build( cl(id) , l , mid);
-//         build( cr(id) , mid+1, r);
-//         pull(id);
-//     }
-// }
-// void update(int id , int l , int r , int x , int v){
-//     if(l==r){
-//         seg[id]=v;
-//         return;
-//     }
-//     int mid=(l+r)>>1;
-//     if(x<=mid){
-//         update(cl(id) , l , mid ,x , v);
-//     }
-//     if(mid<x){
-//         update(cr(id) , mid+1,r,x,v);
-//     }
-//     pull(id);
-// }
-// int query(int id,int l,int r,int sl,int sr){
-//     if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
-//         return seg[id];
-//     }
-//     int mid=(l+r)>>1,res=0;
-//     if(sl<=mid){//左區間跟查詢區間有交集
-//         res=mmax(res,query(cl(id),l,mid,sl,sr));
-//     }
-//     if(mid<sr){//右區間跟查詢區間有交集
-//         res=mmax(res,query(cr(id),mid+1,r,sl,sr));
-//     }
-//     return res;
-// }
-
-// struct Binary_Indexed_Tree{
-//     int n;
-//     vector<long long> bit;
-
-//     void init(int _n){
-//         n = _n+1;
-//         bit = vector<long long>(n,0);
-//     }
-//     void update(int x,int v){
-//         for(; x<n; x+=lowbit(x)){
-//             bit[x] += v;
-//         }
-//     }
-//     long long query(int x){
-//         long long ret = 0;
-//         for(; x>0; x-=lowbit(x)){
-//             ret += bit[x];
-//         }
-//         return ret;
-//     }
-// }BIT;
-
-
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b ; b >>= 1 , a = (a % MOD) * (a % MOD) % MOD) {
-        if(b &  1) {
-            ret *= a ;
-            ret %= MOD;
-        }
-    }
-    return ret % MOD;
-}
-
 template<class io>
 inline void re(io &x) {
     io c = getchar();int w = 0 ; x = 0;
@@ -222,61 +141,6 @@ inline void wr(io x) {
   } while (x);
   while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
-
-ll inv(ll x){
-	return poww(x, MOD-2);
-}
-
-
-// template<class T, T M> class modular {
-// 	T value;
-
-// 	public:
-// 	modular(T val=T()) {
-// 		value = val;
-// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-// 	}
-// 	template<class P> modular(P val) {
-// 		value = val;
-// 		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
-// 	}
-	
-// 	T pow(T a, T b) {
-// 		T ret=1;
-// 		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
-// 		return ret;
-// 	}
-//   	modular pow(T p) {return pow(value, p);}
-// 	modular operator+(modular m) {return modular(value+m.value);}
-// 	modular operator-(modular m) {return modular(value-m.value);}
-// 	modular operator*(modular m) {return modular(value*m.value);}
-// 	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
-// 	modular operator+=(modular m) {*this=operator+(m); return *this;}
-// 	modular operator-=(modular m) {*this=operator-(m); return *this;}
-// 	modular operator*=(modular m) {*this=operator*(m); return *this;}
-// 	modular operator/=(modular m) {*this=operator/(m); return *this;}
-// 	modular operator++() {*this=operator+(1); return *this;}
-// 	modular operator++(int) {modular r=*this; operator++(); return r;}
-// 	modular operator--() {*this=operator-(1); return *this;}
-// 	modular operator--(int) {modular r=*this; operator--(); return r;}
-// 	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
-// 	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
-// 	T get() {return value;}
-// 	//operator T() {return value;}
-
-// 	bool operator==(modular m) {return value==m.value;}
-// 	bool operator!=(modular m) {return value!=m.value;}
-// 	bool operator<(modular m) {return value<m.value;}
-// 	bool operator>(modular m) {return value>m.value;}
-// 	bool operator<=(modular m) {return value<=m.value;}
-// 	bool operator>=(modular m) {return value>=m.value;}
-
-// 	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
-// 	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
-// };
-
-// using Mod = modular<ll, (ll)1e9+7>;
-
 
 void solve() {
 
