@@ -132,6 +132,10 @@ inline void re(io &x) {
 }
 template <class io>
 inline void wr(io x) {
+  if(x==0){
+    putchar('0');
+    return;
+  }
     if(x < 0) 
         putchar('-'), x=~x,x++;
   static int sta[300];
@@ -152,7 +156,7 @@ signed main() {
     // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
-    // ishowspeed
+    ishowspeed
 
     return 0;
 }
