@@ -62,6 +62,14 @@ struct AreaofRectangles {
 } rect;
 
 signed main() {
+    int n ;
+    cin >> n;
+    while(n--) {
+        int a,  b , c , d;
+        cin >> a >> b >> c >> d;
+        rect.addRectangle(a , b,  c , d);
+    }
+    cout << rect.solve();
 
     return 0;
 }

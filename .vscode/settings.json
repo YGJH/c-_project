@@ -44,10 +44,9 @@
             "<C-f>": false
           },
         
-          "// To improve performance",
-          "extensions.experimental.affinity": {
+          "// To improve performance":
+          "extensions.experimental.affinity", 
             "vscodevim.vim": 1
-          }
         } 
   ]
 }
