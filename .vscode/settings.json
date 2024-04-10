@@ -48,5 +48,9 @@
           "extensions.experimental.affinity", 
             "vscodevim.vim": 1
         } 
-  ]
+  ],
+  "C_Cpp.errorSquiggles": "disabled",
+  "files.associations": {
+    "iostream": "cpp"
+  }
 }

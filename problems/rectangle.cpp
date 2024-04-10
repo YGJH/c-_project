@@ -28,10 +28,8 @@ struct AreaofRectangles{
     }
     void upd(int i, int l, int r, int ql, int qr, int v){
         if(ql <= l && r <= qr){
-            tree[i].first += v;
-            if(!(tree[i].first & 1))
-                tree[i].first = 0;
-
+            if(tree[i].first==0)
+                tree[i].first += v;
             puint(i, l, r); return;
         }
         int mid = (l+r) >> 1;
@@ -63,7 +61,6 @@ struct AreaofRectangles{
         return area;
 }   
 }rect;
-
 
 signed main() {
 

@@ -106,7 +106,7 @@ using ll = long long;
 // #define int __int128
 #define MOD 1000000009
 #define cr(x) (x<<1)
-#define cl(x) (x<<1)+1
+#define cl(x) (x<<1)|1
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
