@@ -1,1 +1,0 @@
-{"name":"Local: Linklist","url":"/home/charles/Documents/c-_project/Linklist.cpp","tests":[{"id":1711112142877,"input":"32 76 58 27 92","output":"27 32 58 76 92"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/Documents/c-_project/Linklist.cpp","group":"local","local":true}

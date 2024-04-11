@@ -1,1 +1,0 @@
-{"name":"Local: C_segtree","url":"/home/charles/Documents/c++/problems/C_segtree.cpp","tests":[{"id":1708144765392,"input":"8 4\n3 2 4 5 1 1 5 3\n2 4\n5 6\n1 8\n3 3","output":"3\n0\n6\n4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/Documents/c++/problems/C_segtree.cpp","group":"local","local":true}
