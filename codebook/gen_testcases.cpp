@@ -6,7 +6,7 @@ using namespace std;
 signed main() {
    
   mt19937 now(chrono::steady_clock::now().time_since_epoch().count());
-  uniform_int_distribute<> gen(1, 10);
+  uniform_int_distribution<> gen(1, 10);
   
   return 0;
 }
