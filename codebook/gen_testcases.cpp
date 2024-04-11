@@ -4,15 +4,10 @@
 #define pb push_back
 using namespace std;
 signed main() {
-    mt19937 mt (chrono::steady_clock::now().time_since_epoch().count());
-    uniform_int_distribution<> gen(1 , 1000000000);
-    // uniform_int_distribution<> gen(1,5);
-    const int N = 19;
-    cout << N << endl;
+   
+  mt19937 now(chrono::steady_clock::now().time_since_epoch().count());
+  uniform_int_distribute<> gen(1, 10);
+  
+  return 0;
+}
 
-    for(int i = 0 ; i < N ; i++) {
-        cout << gen(mt) << ' ';
-    }
-
-    return 0;
-}                                                                                                               
