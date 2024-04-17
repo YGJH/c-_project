@@ -61,13 +61,13 @@ int ans = 0;
 
 void solve(){
   string s;
-  s.pb('0');
   cin >> s;
   int a;
   cin >> a;
-  int len = s.length();
+  s.pb('0');
   reverse(all(s));
-  // cerr << s << endl;
+  int len = s.length();
+  cerr << s << endl;
   if(s[1]=='0') {
     dp[1][0][0]=1;
   }
@@ -77,7 +77,7 @@ void solve(){
   }
   for(int i = 2 ; i < len ; i++) {
     if(s[i] == '0') {
-      for(int j = 0 ; j <= i ; j++) {
+      for(int j = 0 ; j < i ; j++) {
         dp[i][j][0]+=dp[i-1][j][1];
         dp[i][j][0]+=dp[i-1][j][0];
       }

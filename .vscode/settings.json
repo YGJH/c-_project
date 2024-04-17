@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "SynthWave '84",
+  "workbench.colorTheme": "Dandelion",
   "editor.mouseWheelZoom": true,
   "[cpp]": {
       "editor.defaultFormatter": "xaver.clang-format"
