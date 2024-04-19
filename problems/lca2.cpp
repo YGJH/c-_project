@@ -27,22 +27,9 @@ inline void timing_tag(int now) {
     }    
     out[now] = timing++;
 }
-int another ;
 inline bool is_ancestor(int x , int y) { // if x is y's ancestor
     return (in[x] <= in[y] && out[x] >= out[y]);
 }
-// int getlca(int x, int y){
-//     if(is_ancestor(x, y))return x; // 如果 u 為 v 的祖先則 lca 為 u
-//     if(is_ancestor(y, x))return y; // 如果 v 為 u 的祖先則 lca 為 u
-//     for(int i=logN;i>=0;i--){    // 判斷 2^logN, 2^(logN-1),...2^1, 2^0 倍祖先
-//         if(!is_ancestor(anc[x][i], y)) {
-//             if(!anc[x][i])
-//                 x = anc[x][i];          // 則往上移動
-//         }
-//     }
-//     another = x;
-//     return anc[x][0]; // 回傳此點的父節點即為答案
-// }
 inline int getlca(int x, int y){
     if(is_ancestor(x, y))return x; // 如果 u 為 v 的祖先則 lca 為 u
     if(is_ancestor(y, x))return y; // 如果 v 為 u 的祖先則 lca 為 u
@@ -68,7 +55,7 @@ inline void make_chart(int N) {
     for(int j=1;j<=logN;j++){
         for(int i=1;i<=N;i++){
             anc[i][j]=anc[anc[i][j-1]][j-1];
-            dis[i][j]= max ( dis[i][j-1],dis[anc[i][j-1]][j-1] );
+            dis[i][j]= max ( dis[i][j]  , max(dis[i][j-1] , dis[anc[i][j-1]][j-1]) );
         }
     }
 }
@@ -82,23 +69,33 @@ void solve() {
     for(int i = 1 ; i < n ; i++) {
         cin >> tmp1 >> tmp2 >> tmp3;
         con[tmp1].pb(mk(tmp2 , tmp3));
-        dis[tmp2][0] = tmp3;
-        anc[tmp2][0] = tmp1;
         k[tmp2]++;
+        if(anc[tmp2][0]) {
+            continue;
+        }
+        anc[tmp2][0] = tmp1;
+        dis[tmp2][0] = tmp3;
     }
-    for(int i = 1 ; i <= n ; i++ ) {
-        if(k[i] < record_min) {
-            record_min = k[i];
-            minn_index = i;
+    int min_index {INT32_MAX}, minn {INT32_MAX};
+    for(int i = 1 ; i <= n ; i++) {
+        if(minn > k[i]) {
+            min_index = i;
+            minn = k[i];
         }
     }
-    timing_tag(minn_index);
-    make_chart(n);
-    // for(int i = 0 ; i <= n ; i++) {
-    //     for(int j = 0 ; j <= logN ; j++) {
-    //         cout << anc[i][j] << " \n"[j==logN];
+    // queue<int> que;
+    // for(int i = 1 ; i <= n ; i++ ) {
+    //     if(k[i] == minn) {
+    //         que.push(i);
     //     }
     // }
+    // while(!que.empty()) {
+    //     int tmp33 = que.front();
+    //     que.pop();
+    //     timing_tag(tmp33);
+    // }
+    timing_tag(minn_index);
+    make_chart(n);
     int q;
     cin >> q;
     while(q--) {
@@ -109,7 +106,6 @@ void solve() {
         addlca(tmp2 , lca);
         cout << ans << endl;
         ans = 0;
-        another = 0;
     }
 }
 
