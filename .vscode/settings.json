@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Dandelion",
+  "workbench.colorTheme": "Cyberpunk",
   "editor.mouseWheelZoom": true,
   "[cpp]": {
       "editor.defaultFormatter": "xaver.clang-format"
