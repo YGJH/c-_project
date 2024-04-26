@@ -1,117 +1,68 @@
 #include <bits/stdc++.h>
-#define all(x) (x).begin(),(x).end()
-#define mk make_pair
-#define pb push_back
-#define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr), cout.tie(0);
-using ll = long long;
-#define endl '\n'
-#define int long long
-#define lowbit(x) (x&-x)
 using namespace std;
-const int MOD = (ll)1e9 + 7;
+using ll=long long;
+const ll MAXN = 1e3+5 , MOD = 1e9 + 7 , N = 1e3;
+ll fac[MAXN] , inv[MAXN];
+ll dp[MAXN];
 
-vector<int> factor(2000, 0);
-int fac(int n) {
-  if (n == 1)
-    return (factor[1] = 1);
-  return factor[n] = (fac(n - 1) * n) % MOD;
+ll fpow(ll a , ll b) {
+	ll ret =1 ;
+	for( ; b ; b >>=1  , a = (a*a) % MOD) {
+		if(b & 1) {
+			ret *= a;
+			ret %= MOD;
+		}
+	}
+
+	return ret;
 }
-namespace mypow {
-inline int pow(int i, int l) {
-    int ret = 1;
-    for (; l; l >>= 1, i = (i * i) % MOD) {
-      if (l & 1) {
-        ret = (ret * i) % MOD;
-      }
-    }
-    return ret;
-  }
-} // namespace mypow
-vector<int> pr(1001);
-vector<int> siz(1001);
-inline int inv(int n) { return mypow::pow(n, MOD - 2); }
-inline int cFun(int n, int m) {
-  //  n!  / m! / (n - m)!
-  if (n == m || m == 0) {
-    return 1;
-  }
-  int k = factor[n];
-  int tmp = inv(factor[m]);
-  int tmp2 = inv(factor[n - m]);
-  return (((k * tmp) % MOD) * tmp2) % MOD;
+void init() {
+	fac[0] = inv[0] = 1;
+	for(ll i = 1 ; i <= N ; i++) 
+		fac[i] = (fac[i-1] * i) % MOD;
+	inv[N] = fpow(fac[N] , MOD - 2) ;
+	for(ll i = N -1 ; i >= 0 ; i--)
+		inv[i] = (inv[i+1] * (i + 1)) % MOD;
+
+	for(ll i =2 ; i <= N ; i++)
+		dp[i] = dp[__builtin_popcount(i)] + 1;
+
 }
-inline int countDigit(int n) {
-  int ret = 0;
-  while (n) {
-    ret++;
-    n = n ^ lowbit(n);
-  }
-  return ret;
+ll comb(ll n , ll k) {
+	if( n < k ) 
+		return 0;
+	return fac[n] * ( inv[k] * inv[n-k] % MOD ) % MOD;
+
 }
-void solve1() {
-  siz[1] = 0;
-  for (int i = 2 ; i <= 1000 ; i++) {
-    pr[i] = countDigit(i);
-    siz[i] = siz[pr[i]] + 1;
-  }
-}
-vector<vector<vector<int>>> dp(2000 , vector<vector<int>>(2000 , vector<int>(3,0)));
-unordered_map<int , bool> mp;
-int ans = 0;
-
-void solve(){
-  string s;
-  cin >> s;
-  int a;
-  cin >> a;
-  s.pb('0');
-  reverse(all(s));
-  int len = s.length();
-  cerr << s << endl;
-  if(s[1]=='0') {
-    dp[1][0][0]=1;
-  }
-  else {
-    dp[1][0][0]=1;
-    dp[1][1][1]=1;
-  }
-  for(int i = 2 ; i < len ; i++) {
-    if(s[i] == '0') {
-      for(int j = 0 ; j < i ; j++) {
-        dp[i][j][0]+=dp[i-1][j][1];
-        dp[i][j][0]+=dp[i-1][j][0];
-      }
-    }
-    else {
-      for(int j = 0 ; j < i ; j++) {
-        dp[i][j][0] += dp[i-1][j][1];
-        dp[i][j+1][1] += dp[i-1][j][1];
-        dp[i][j+1][1] += dp[i-1][j][0];
-        dp[i][j][0] += dp[i-1][j][0];
-      }
-    }
-  }
-    for(int j = 1 ; j < len ; j++) {
-      if(siz[j] == a) {
-        for(int i = 1 ; i <= j ; i++) {
-          ans+=dp[len - 1][j][0];
-          ans+=dp[len - 1][j][1];
-        }
-      }
-    }
-
-
-
-
-  cout << ans << endl;
-  return;
-}
-
 signed main() {
-  ishowspeed factor[0] = 0;
-  fac(1000);
-  siz[0] = 0;
-  solve1();
-  solve();
-  return 0;
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	init();
+	string s;
+	ll k;
+	cin >> s >> k;
+	if(!k) 
+		cout << "1\n";
+	else {
+		ll len = s.length() , num = 0;
+		ll ans = 0;
+		for(ll i = 0 ; i < len ; i++) {
+			if(s[i] == '0') 
+				continue;
+			for(ll j = max(num , (ll)1) ; j < len ; j++) {
+				if( dp[j] == k-1) {
+					ans = (ans + comb( len - i - 1 , j - num)) % MOD;
+				}
+			}
+			num++;
+		}
+		if( k == 1 ) 
+			ans = (ans - 1 + MOD) % MOD;
+		if(dp[num] == k - 1)
+			ans = (ans + 1 ) % MOD;
+		cout << ans << endl;
+	}
+	return 0;
 }
+
+

@@ -31,10 +31,9 @@ inline bool is_ancestor(int x , int y) { // if x is y's ancestor
     return (in[x] <= in[y] && out[x] >= out[y]);
 }
 void dfs(int now,int fa){
-    //cerr << "now: " << now << "fa: " << fa << endl;
     anc[now][0]=fa;
     for(auto [nxt,val]:con[now]){
-        if(nxt == fa || vis[nxt])continue;
+        if(nxt == fa)continue;
         dfs(nxt, now);
         dis[nxt][0]=val;
     }
@@ -63,11 +62,11 @@ inline void addlca(int x, int y){
 inline void make_chart(int N) {
     for(int j=1;j<=logN;j++){
         for(int i=1;i<=N;i++){
-            anc[i][j]= anc[anc[i][j-1]][j-1];
-            if(dis[i][j-1]) {
-                dis[i][j] = min( dis[i][j] , min(dis[i][j-1] , dis[anc[i][j-1]][j-1] ));            
-            }
-            dis[i][j] = dis[i][j-1] + dis[anc[i][j-1]][j-1];
+            anc[i][j]=anc[anc[i][j-1]][j-1];
+            if(dis[i][j])
+                dis[i][j] = min(dis[i][j] , dis[i][j-1] + dis[anc[i][j-1]][j-1]);
+            else
+                dis[i][j]= dis[i][j-1] + dis[anc[i][j-1]][j-1] ;
         }
     }
 }
@@ -81,8 +80,14 @@ void solve() {
     for(int i = 1 ; i < n ; i++) {
         cin >> tmp1 >> tmp2 >> tmp3;
         con[tmp1].pb(mk(tmp2 , tmp3));
-        con[tmp2].pb(mk(tmp1 , tmp3));
         k[tmp2]++;
+        if(anc[tmp2][0]) {
+            int k = tmp1;
+            tmp1 = tmp2;
+            tmp2 = k;
+        }
+        anc[tmp2][0] = tmp1;
+        dis[tmp2][0] = tmp3;
     }
     int min_index {INT32_MAX}, minn {INT32_MAX};
     for(int i = 1 ; i <= n ; i++) {
@@ -91,12 +96,11 @@ void solve() {
             minn = k[i];
         }
     }
-    vis.clear();
-    for(auto i : con[minn_index]) {
-        //cerr << i.first << ' ' << minn_index << endl;
-        dfs( i.first , minn_index);
+    for(int i = 1 ; i <= n ; i++ ) {
+        for(auto j : con[i]) {
+            dfs(j.first  , i) ;
+        }
     }
-    vis.clear();
     timing_tag(minn_index);
     make_chart(n);
     int q;
@@ -104,7 +108,6 @@ void solve() {
     while(q--) {
         cin >> tmp1 >> tmp2;
         int lca = getlca(tmp1 , tmp2);
-        // cout << "lca: " << lca << endl << "another: " << another << endl;
         addlca(tmp1 , lca);
         addlca(tmp2 , lca);
         cout << ans << endl;

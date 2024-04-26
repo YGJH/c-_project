@@ -1,18 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
-    // char name[300] ;
-    // fgets(name , sizeof(name) , stdin);
-    // strtok(name , "\n\r");
-    // char com[400];
-    // sprintf(com , "./%s < input.out > b.out" , name);
     while(1) {
-
+        system("cd /home/charles/Documents/c-_project/exe_file");
         system("./gen_testcases > input.out");
-        system("./ac < input.out > a.out");
-        system("./wa < input.out > b.out");
-        FILE * ac = fopen("a.out" , "r");
-        FILE * wa = fopen("b.out" , "r");
+        system("./wa < input.out > ac.out");
+        system("./ac < input.out > wa.out");
+        FILE * ac = fopen("ac.out" , "r");
+        FILE * wa = fopen("wa.out" , "r");
         char tmp[3000], tmp2[3000] ;
         fseek(ac , 0 , SEEK_END);
         int len1 = ftell(ac);
@@ -22,10 +17,12 @@ int main() {
         rewind(wa);
         fread(tmp , 1 , len1 , ac);
         fread(tmp2 , 1 , len2 , wa);
+        // cout << len1 << ' ' << len2 << endl;
         int now = 0;
         bool ok = true;
         while(now < len1) {
             if(tmp[now] != tmp2[now]) {
+                cerr << tmp[now] << ' ' << tmp2[now] << endl;
                 ok = false;
                 break;
             }
@@ -36,10 +33,10 @@ int main() {
         if(!ok) {
             printf("input:\n");
             system("cat input.out");
-            printf("\nac output: \n");
-            system("cat a.out");
-            printf("\n wa output:\n");
-            system("cat b.out");
+            printf("ac output: \n");
+            system("cat ac.out");
+            printf("wa output:\n");
+            system("cat wa.out");
             fgetc(stdin);
             fgetc(stdin);
         }
