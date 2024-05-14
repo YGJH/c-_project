@@ -10,7 +10,7 @@
 				"-g",
 				"${file}",
 				"-o",
-				"/home/charles/Documents/c-_project/exe_file/${fileBasenameNoExtension}"
+				"/home/charles/Documents/cpp/c-_project/exe_file/${fileBasenameNoExtension}"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
