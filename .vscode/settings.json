@@ -54,5 +54,6 @@
     "iostream": "cpp",
     "cmath": "cpp",
     "iomanip": "cpp"
-  }
+  },
+  "cmake.configureOnOpen": false
 }

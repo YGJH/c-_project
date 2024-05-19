@@ -1,40 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long
 #define pb push_back
-const int N = 900000;
+constexpr int N = 1e5+3;
+vector<int> pa(N);
+vector<vector<int>> edge(N);
+vector<int> color(N);
+unordered_map<int,int> tim;
+unordered_map<int,bool> ds;
+int n, i , ans , tmp1 , tmp2;
+void dfs(int now , int fa) {
+    pa[now] = fa;
+    ds[now] = 1;
+    for(auto p : edge[now]) {
+        if(!ds[p]) {
+            dfs(p , now);
+        }
+    }
+}
+int tar;
+unordered_map<int,bool> vis;
+int dfss(int now) {
+    int ret = 0 ;
+    vis[now] = 1;
+    if(!ds[color[now]] && tim[color[i]] <= tar)
+        ds[color[now]]=1 , ret += color[now];
+    for(const auto &p : edge[now]) {
+        if(pa[p] == now && !vis[p] ) {
+            ret += dfss(p);
+        }
+    }
+    return ret;
+}
+
 
 signed main() {
-    int n ; 
-    int q;
-    cin >> n >> q;
-    int tmp;
-    int tmp2 , i;
-    vector<set<int>> arr(n+2);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n;
     for(i = 1 ; i <= n ; i++) {
-        cin >> tmp;
-        arr[i].insert(tmp); 
+        cin >> color[i];
+        tim[color[i]] ++;
     }
-    int tmp1;
-    int cnt = 0;
-    for( i = 1 ; i <= q ; i++) {
+    for(i = 1 ; i < n ; i++) {
         cin >> tmp1 >> tmp2;
-        cnt = arr[tmp2].size();
-        for(const auto &p : arr[tmp1]) {
-            bool f = true;
-            for(const auto &m : arr[tmp2]) {    
-                if( p == m ) {
-                    f = false;
-                    break;
-                }
-            }
-            if(f) {
-                arr[tmp2].insert(p);
-                cnt++;
-            }
-
-        }
-        arr[tmp1].clear();
-        cout << arr[tmp2].size() << endl;
+        edge[tmp1].pb(tmp2);
+        edge[tmp2].pb(tmp1);
     }
+    dfs(1 , 0);
 
+    for(i = 1 ; i <= n ; i++ ) {
+        ds.clear();
+        vis.clear();
+        tar = tim[color[i]];
+        cout << dfss(i) << ' ';
+    }
 }

@@ -103,6 +103,7 @@ using ll = long long;
 #define endl '\n'
 #define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
 #define int long long
+constexpr ld rad = 0.01745329252;
 // #define int __int128
 #define MOD 1000000009
 #define cr(x) (x<<1)
