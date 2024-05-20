@@ -6,8 +6,8 @@ using namespace std;
 int cas;
 int n;
 constexpr ld PI = 3.1415926535897932384626433832795028841971;
-// constexpr ld rad = PI / (ld)180;
 constexpr ld rad = 0.01745329251994330;
+
 struct Pt{
     ld x,y;
     Pt(){}
@@ -32,10 +32,10 @@ ld angle , si , co;
 Pt init , las;
 Pt tmp;
 ld x , y , w , h , sieta;
-ld area = 0;
+ld area;
 ld aa = 0;
 ld a , b;
-void pr(vector<Pt> b , const string ss) {
+void pr(vector<Pt> b , const string &ss) {
     cerr << ss ;
     for(const auto &p : b) {
         cerr << p.x << ' ' << p.y << endl;
@@ -72,37 +72,39 @@ inline void tran() {
 void solve() {
     cin >> n;
     for(i = 1 ; i <= n ; i++) {
-        cin >> x >> y >> h >> w >> sieta;
+        cin >> x >> y >> w >> h >> sieta;
         aa += (h * w);
-        if(sieta < 0) sieta += (long double)360;
+        // if(sieta < 0) sieta += (long double)360;
+        sieta*=-1;
         w/=(long double)2;
         h/=(long double)2;
         angle = sieta * rad;
         si = sin(angle) ; 
         co = cos(angle);
-        a = -h ; b = -w;
+        a = -w ; b = -h;
         tran();
         node.pb(tmp);
-        a = h , b = w;
+        a = w , b = h;
         tran();
         node.pb(tmp);
-        a = -h ; b = w;
+        a = -w ; b = h;
         tran();
         node.pb(tmp);
-        a = h ; b = -w;
+        a = w ; b = -h;
         tran();
         node.pb(tmp);
     }
     ans = convex_hull(node);
+    ans.push_back(ans.front());
+    init.x = 0 ; init.y = 0;
     las = ans.front();
-    init = ans.front();
-    for(const auto & p : ans) {
-        if(las != init && las != p)
-           area += abs(cross(init , p , las));
+    area = 0;
+    for(const auto & p : ans ) {
+        area += cross(init , p , las);
         las = p;
     }
-    area /= (ld)2.0;
-    cout << setprecision(1) << fixed << (aa / area) * (long double)100 << " %" << endl;
+    area = abs(area);
+    cout << setprecision(1) << fixed << ( (aa * 2)/ area) * (long double)100 << " %" << endl;
 }
 
 signed main() {
@@ -110,10 +112,10 @@ signed main() {
     cin.tie(0);
     cin >> cas;
     while(cas--) {
-        solve();
-        node.clear();
-        ans.clear();
         area = 0;
         aa = 0;
+        ans.clear();
+        node.clear();
+        solve();
     }
 }
