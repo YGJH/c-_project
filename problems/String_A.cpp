@@ -86,7 +86,7 @@ int build(trie * now) {
     }
     // cerr << tmp << ' ' << now->cnt << endl;
     // cerr << now->nxt_step << endl;
-    if(!en && !enn)
+    if(!en)
         return now->this_size;
     else 
         return mp[tmp];

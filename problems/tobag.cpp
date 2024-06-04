@@ -53,12 +53,14 @@ vector<Pt> convex_hull(vector<Pt> &hull){
         stk.push_back(hull[i]);
         top++;
     }
+    pr(stk , "before : ");
     for(i=hull.size()-2,t=top+1;i>=0;i--){
         while(top>=t&&cross(stk[top-2],stk[top-1],hull[i])<=(ld)0)
             stk.pop_back(),top--;
         stk.push_back(hull[i]);
         top++;
     }
+    pr(stk , "after : " ) ; 
     stk.pop_back();
     return stk;
 }

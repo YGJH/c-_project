@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #define ld long double
+#define pi acos(-1)
 // 點
 struct Pt {
   ld x, y;

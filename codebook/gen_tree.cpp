@@ -10,6 +10,9 @@ signed main() {
     cout << N << endl;
     int tmp1 , tmp2;
     unordered_map<int,bool> vis;
+    for(int i = 0 ; i < N; i++) {
+        cout << gen(now) << " \n"[i==N-1];
+    }
     for(int i = 2 ; i <= N; i ++) {
         tmp1 = gen(now);
         tmp2 = i;

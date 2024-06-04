@@ -2,10 +2,9 @@
 using namespace std;
 int main() {
     while(1) {
-        system("cd /home/charles/Documents/c-_project/exe_file");
         system("./gen_testcases > input.out");
-        system("./wa < input.out > ac.out");
-        system("./ac < input.out > wa.out");
+        system("./wa < input.out > wa.out");
+        system("./ac < input.out > ac.out");
         FILE * ac = fopen("ac.out" , "r");
         FILE * wa = fopen("wa.out" , "r");
         char tmp[3000], tmp2[3000] ;
@@ -35,10 +34,14 @@ int main() {
             system("cat input.out");
             printf("ac output: \n");
             system("cat ac.out");
+            printf("\n");
             printf("wa output:\n");
             system("cat wa.out");
             fgetc(stdin);
             fgetc(stdin);
+        }
+        else {
+            printf("Correct\n");
         }
     }
 

@@ -53,7 +53,12 @@
   "files.associations": {
     "iostream": "cpp",
     "cmath": "cpp",
-    "iomanip": "cpp"
+    "iomanip": "cpp",
+    "chrono": "cpp",
+    "span": "cpp",
+    "type_traits": "cpp",
+    "tuple": "cpp",
+    "ostream": "cpp"
   },
   "cmake.configureOnOpen": false
 }

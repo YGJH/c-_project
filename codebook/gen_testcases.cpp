@@ -4,20 +4,36 @@
 #define pb push_back
 using namespace std;
 signed main() {
-	const int N = 10;
-	const int Q = 5;
-	cout << N << ' ' << Q << endl;
 	mt19937 now(chrono::steady_clock::now().time_since_epoch().count());
-	uniform_int_distribution<> gen(1 , N);
-	// uniform_int_distribute<> gn(1, N);
-	for(int i = 1 ; i <= N ; i++) {
-		cout << gen(now) << " \n"[i == N];
-	}
-	for(int i = 1 ; i <= Q ; i++) {
-		int tmp1 = gen(now) , tmp2 = gen(now);
-		while(tmp1 == tmp2) {tmp1 = gen(now);}
-		cout << tmp1 << ' ' << tmp2 << endl;
-	}
+	uniform_int_distribution<> gen(1 , 10);
 
+	uniform_int_distribution<> ge(0 , 25);
+	// uniform_int_distribute<> gn(1, N);
+
+	int n  = 8 , q = 3;
+	cout << n << endl;
+
+	for(int i = 0 ; i < n ; i++) {
+		int siz = gen(now);
+		string k ;
+		for(int j = 0 ; j < siz ; j++ ) {
+			k.pb(ge(now)+'a');
+		}
+		cout << k << endl;
+	}
+	cout << q << endl;
+	for(int i = 0 ; i < q ; i++) {
+		int siz2 = gen(now);
+		int init = gen(now);
+		for(int j = init ; j < siz2 ; j++) {
+			
+		}
+		int siz = gen(now);
+		string k;
+		for(int j = 0 ; j < siz ; j++) {
+			k.pb(ge(now)+'a');
+		}
+		cout << k << endl;
+	}
 }
 

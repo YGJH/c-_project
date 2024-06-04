@@ -92,11 +92,18 @@
 #pragma G++ optimize("-funsafe-loop-optimizations")
 #pragma G++ optimize("inline-functions-called-once")
 #pragma G++ optimize("-fdelete-null-pointer-checks")
-
+/* 12721, 13331, 14341, 75577, 123457, 222557, 556679
+* 999983, 1097774749, 1076767633, 100102021, 999997771
+* 1001010013, 1000512343, 987654361, 999991231
+* 999888733, 98789101, 987777733, 999991921, 1010101333
+* 1010102101, 1000000000039, 1000000000000037
+* 2305843009213693951, 4611686018427387847
+* 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
 #define pll pair<long long ,long long>
+#define pi acos(-1)
 #define all(x) (x).begin(),(x).end()
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
 using ll = long long;
@@ -111,6 +118,7 @@ constexpr ld rad = 0.01745329252;
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
+// ----------------------------------------------
 #define LOCAL
 #ifdef LOCAL    // =========== Local ===========
 void dbg() { cerr << '\n'; }
@@ -124,6 +132,7 @@ template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr 
 #define debug(...) ((void)0)
 #define orange(...) ((void)0)
 #endif
+// -----------------------------------------------
 template<class io>
 inline void re(io &x) {
     io c = getchar();int w = 0 ; x = 0;
