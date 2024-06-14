@@ -24,6 +24,10 @@ struct Binary_Indexed_Tree{
         return ret;
     }
 }BIT;
+void range_update(int l,int r,int v){// 區間加值
+    BIT.update(l,v);
+    BIT.update(r+1,-v);
+}
 
 signed main() {
     return 0;
