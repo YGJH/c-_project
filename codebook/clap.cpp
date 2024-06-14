@@ -2,7 +2,7 @@
 using namespace std;
 int main() {
     while(1) {
-        system("./gen_testcases > input.out");
+        system("./gen_tree > input.out");
         system("./wa < input.out > wa.out");
         system("./ac < input.out > ac.out");
         FILE * ac = fopen("ac.out" , "r");

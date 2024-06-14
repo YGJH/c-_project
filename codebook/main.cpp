@@ -92,6 +92,7 @@
 #pragma G++ optimize("-funsafe-loop-optimizations")
 #pragma G++ optimize("inline-functions-called-once")
 #pragma G++ optimize("-fdelete-null-pointer-checks")
+// 競程者的吟唱
 /* 12721, 13331, 14341, 75577, 123457, 222557, 556679
 * 999983, 1097774749, 1076767633, 100102021, 999997771
 * 1001010013, 1000512343, 987654361, 999991231
