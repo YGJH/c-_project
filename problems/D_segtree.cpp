@@ -1,135 +1,237 @@
+/*
+I am the bone of my sword.
+Steel is my body, and fire is my blood.
+I have created over a thousand blades.
+Unknown to Death.
+Nor known to Life.
+Have withstood pain to create many weapons.
+Yet, those hands will never hold anything.
+So as I pray, "Unlimited Blade Works".
+*/
+#pragma GCC optimize(1)
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("inline")
+#pragma GCC optimize("-fgcse")
+#pragma GCC optimize("-fgcse-lm")
+#pragma GCC optimize("-fipa-sra")
+#pragma GCC optimize("-ftree-pre")
+#pragma GCC optimize("-ftree-vrp")
+#pragma GCC optimize("-fpeephole2")
+#pragma GCC optimize("-ffast-math")
+#pragma GCC optimize("-fsched-spec")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("-falign-jumps")
+#pragma GCC optimize("-falign-loops")
+#pragma GCC optimize("-falign-labels")
+#pragma GCC optimize("-fdevirtualize")
+#pragma GCC optimize("-fcaller-saves")
+#pragma GCC optimize("-fcrossjumping")
+#pragma GCC optimize("-fthread-jumps")
+#pragma GCC optimize("-funroll-loops")
+#pragma GCC optimize("-fwhole-program")
+#pragma GCC optimize("-freorder-blocks")
+#pragma GCC optimize("-fschedule-insns")
+#pragma GCC optimize("inline-functions")
+#pragma GCC optimize("-ftree-tail-merge")
+#pragma GCC optimize("-fschedule-insns2")
+#pragma GCC optimize("-fstrict-aliasing")
+#pragma GCC optimize("-fstrict-overflow")
+#pragma GCC optimize("-falign-functions")
+#pragma GCC optimize("-fcse-skip-blocks")
+#pragma GCC optimize("-fcse-follow-jumps")
+#pragma GCC optimize("-fsched-interblock")
+#pragma GCC optimize("-fpartial-inlining")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("-freorder-functions")
+#pragma GCC optimize("-findirect-inlining")
+#pragma GCC optimize("-frerun-cse-after-loop")
+#pragma GCC optimize("inline-small-functions")
+#pragma GCC optimize("-finline-small-functions")
+#pragma GCC optimize("-ftree-switch-conversion")
+#pragma GCC optimize("-foptimize-sibling-calls")
+#pragma GCC optimize("-fexpensive-optimizations")
+#pragma GCC optimize("-funsafe-loop-optimizations")
+#pragma GCC optimize("inline-functions-called-once")
+#pragma GCC optimize("-fdelete-null-pointer-checks")
+#pragma G++ optimize(1)
+#pragma G++ optimize(2)
+#pragma G++ optimize(3)
+#pragma G++ optimize("Ofast")
+#pragma G++ optimize("inline")
+#pragma G++ optimize("-fgcse")
+#pragma G++ optimize("-fgcse-lm")
+#pragma G++ optimize("-fipa-sra")
+#pragma G++ optimize("-ftree-pre")
+#pragma G++ optimize("-ftree-vrp")
+#pragma G++ optimize("-fpeephole2")
+#pragma G++ optimize("-ffast-math")
+#pragma G++ optimize("-fsched-spec")
+#pragma G++ optimize("unroll-loops")
+#pragma G++ optimize("-falign-jumps")
+#pragma G++ optimize("-falign-loops")
+#pragma G++ optimize("-falign-labels")
+#pragma G++ optimize("-fdevirtualize")
+#pragma G++ optimize("-fcaller-saves")
+#pragma G++ optimize("-fcrossjumping")
+#pragma G++ optimize("-fthread-jumps")
+#pragma G++ optimize("-funroll-loops")
+#pragma G++ optimize("-fwhole-program")
+#pragma G++ optimize("-freorder-blocks")
+#pragma G++ optimize("-fschedule-insns")
+#pragma G++ optimize("inline-functions")
+#pragma G++ optimize("-ftree-tail-merge")
+#pragma G++ optimize("-fschedule-insns2")
+#pragma G++ optimize("-fstrict-aliasing")
+#pragma G++ optimize("-fstrict-overflow")
+#pragma G++ optimize("-falign-functions")
+#pragma G++ optimize("-fcse-skip-blocks")
+#pragma G++ optimize("-fcse-follow-jumps")
+#pragma G++ optimize("-fsched-interblock")
+#pragma G++ optimize("-fpartial-inlining")
+#pragma G++ optimize("no-stack-protector")
+#pragma G++ optimize("-freorder-functions")
+#pragma G++ optimize("-findirect-inlining")
+#pragma G++ optimize("-frerun-cse-after-loop")
+#pragma G++ optimize("inline-small-functions")
+#pragma G++ optimize("-finline-small-functions")
+#pragma G++ optimize("-ftree-switch-conversion")
+#pragma G++ optimize("-foptimize-sibling-calls")
+#pragma G++ optimize("-fexpensive-optimizations")
+#pragma G++ optimize("-funsafe-loop-optimizations")
+#pragma G++ optimize("inline-functions-called-once")
+#pragma G++ optimize("-fdelete-null-pointer-checks")
+// 競程者的吟唱
+/* 12721, 13331, 14341, 75577, 123457, 222557, 556679
+* 999983, 1097774749, 1076767633, 100102021, 999997771
+* 1001010013, 1000512343, 987654361, 999991231
+* 999888733, 98789101, 987777733, 999991921, 1010101333
+* 1010102101, 1000000000039, 1000000000000037
+* 2305843009213693951, 4611686018427387847
+* 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
-using namespace std;
-#define pii pair<int,int>
+#define mk make_pair
+#define pb push_back
+#define pll pair<long long ,long long>
+#define pi acos(-1)
+#define all(x) (x).begin(),(x).end()
+#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
+using ll = long long;
+#define endl '\n'
+#define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
 #define int long long
-#define cl(x) (x<<1)
-#define cr(x) (x<<1)+1
-#define N 400'500
-#define mmax(a,b) (a>b)?a:b;
-#define mmin(a,b) (a<b)?a:b;
-int arr[N];
-// The single update version
-    int seg[4*N];
-inline void pull_1(int id){
-    seg[id]=seg[cl(id)]|seg[cr(id)];
+#define ld long double
+constexpr ld rad = 0.01745329252;
+// #define int __int128
+#define MOD 1000000009
+#define cl(x) (x<<1)+1
+#define cr(x) (x<<1)+2
+#define mmax(a,b) (a > b)?a:b
+#define mmin(a,b) (a<b)?a:b
+using namespace std;
+// ----------------------------------------------
+#define LOCAL
+#ifdef LOCAL    // =========== Local ===========
+void dbg() { cerr << '\n'; }
+template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
+template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
+#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
+#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
+#else            // ======== OnlineJudge ========
+#pragma GCC optimize("O3,unroll-loops")
+#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#define debug(...) ((void)0)
+#define orange(...) ((void)0)
+#endif
+// -----------------------------------------------
+template<class io>
+inline void re(io &x) {
+    io c = getchar();int w = 0 ; x = 0;
+    while(c < 48 || c > 57) w|=c==45,c=getchar();
+    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
+    x=w?-x:x;return;
 }
-inline void pull_2(int id) {
-    seg[id]=seg[cl(id)]^seg[cr(id)];
+template <class io>
+inline void wr(io x) {
+  if(x==0){
+    putchar('0');
+    return;
+  }
+    if(x < 0) 
+        putchar('-'), x=~x,x++;
+  static int sta[300];
+  int top = 0;
+  do {
+    sta[top++] = x % 10, x /= 10;
+  } while (x);
+  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
 }
-void build(int id,int l,int r , int lay){
-    if(l==r){
-        seg[id]=arr[l];
+const int MXN = 1e5 + 2;
+int seg[4 * MXN];
+int arr[MXN];
+void build(int index , int l , int r) {
+    if( l == r ) {
+        seg[index] = arr[l];
         return ;
     }
-    int mid=(l+r)>>1;
-    if(lay){
-        build(cl(id),l,mid,0);
-        build(cr(id),mid+1,r,1);
-        pull_2(id);
-    }
-    else{
-        build(cl(id),l,mid,1);
-        build(cr(id),mid+1,r,0);
-        pull_1(id);
-    }
-
-}
-void update(int id,int l,int r,int x,int v){
-    if(l==r){
-        seg[id]=v;
-        return ;
-    }
-    int mid=(l+r)>>1;
-    if(x<=mid){
-        update(cl(id),l,mid,x,v);    
-    }
-    if(mid<x){
-        update(cr(id),mid+1,r,x,v);  
-    }
-    // pull(id);
-}
-int query(int id,int l,int r,int sl,int sr , int lay){
-    if(sl<=l&&r<=sr){//目前這個區間在查詢區間內
-        return seg[id];
-    }
-    int mid=(l+r)>>1,res=0;
-    if(lay) {
-        if(sl<=mid){//左區間跟查詢區間有交集
-            res^=query(cl(id),l,mid,sl,sr,1);
-        }
-        // else if(res == 0) {res = query(cl(id) , l , mid , sl , sr , 0);}
-        if(mid<sr){//右區間跟查詢區間有交集
-            res^=query(cr(id),mid+1,r,sl,sr,1);
-        }
-        // else if(res == 0) {res = query(cr(id) , mid + 1 , r , sl , sr , 0);}
- 
-    }
-    else {
-        if(l<=mid){//左區間跟查詢區間有交集
-            res|=query(cl(id),l,mid,sl,sr,1);
-        }
-        // else if(res==0) res=query(cl(id) , l , mid , sl , sr , 1);
-        if(mid<sr){//右區間跟查詢區間有交集
-            res|=query(cr(id),mid+1,r,sl,sr,0);
-        }
-        // else if(res==0) res = query(cr(id) , mid + 1, r , sl , sr , 1);
-    }
-    return res;
-}
-inline int poww(int a , int b) {
-    int ret = 1;
-    for( ; b;  b>>= 1 , a*=a) {
-        if(b&1) ret*=a;
-    }
-    return ret;
-}
-
-inline void re(int &a) {
-    char c=getchar();
-    bool w=0;
-    a=0;
-    int now = 1;
-    while(c!='-'&&c<48) {c=getchar();}
-    if(c=='-')w|=1,c=getchar();
-    while(c>=48 && c <= 58) {
-        a+=now*(c-'0');
-        now*=10;
-        c=getchar();
-    }
-    if(w)a=-a;
+    int mid = (l + r) >> 1;
+    build(cl(index) , l , mid);
+    build(cr(index) , mid+1 , r);
+    seg[index] = seg[cl(index)] + seg[cr(index)];
     return ;
 }
-inline void wr(int a) {
-    int now = 0 , nu[50];
-    if(a==0)putchar('0');
-    if(a<0)putchar('-') , a=-a;
-    while(a) {
-        nu[now++] = a % 10 ; a/=10;
+int query(int index,  int l , int r , int ql , int qr) {
+    if( ql <= l && r <= qr ) {
+        return seg[index];
     }
-    now--;
-    while(now>=0){
-        putchar(nu[now--]+'0');
+    int ret = 0;
+    int mid = (l + r) >> 1;
+    if(ql <= mid) {
+        ret += query(cl(index) , l , mid , ql , qr);
     }
+    if(mid < qr) {
+        ret += query(cr(index) , mid + 1 , r ,  ql , qr );
+    }
+    return ret ;
 }
+void update(int index  , int pos , int val , int l , int r) {
+    if(l == r) {
+        seg[index] += val;
+        return ;
+    }
+    int mid = (l + r) >> 1;
+    if(pos <= mid) {
+        update(cl(index) , pos , val , l , mid);
+    }
+    else {
+        update(cr(index) , pos , val , mid + 1 , r);
+    }
+    seg[index] = seg[cl(index)] + seg[cr(index)];
+    return;
+
+}
+
 signed main() {
-    int a , b;
-    re(a);re(b);
-    int k = poww(2 , a);
-
-    for(int i = 1 ; i <= k ; i++ ) {
-        re(arr[i]);
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    // mt19937 mt(hash<string>(":poop:"));
+    // uniform_int_distribution<> gen(1 , 10);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    ishowspeed
+    int n ; 
+    cin >> n;
+    int tmp;
+    arr[0] = 0;
+    for(int i = 1 ; i <= n ; i++ ) {
+        cin >> arr[i];
     }
-    build(1 , 1 , k , 1);
-    for(int i = 1 ; i <= 4 * k ; i++) {
-        cerr << seg[i] << ' ';
-    }
-    cerr << endl;
-
-    for(int i = 0 ; i < b ; i++) {
-        int p , q ; re(p) , re(q);
-        wr(query(1 , 1 , k , p , q , 0)),putchar('\n');
+    int l , r;
+    build( 0 , 1 , n  );
+    for(int i = 0 ; i < 3 ; i++) {
+        cin >> l >> r;
+        update(0 , l , 1 , 1 , n );
+        cout << query( 0 , 1 , n  , l , r ) << endl;
     }
     return 0;
-
-
 }

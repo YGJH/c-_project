@@ -1,3 +1,13 @@
+/*
+I am the bone of my sword.
+Steel is my body, and fire is my blood.
+I have created over a thousand blades.
+Unknown to Death.
+Nor known to Life.
+Have withstood pain to create many weapons.
+Yet, those hands will never hold anything.
+So as I pray, "Unlimited Blade Works".
+*/
 #pragma GCC optimize(1)
 #pragma GCC optimize(2)
 #pragma GCC optimize(3)
@@ -111,6 +121,7 @@ using ll = long long;
 #define endl '\n'
 #define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
 #define int long long
+#define ld long double
 constexpr ld rad = 0.01745329252;
 // #define int __int128
 #define MOD 1000000009

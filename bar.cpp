@@ -1,26 +1,30 @@
-#include <iostream>
-#define ishowspeed ios_base::sync_with_stdio(0);cin.tie(0);
-using namespace std;
-#define pb push_back
+#include <stdio.h>
+#include <chrono>
 signed main() {
-//	ishowspeed	
-	int i;
+	long long i;
 	double j;
-	const long long N = 10000000;
+	//wstring_convert<codecvt_utf8<wchar_t>> utf8;
+	//wstring ws = ";
+	//string s = utf8.to_bytes(ws);
+	const char *tmp = "█";
+	const char cc = '%';
+	const long long N = 1000000;
 	double per = 0;
-	for(i = 0  ; i < N ; i++) {
-//		tmp.pb('■');
-		//cout << '\r' << "| " << tmp << " |" ;
+	auto st = std::chrono::high_resolution_clock::now();
+	for(i = 1  ; i <= N ; i++) {
 		printf("\r| ");
 		double time = (double)i / N * 40;
 		for(j = 0 ; (time - j) > (double)1e-9 ; j++) 
-			putchar('B');
+			printf("%s", tmp);
 		for(; 40- j > (double)1e-9 ; j++) {
-			putchar('D');
+			putchar(' ');
 		}
 		per = (double)i / N * 100;
-		cout << " | " << per << " %";
-		cout << "            "; 
+		printf(" | %.4lf %c" , per , cc);
+		printf(" (%lld / %lld)  " , i , N);
 	}
+	auto en = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> dur = en - st;
+	printf("\n%lf s\n" , dur.count());
 	return 0;
 }
