@@ -131,41 +131,73 @@ constexpr ld rad = 0.01745329252;
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
 // ----------------------------------------------
-#define LOCAL
-#ifdef LOCAL    // =========== Local ===========
-void dbg() { cerr << '\n'; }
-template<class T, class ...U> void dbg(T a, U ...b) { cerr << a << ' ', dbg(b...); } 
-template<class T> void org(T l, T r) { while (l != r) cerr << *l++ << ' '; cerr << '\n'; } 
-#define debug(args...) (dbg("#> (" + string(#args) + ") = (", args, ")"))
-#define orange(args...) (cerr << "#> [" + string(#args) + ") = ", org(args))
-#else            // ======== OnlineJudge ========
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
-#define debug(...) ((void)0)
-#define orange(...) ((void)0)
-#endif
+
 // -----------------------------------------------
-template<class io>
-inline void re(io &x) {
-    io c = getchar();int w = 0 ; x = 0;
-    while(c < 48 || c > 57) w|=c==45,c=getchar();
-    while(c > 47 && c < 58)x=(x<<3)+(x<<1)+(c&15),c=getchar();
-    x=w?-x:x;return;
-}
-template <class io>
-inline void wr(io x) {
-  if(x==0){
-    putchar('0');
-    return;
+//template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+ 
+ostream& operator<<(ostream& os , __int128 x) {
+  char st[128];
+  int now = 0;
+  if(x<0) x=-x,putchar('-');
+  while(x){
+    st[now++] = x % 10 + 48;
+    x/=10;
   }
-    if(x < 0) 
-        putchar('-'), x=~x,x++;
-  static int sta[300];
-  int top = 0;
-  do {
-    sta[top++] = x % 10, x /= 10;
-  } while (x);
-  while (top) putchar(sta[--top] + 48);  // 48 是 '0'
+  while(now){ putchar(st[--now]);}
+  return os;
+}
+istream& operator>>(istream& is , __int128 &x){
+  x=0;
+  char c = getchar();
+  bool w = 0;
+  while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
+  while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
+  if(w)x=-x;
+  return is;
+}
+
+template<typename T>
+ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
+template<typename T>
+istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
+template<typename T>
+void print(T a) { cout << a << endl; }
+template<typename T, typename... Args>
+void print(T a, Args... b) { cout << a << " "; print(b...); } 
+template<typename T>
+void _debug(T a) {
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
+    cout << a;
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
+    cout << "]" << endl;
+}
+template<typename T, typename... Args>
+void _debug(T a, Args... b) {
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
+    cout << a;
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
+    cout << ",\t";
+    _debug(b...);
+}
+template<typename... Args>
+void debug(Args... b) { cout << '['; _debug(b...); }
+ 
+void swap(ll &x,ll &y){
+    ll temp = y;
+    y = x;
+    x = temp;
+}
+string dectobin(ll n)
+{
+    string s = bitset<64> (n).to_string();
+    const auto loc1 = s.find('1');
+    if(loc1 != string::npos)
+        return s.substr(loc1);
+    return "0";
 }
 
 void solve() {
@@ -179,6 +211,6 @@ signed main() {
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed
-
+    
     return 0;
 }
