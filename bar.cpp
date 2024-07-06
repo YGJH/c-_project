@@ -6,9 +6,9 @@ signed main() {
 	//wstring_convert<codecvt_utf8<wchar_t>> utf8;
 	//wstring ws = ";
 	//string s = utf8.to_bytes(ws);
-	const char *tmp = "█";
+	char *tmp = "\█";
 	const char cc = '%';
-	const long long N = 1000000;
+	const long long N = 1000;
 	double per = 0;
 	auto st = std::chrono::high_resolution_clock::now();
 	for(i = 1  ; i <= N ; i++) {

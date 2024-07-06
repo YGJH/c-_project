@@ -120,7 +120,7 @@ So as I pray, "Unlimited Blade Works".
 using ll = long long;
 #define endl '\n'
 #define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
-#define int long long
+//ff#define int long long
 #define ld long double
 constexpr ld rad = 0.01745329252;
 // #define int __int128
@@ -135,26 +135,26 @@ using namespace std;
 // -----------------------------------------------
 //template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
  
-ostream& operator<<(ostream& os , __int128 x) {
-  char st[128];
-  int now = 0;
-  if(x<0) x=-x,putchar('-');
-  while(x){
-    st[now++] = x % 10 + 48;
-    x/=10;
-  }
-  while(now){ putchar(st[--now]);}
-  return os;
-}
-istream& operator>>(istream& is , __int128 &x){
-  x=0;
-  char c = getchar();
-  bool w = 0;
-  while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
-  while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
-  if(w)x=-x;
-  return is;
-}
+// ostream& operator<<(ostream& os , __int128 x) {
+//   char st[128];
+//   int now = 0;
+//   if(x<0) x=-x,putchar('-');
+//   while(x){
+//     st[now++] = x % 10 + 48;
+//     x/=10;
+//   }
+//   while(now){ putchar(st[--now]);}
+//   return os;
+// }
+// istream& operator>>(istream& is , __int128 &x){
+//   x=0;
+//   char c = getchar();
+//   bool w = 0;
+//   while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
+//   while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
+//   if(w)x=-x;
+//   return is;
+// }
 
 template<typename T>
 ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
@@ -212,5 +212,7 @@ signed main() {
     // freopen("output.txt", "w", stdout);
     ishowspeed
     
+
+
     return 0;
 }
