@@ -111,6 +111,7 @@ So as I pray, "Unlimited Blade Works".
 * 2305843009213693951, 4611686018427387847
 * 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
+#include <random>
 #define mk make_pair
 #define pb push_back
 #define pll pair<long long ,long long>
@@ -156,63 +157,63 @@ using namespace std;
 //   return is;
 // }
 
-template<typename T>
-ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
-template<typename T>
-istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
-template<typename T>
-void print(T a) { cout << a << endl; }
-template<typename T, typename... Args>
-void print(T a, Args... b) { cout << a << " "; print(b...); } 
-template<typename T>
-void _debug(T a) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << "]" << endl;
-}
-template<typename T, typename... Args>
-void _debug(T a, Args... b) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << ",\t";
-    _debug(b...);
-}
-template<typename... Args>
-void debug(Args... b) { cout << '['; _debug(b...); }
+// template<typename T>
+// ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
+// template<typename T>
+// istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
+// template<typename T>
+// void print(T a) { cout << a << endl; }
+// template<typename T, typename... Args>
+// void print(T a, Args... b) { cout << a << " "; print(b...); } 
+// template<typename T>
+// void _debug(T a) {
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << a;
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << "]" << endl;
+// }
+// template<typename T, typename... Args>
+// void _debug(T a, Args... b) {
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << a;
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << ",\t";
+//     _debug(b...);
+// }
+// template<typename... Args>
+// void debug(Args... b) { cout << '['; _debug(b...); }
  
-void swap(ll &x,ll &y){
-    ll temp = y;
-    y = x;
-    x = temp;
-}
-string dectobin(ll n)
-{
-    string s = bitset<64> (n).to_string();
-    const auto loc1 = s.find('1');
-    if(loc1 != string::npos)
-        return s.substr(loc1);
-    return "0";
-}
+// void swap(ll &x,ll &y){
+//     ll temp = y;
+//     y = x;
+//     x = temp;
+// }
+// string dectobin(ll n)
+// {
+//     string s = bitset<64> (n).to_string();
+//     const auto loc1 = s.find('1');
+//     if(loc1 != string::npos)
+//         return s.substr(loc1);
+//     return "0";
+// }
 
-void solve() {
+// void solve() {
 
-}
+// }
 
 signed main() {
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
+    uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed
     
-
+    cout << 34 << endl;
 
     return 0;
 }

@@ -1,10 +1,9 @@
 {
-	"version": "2.0.0",
 	"tasks": [
 		{
 			"type": "cppbuild",
 			"label": "C/C++: g++.exe 建置使用中檔案",
-			"command": "C:\\MinGW\\bin\\g++.exe",
+			"command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
@@ -19,7 +18,7 @@
 				"$gcc"
 			],
 			"group": "build",
-			"detail": "編譯器: C:\\MinGW\\bin\\g++.exe"
+			"detail": "編譯器: C:\\msys64\\ucrt64\\bin\\g++.exe"
 		}
 	]
 }
