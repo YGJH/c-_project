@@ -134,7 +134,7 @@ using namespace std;
 // ----------------------------------------------
 
 // -----------------------------------------------
-template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+//template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
  
 // ostream& operator<<(ostream& os , __int128 x) {
 //   char st[128];
@@ -157,54 +157,93 @@ template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_o
 //   return is;
 // }
 
-template<typename T>
-ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
-template<typename T>
-istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
-template<typename T>
-void print(T a) { cout << a << endl; }
-template<typename T, typename... Args>
-void print(T a, Args... b) { cout << a << " "; print(b...); } 
-template<typename T>
-void _debug(T a) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << "]" << endl;
-}
-template<typename T, typename... Args>
-void _debug(T a, Args... b) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << ",\t";
-    _debug(b...);
-}
-template<typename... Args>
-void debug(Args... b) { cout << '['; _debug(b...); }
+// template<typename T>
+// ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
+// template<typename T>
+// istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
+// template<typename T>
+// void print(T a) { cout << a << endl; }
+// template<typename T, typename... Args>
+// void print(T a, Args... b) { cout << a << " "; print(b...); } 
+// template<typename T>
+// void _debug(T a) {
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << a;
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << "]" << endl;
+// }
+// template<typename T, typename... Args>
+// void _debug(T a, Args... b) {
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << a;
+//     if (typeid(a) == typeid(char)) cout << '\'';
+//     if (typeid(a) == typeid(string)) cout << '\"';
+//     cout << ",\t";
+//     _debug(b...);
+// }
+// template<typename... Args>
+// void debug(Args... b) { cout << '['; _debug(b...); }
  
-void swap(ll &x,ll &y){
-    ll temp = y;
-    y = x;
-    x = temp;
-}
-string dectobin(ll n)
-{
-    string s = bitset<64> (n).to_string();
-    const auto loc1 = s.find('1');
-    if(loc1 != string::npos)
-        return s.substr(loc1);
-    return "0";
-}
+// void swap(ll &x,ll &y){
+//     ll temp = y;
+//     y = x;
+//     x = temp;
+// }
+// string dectobin(ll n)
+// {
+//     string s = bitset<64> (n).to_string();
+//     const auto loc1 = s.find('1');
+//     if(loc1 != string::npos)
+//         return s.substr(loc1);
+//     return "0";
+// }
 
-void solve() {
+// void solve() {
 
-}
-
+// }
+#define PB push_back
+#define FZ(x) memset(x, 0, sizeof(x)) //fill zero
+const int MXN = 1e3;
+struct Scc{
+  int n, nScc, vst[MXN], bln[MXN];
+  vector<int> E[MXN], rE[MXN], vec;
+  void init(int _n){
+    n = _n;
+    for (int i=0; i<= n; i++)
+      E[i].clear(), rE[i].clear();
+  }
+  void addEdge(int u, int v){
+    E[u].PB(v); rE[v].PB(u);
+  }
+  void DFS(int u){
+    vst[u]=1;
+    for (auto v : E[u]) if (!vst[v]) DFS(v);
+    vec.PB(u);
+  }
+  void rDFS(int u){
+    vst[u] = 1; bln[u] = nScc;
+    for (auto v : rE[u]) if (!vst[v]) rDFS(v);
+  }
+  void solve(){
+    nScc = 0;
+    vec.clear();
+    fill(vst, vst+n+1, 0);
+    for (int i=0; i<n; i++)
+      if (!vst[i]) DFS(i);
+    reverse(vec.begin(),vec.end());
+    fill(vst, vst+n+1, 0);
+    for (auto v : vec)
+      if (!vst[v]){
+        rDFS(v); nScc++;
+      }
+  }
+};
+int coin[1e5+2];
+vector<int> edge[1e5+2];
+Scc scc;
 signed main() {
     mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
@@ -212,6 +251,23 @@ signed main() {
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed
-
+    int n , m;
+    cin >> n >> m;
+    scc.init(n);
+    for(int i = 0 ; i < n ; i++) {
+        cin >> coin[i];
+    }
+    for(int i = 0 ; i < m ; i++) {
+        int a , b;
+        cin >> a >> b;
+        scc.addEdge(a , b);
+    }
+    scc.solve();
+    int sum[1e5];
+    
+    for(int i = 0 ; i < n ; i++ ) {
+        sum[scc.bln[i]] += coin[i];
+    }
+    for(int i)
     return 0;
 }

@@ -1,42 +1,50 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-typedef tuple<ll , int , int> node;
-typedef pair<int,int> pii;
-vector<pii> G[2000];
-ll E[20000];
-priority_queue<node , vector<node> , greater<node>> dijk;
-bitset<200005> vis;
-ll dis[20000] ;
-vector<int> ans;
+using ll = long long;
+struct Edge{
+    int u , v , rd;
+    ll w;
+    Edge() : u(-1) , v(-1) , w(0) {}
+    Edge(int _u , int _v , int _w , int _rd) : u(_u) , v(_v), rd(_rd) , w(_w) {}
+    friend bool operator<(const Edge &a , const Edge &b) {
+        return a.w > b.w;
+    }
+};
+
+
+constexpr int MXN = 3e5;
+vector<Edge> adj[MXN];
+
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int n , m ; cin >> n >> m;
-    for(int i = 1 , u , v ; i <= m ; i ++) {
-        cin >> u >> v >> E[i];
-        G[u].emplace_back(i, v);
-        G[v].emplace_back(i, u);
+    ios_base::sync_with_stdio(0); cin.tie(0) ; cout.tie(0);
+    int n , m;
+    cin >> n >> m;
+    for (int i = 0 ; i < m ; i++) {
+        int a , b , c;
+        cin >> a >> b >> c; a-- , b--;
+        adj[a].emplace_back(a , b , c , i);
+        adj[b].emplace_back(b , a , c , i);
     }
-    memset(dis , 0x3f , sizeof(dis));
-    dis[1] = 0;
-    for ( const auto &nn : G[1]) {
-        dijk.emplace(E[nn.first] , nn.second , nn.first);
-    }
-    while(dijk.size()) {
-        auto {d , cur, ci} = dijk.top();
-        dijk.pop();
-        if(vis[cur]) continue;
-        vis[cur] = 1;
-        ans.push_back(ci);
-        for ( const auto &[i , nxt] : G[cur]) {
-            if(vis[nxt]) continue;
-            if(d + E[i] < dis[nxt]) {
-                dis[nxt] = d + E[i];
-                dijk.emplace(d + E[i] , nxt , i);
+    priority_queue<Edge> pq;
+    vector<ll> dis(n , 1e18);
+    vector<bool> vis(n , false);
+    vector<int> ans;
+    dis[0] = 0;
+    pq.emplace(0 , 0 , 0 , -1);
+    while(!pq.empty()) {
+        auto cur = pq.top() ; pq.pop();
+        if(vis[cur.v]) continue;
+        vis[cur.v] = true;
+        ans.push_back(cur.rd);
+        for(auto &next: adj[cur.v]) {
+            if(dis[next.v] > dis[next.u] + next.w) {
+                dis[next.v] = dis[next.u] + next.w;
+                pq.emplace(next.u , next.v , dis[next.v] , next.rd);
             }
         }
     }
-    for ( const auto & i : ans) cout << i << ' ';
-    return 0;
+    for( int i = 1 ; i < ans.size() ; i++) {
+        cout << ans[i] + 1 << ' ';
+    }
+    
 }

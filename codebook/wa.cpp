@@ -113,141 +113,44 @@ So as I pray, "Unlimited Blade Works".
 #include <bits/stdc++.h>
 #define mk make_pair
 #define pb push_back
-#define pll pair<long long ,long long>
-#define pi acos(-1)
-#define all(x) (x).begin(),(x).end()
-#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
-using ll = long long;
+#define ishowspeed ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define endl '\n'
-#define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
-//ff#define int long long
-#define ld long double
-constexpr ld rad = 0.01745329252;
-// #define int __int128
-#define MOD 1000000009
-#define cr(x) (x<<1)
-#define cl(x) (x<<1)|1
-#define mmax(a,b) (a > b)?a:b
-#define mmin(a,b) (a<b)?a:b
+#define int long long
 using namespace std;
-// ----------------------------------------------
-
-// -----------------------------------------------
-//template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
- 
-// ostream& operator<<(ostream& os , __int128 x) {
-//   char st[128];
-//   int now = 0;
-//   if(x<0) x=-x,putchar('-');
-//   while(x){
-//     st[now++] = x % 10 + 48;
-//     x/=10;
-//   }
-//   while(now){ putchar(st[--now]);}
-//   return os;
-// }
-// istream& operator>>(istream& is , __int128 &x){
-//   x=0;
-//   char c = getchar();
-//   bool w = 0;
-//   while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
-//   while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
-//   if(w)x=-x;
-//   return is;
-// }
-
-template<typename T>
-ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
-template<typename T>
-istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
-template<typename T>
-void print(T a) { cout << a << endl; }
-template<typename T, typename... Args>
-void print(T a, Args... b) { cout << a << " "; print(b...); } 
-template<typename T>
-void _debug(T a) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << "]" << endl;
-}
-template<typename T, typename... Args>
-void _debug(T a, Args... b) {
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << a;
-    if (typeid(a) == typeid(char)) cout << '\'';
-    if (typeid(a) == typeid(string)) cout << '\"';
-    cout << ",\t";
-    _debug(b...);
-}
-template<typename... Args>
-void debug(Args... b) { cout << '['; _debug(b...); }
- 
-void swap(ll &x,ll &y){
-    ll temp = y;
-    y = x;
-    x = temp;
-}
-string dectobin(ll n)
-{
-    string s = bitset<64> (n).to_string();
-    const auto loc1 = s.find('1');
-    if(loc1 != string::npos)
-        return s.substr(loc1);
-    return "0";
-}
-
-    struct NODE{
-        int tar , val , num;
-    };
-    const int MXN = 3e5;
-    int n , m , tmp1 , tmp2 , tmp3;
-    vector<NODE> edge[MXN];
-    vector<int> heap;
-    int dis[MXN];
-    const int INF = 0x3f3f3f3f;
-void heapfy(int now) {
-    int c0 = now;
-    int c1 = (now << 1) + 1;
-    int c2 = (now << 1) + 2;
-    if(heap[now] > heap[c1]) {
-        now = c1;
+using ll=long long;
+// #define int long long
+struct Node {
+    int st , des; 
+    ll id;
+    ll dis;
+    Node(int st_ ,int des_ , int dis_ , int id_) :st(st_), des(des_) , dis(dis_) , id(id_) {};
+    Node() : st(0) , des(0),dis(0) , id(0){};
+    friend bool operator<(const Node &a , const Node &b) {
+        return a.dis > b.dis;
     }
-    if(heap[now] > heap[c2]) {
-        now = c2;
-    }
-    if(now != c0) {
-        swap(heap[now] , heap[c0]);
-        heapfy(now);
-    }
-    return ;
-}
-void build_heap() {
-    for(int i = 0 ; i < n ; i++) {
-        heapfy(i);
-    }
-}
-// set<int> ans;
+};
+const int MXN = 3e6;
+const int INF = 1e18;
+vector<ll> dis(MXN , INF);
+vector<vector<Node>> edge(MXN);
+int n , m;
 vector<int> ans;
-unordered_map<int , bool> vis;
-void solve( ) {
-    vis[1] = 1;
-    priority_queue<pair<int,int> , vector<pair<int,int>> , greater<pair<int,int>>> que;
-    que.push({1 , 0});
+vector<bool> vis(MXN , false);
+void solve() {
+    priority_queue<Node> que;
+    que.push({1 , 0  , 0 , 0});
+    dis[1] = 0;
     while(!que.empty()) {
-        auto nb = que.top();
-        que.pop();
-        if(vis[nb.first] && nb.first != 1) continue;
-        vis[nb.first] = 1;
-        // ans.insert(nb.second);
-        ans.pb(nb.second);
-        // cerr << nb.second << endl;
-        for(auto now : edge[nb.first]) {
-            if(!vis[now.tar]) {
-                que.push({now.tar, now.num});
+        auto nb = que.top(); que.pop();
+        if(vis[nb.st]) continue;
+        vis[nb.st] = 1;
+        // cerr << nb.st << ' ' << nb.id << endl;
+        ans.emplace_back(nb.id);
+        for(auto &nxt : edge[nb.st]) {
+            // cerr << dis[nxt.des] << ' ' << dis[nxt.st] << ' ' << nxt.dis << endl;
+            if(dis[nxt.des] > dis[nxt.st] + nxt.dis) {
+                dis[nxt.des] = dis[nxt.st] + nxt.dis;
+                que.push({nxt.des , 0 , dis[nxt.des] , nxt.id});
             }
         }
     }
@@ -260,12 +163,12 @@ signed main() {
     // freopen("output.txt", "w", stdout);
     ishowspeed
     cin >> n >> m ;
+    int tmp1 , tmp2 , tmp3;
     for(int i = 1 ; i <= m ; i++) {
         cin >> tmp1 >> tmp2 >> tmp3;
-        edge[tmp1].pb({tmp2 , tmp3 , i});
-        edge[tmp2].pb({tmp1 , tmp3 , i});
+        edge[tmp1].pb({tmp1 , tmp2 , tmp3 , i});
+        edge[tmp2].pb({tmp2 , tmp1 , tmp3 , i});
     }
-    memset(dis, INF ,sizeof(dis));
     solve();
     for(auto &i : ans) {
         if( i!=0 ) {

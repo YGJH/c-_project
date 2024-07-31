@@ -1,12 +1,16 @@
 {
+	"version": "2.0.0",
 	"tasks": [
 		{
 			"type": "cppbuild",
 			"label": "C/C++: g++.exe 建置使用中檔案",
-			"command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+			"command": "C:\\msys64\\usr\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
+				// "-O3",
+				// "-Ofast",
+				"-std=c++23",
 				"${file}",
 				"-o",
 				"${fileDirname}\\exe_file\\${fileBasenameNoExtension}.exe"
@@ -18,7 +22,7 @@
 				"$gcc"
 			],
 			"group": "build",
-			"detail": "編譯器: C:\\msys64\\ucrt64\\bin\\g++.exe"
+			"detail": "編譯器: C:\\msys64\\usr\\bin\\g++.exe"
 		}
 	]
 }
