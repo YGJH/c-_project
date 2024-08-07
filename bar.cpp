@@ -6,7 +6,7 @@ signed main() {
 	//wstring_convert<codecvt_utf8<wchar_t>> utf8;
 	//wstring ws = ";
 	//string s = utf8.to_bytes(ws);
-	char *tmp = "\█";
+	const char *tmp = "█";
 	const char cc = '%';
 	const long long N = 1000;
 	double per = 0;

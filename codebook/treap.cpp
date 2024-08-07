@@ -5,9 +5,13 @@ mt19937 gen(chrono::steady_clock::now().time_since_epoch().count());
 struct Treap
 {
     Treap *l, *r;
-    int pri, key, sz;
+    int pri, key, sz , mn;
     Treap(){};
     Treap(int val_) : pri(gen()), key(val_), sz(1) { l = r = nullptr; }
+    /*
+    最小值的
+    Treap(int val_) : pri(gen()), key(val_), mn(val_) , sz(1) { l = r = nullptr; }
+    */
 };
 const int MXN = 2e5;
 int arr[MXN];
@@ -20,8 +24,27 @@ void build()
     }
     return;
 }
-int Size(Treap *x) { return x ? x-- > sz : 0; }
+/*
+以下兩個都是用來找最小值時用到的
+int getMn(Treap *x) { return x ? x->mn : 0;}
+void pull(Treap *x) {
+    x->sz = Size(x->l) + Size(x->r) + 1;
+    x->mn = min(min(getMn(x->l) , getMn(x->r)) , x->key);
+}
+
+求[L, R]區間內最小值
+void getMin() {
+    Treap *l , *m , *r;
+    splitByKth(root , R , l , r);
+    splitByKth(l , L-1 , l , m);
+    cout << m->mn << endl;
+    //合併回去
+    root = merge(l , merge(m , r));
+}
+*/
+
 // 自己的大小  = 左子樹大小 + 自己 + 右子樹大小
+int Size(Treap *x) { return x ? x -> sz : 0; }
 
 void pull(Treap *x) { x->sz = Size(x->l) + Size(l->r) + 1; }
 
@@ -83,6 +106,46 @@ void splitByKth(Treap *x, int k, Treap *&a, Treap *&b)
         splitByKth(x->l, k, a, b->l);
         pull(b); //更新大小
     }
+}
+
+/*
+再新增打大小為x的元素時需要先把Treap分成兩半，一半小於等於x一半打於x
+如此以來即可使用merge()合併
+*/
+void insert(int x)
+{
+    Treap *left, *right;
+    splitByKey(root, x, left, right);
+    root = merge(left, merge(new Treap(x), right));
+    return;
+}
+/*
+Treap 中刪除一個值為x的元素
+splitByKey 分成兩堆 Treap l (<= x) 以及 Treap r (> x) 的
+splitByKey 把 l 再分成兩堆 Treap l (< x) 以及 Treap m (= x) 的
+這時我們就有三個樹堆 < x, = x, > x
+如果要刪除全部值為 x 的元素，則直接 root = merge(l, r)
+只刪除一個值為 x 的元素用以下寫法，合併 l (< x), r(> x), m 的左右子樹
+即為只刪除一個元素而已
+root = merge(merge(l, merge(m->l, m->r)), r)
+*/
+void erasse()
+{
+    Treap *l, *mid, *r;
+    splitByKey(root, val, l, r); // 把小於等於val的丟到l
+    splitByKey(l, val - 1, l, mid); // 小於val的丟到l , 等於val 的就會在mid裡
+    root = merge(merge(l, merge(m->l, m->r, )), r); // 將除了節點 m 以外的合併
+}
+
+/*
+修改第i個位置的值成x
+*/
+void addjust(int i , int x) {
+    Treap* l , *m , *r;
+    splitByKth(root , i , l , r);
+    splitByKth(l , i-1 , l , m);
+    m->key = m -> mn = x;
+    root = merge(l , merge(m , r));
 }
 
 int32_t main() { return 0; }
