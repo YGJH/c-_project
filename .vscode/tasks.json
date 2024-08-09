@@ -8,8 +8,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				// "-O3",
-				// "-Ofast",
+				"-Wall",
+				"-O3",
+				"-Ofast",
 				"-std=c++23",
 				"${file}",
 				"-o",
