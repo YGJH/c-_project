@@ -61,7 +61,11 @@
     "type_traits": "cpp",
     "tuple": "cpp",
     "ostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "rope": "cpp"
   },
   "cmake.configureOnOpen": false
 }

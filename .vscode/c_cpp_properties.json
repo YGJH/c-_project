@@ -3,14 +3,15 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/home/charles/Downloads/SDL2-2.30.6/include/**",
+                "/home/charles/Downloads/SDL2-2.30.6/src/**"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c23",
             "intelliSenseMode": "${default}",
             "cppStandard": "c++23"
