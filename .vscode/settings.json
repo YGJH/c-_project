@@ -3,7 +3,9 @@
   "editor.mouseWheelZoom": true,
   "[cpp]": {
       "editor.defaultFormatter": "xaver.clang-format"
-  },
+      
+    },
+  "clang-format.executable": "/bin/clang-format",
   "C_Cpp.clang_format_sortIncludes": true,
   "editor.dragAndDrop": false,
   "files.autoSave": "afterDelay",

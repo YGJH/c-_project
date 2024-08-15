@@ -3,18 +3,15 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++.exe 建置使用中檔案",
-			"command": "C:\\msys64\\usr\\bin\\g++.exe",
+			"label": "C/C++: clang++ 建置使用中檔案",
+			"command": "/usr/bin/clang++",
 			"args": [
-				"-fdiagnostics-color=always",
+				"-fcolor-diagnostics",
+				"-fansi-escape-codes",
 				"-g",
-				"-Wall",
-				// "-O3",
-				// "-Ofast",
-				"-std=c++23",
 				"${file}",
 				"-o",
-				"${fileDirname}\\..\\bin\\${fileBasenameNoExtension}.exe"
+				"${fileDirname}/../bin/${fileBasenameNoExtension}"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -23,7 +20,7 @@
 				"$gcc"
 			],
 			"group": "build",
-			"detail": "編譯器: C:\\msys64\\usr\\bin\\g++.exe"
+			"detail": "編譯器: /usr/bin/clang++"
 		}
 	]
 }
