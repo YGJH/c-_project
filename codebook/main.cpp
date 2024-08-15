@@ -159,7 +159,7 @@ So as I pray, "Unlimited Blade Works".
 * 2305843009213693951, 4611686018427387847
 * 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
-#include <random>
+#include <bits/extc++.h>
 #define mk make_pair
 #define pb push_back
 #define pll pair<long long ,long long>
@@ -179,31 +179,32 @@ constexpr ld rad = 0.01745329252;
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
+using namespace __gnu_pbds;
 // ----------------------------------------------
 
 // -----------------------------------------------
 template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
  
-// ostream& operator<<(ostream& os , __int128 x) {
-//   char st[128];
-//   int now = 0;
-//   if(x<0) x=-x,putchar('-');
-//   while(x){
-//     st[now++] = x % 10 + 48;
-//     x/=10;
-//   }
-//   while(now){ putchar(st[--now]);}
-//   return os;
-// }
-// istream& operator>>(istream& is , __int128 &x){
-//   x=0;
-//   char c = getchar();
-//   bool w = 0;
-//   while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
-//   while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
-//   if(w)x=-x;
-//   return is;
-// }
+ostream& operator<<(ostream& os , __int128 x) {
+  char st[128];
+  int now = 0;
+  if(x<0) x=-x,putchar('-');
+  while(x){
+    st[now++] = x % 10 + 48;
+    x/=10;
+  }
+  while(now){ putchar(st[--now]);}
+  return os;
+}
+istream& operator>>(istream& is , __int128 &x){
+  x=0;
+  char c = getchar();
+  bool w = 0;
+  while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
+  while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
+  if(w)x=-x;
+  return is;
+}
 
 template<class T, T M> class modular {
 
@@ -300,9 +301,9 @@ void solve() {
 }
 
 signed main() {
-    mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
-    uniform_int_distribution<> gen(1 , 10);
+    // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed

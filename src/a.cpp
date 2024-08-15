@@ -46,12 +46,7 @@
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞                        ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
-⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞*/
-
-
-
-
-/*
+⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 I am the bone of my sword.
 Steel is my body, and fire is my blood.
 I have created over a thousand blades.
@@ -164,53 +159,49 @@ So as I pray, "Unlimited Blade Works".
  * 2305843009213693951, 4611686018427387847
  * 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
-#define mk make_pair
-#define pb push_back
-#define pll pair<long long, long long>
-#define pi acos(-1)
-#define all(x) (x).begin(), (x).end()
+#define mk         make_pair
+#define pb         push_back
+#define pll        pair<long long, long long>
+#define pi         acos(-1)
+#define all(x)     (x).begin(), (x).end()
 #define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr), cout.tie(0);
 using ll = long long;
-#define endl '\n'
+#define endl      '\n'
 #define lcm(a, b) ((a) * (b)) / __gcd(a, b)
 // ff#define int long long
 #define ld long double
 constexpr ld rad = 0.01745329252;
 // #define int __int128
-#define MOD 1000000009
-#define cr(x) (x << 1)
-#define cl(x) (x << 1) | 1
+#define MOD        1000000009
+#define cr(x)      (x << 1)
+#define cl(x)      (x << 1) | 1
 #define mmax(a, b) (a > b) ? a : b
 #define mmin(a, b) (a < b) ? a : b
 using namespace std;
-// ----------------------------------------------
 
-// -----------------------------------------------
-// template<typename T> using pbds = tree<T, null_type, less<T>,
-// rb_tree_tag,tree_order_statistics_node_update>;
+ostream& operator<<(ostream& os , __int128 x) {
+  char st[128];
+  int now = 0;
+  if(x<0) x=-x,putchar('-');
+  while(x){
+    st[now++] = x % 10 + 48;
+    x/=10;
+  }
+  while(now){ putchar(st[--now]);}
+  return os;
+}
+istream& operator>>(istream& is , __int128 &x){
+  x=0;
+  char c = getchar();
+  bool w = 0;
+  while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
+  while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
+  if(w)x=-x;
+  return is;
+}
 
-// ostream& operator<<(ostream& os , __int128 x) {
-//   char st[128];
-//   int now = 0;
-//   if(x<0) x=-x,putchar('-');
-//   while(x){
-//     st[now++] = x % 10 + 48;
-//     x/=10;
-//   }
-//   while(now){ putchar(st[--now]);}
-//   return os;
-// }
-// istream& operator>>(istream& is , __int128 &x){
-//   x=0;
-//   char c = getchar();
-//   bool w = 0;
-//   while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
-//   while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
-//   if(w)x=-x;
-//   return is;
-// }
-
-template <class T, T M> class modular
+template <class T, T M>
+class modular
 {
 
   public:
@@ -224,7 +215,8 @@ template <class T, T M> class modular
         if (value >= M)
             value %= M;
     }
-    template <class P> modular(P val)
+    template <class P>
+    modular(P val)
     {
         value = val;
         value %= M;
@@ -245,10 +237,7 @@ template <class T, T M> class modular
     modular operator+(modular m) { return modular(value + m.value); }
     modular operator-(modular m) { return modular(value - m.value); }
     modular operator*(modular m) { return modular(value * m.value); }
-    modular operator/(modular m)
-    {
-        return modular(value * pow(m.value, M - 2));
-    } // works if M is prime
+    modular operator/(modular m) { return modular(value * pow(m.value, M - 2)); } // works if M is prime
     modular operator+=(modular m)
     {
         *this = operator+(m);
@@ -291,14 +280,10 @@ template <class T, T M> class modular
         operator--();
         return r;
     }
-    template <class P> friend modular operator-(P v, modular m)
-    {
-        return modular(v - m.value);
-    }
-    template <class P> friend modular operator/(P v, modular m)
-    {
-        return modular(v) / m;
-    }
+    template <class P>
+    friend modular operator-(P v, modular m) { return modular(v - m.value); }
+    template <class P>
+    friend modular operator/(P v, modular m) { return modular(v) / m; }
     T get() { return value; }
     // operator T() {return value;}
 
@@ -324,24 +309,42 @@ template <class T, T M> class modular
 template <typename T>
 ostream &operator<<(ostream &os, vector<T> &intermediate_array)
 {
-    for (auto &a : intermediate_array)
-        os << a << ' ';
+    bool f = 0;
+    for (auto &a : intermediate_array) {
+        if (!f) {
+            f = 1;
+            continue;
+        } else {
+            os << a << ' ';
+        }
+    }
     return os;
 }
 template <typename T>
 istream &operator>>(istream &is, vector<T> &intermediate_array)
 {
+    bool f = 0;
     for (auto &a : intermediate_array)
-        is >> a;
+        if (!f) {
+            f = 1;
+            a = 0;
+            continue;
+        } else {
+            is >> a;
+        }
     return is;
 }
-template <typename T> void print(T a) { cout << a << endl; }
-template <typename T, typename... Args> void print(T a, Args... b)
+
+template <typename T>
+void print(T a) { cout << a << endl; }
+template <typename T, typename... Args>
+void print(T a, Args... b)
 {
     cout << a << " ";
     print(b...);
 }
-template <typename T> void _debug(T a)
+template <typename T>
+void _debug(T a)
 {
     if (typeid(a) == typeid(char))
         cout << '\'';
@@ -354,7 +357,8 @@ template <typename T> void _debug(T a)
         cout << '\"';
     cout << "]" << endl;
 }
-template <typename T, typename... Args> void _debug(T a, Args... b)
+template <typename T, typename... Args>
+void _debug(T a, Args... b)
 {
     if (typeid(a) == typeid(char))
         cout << '\'';
@@ -368,7 +372,8 @@ template <typename T, typename... Args> void _debug(T a, Args... b)
     cout << ",\t";
     _debug(b...);
 }
-template <typename... Args> void debug(Args... b)
+template <typename... Args>
+void debug(Args... b)
 {
     cout << '[';
     _debug(b...);
@@ -388,76 +393,45 @@ string dectobin(ll n)
         return s.substr(loc1);
     return "0";
 }
-void solve()
-{
-    bool first = 1;
-    int n ;
-    cin >> n ;
-    bitset<200005> vi;
-    vi.reset();
-    bool follow = 1;
-    vector<int> pas(n); cin >> pas;
-    for(auto i : pas) {
-        if(first) {
-            vi[i]=1;
-            first = 0;
-            continue;
+void solve() {
+    // kya kar rha hai tu
+    ll n;
+    cin >> n;
+    vector<ll>v(n), pre(n + 1, 0);
+    for (ll i = 0; i < n; ++i)
+    {
+        /* code */cin >> v[i];
+        if (i == 0) {
+            pre[1] = v[i];
         }
         else {
-            if(i == 1){
-                if(vi[i+1]) {
-                    vi[i]=1;
-                    continue;
-                }
-                else {
-                    follow = 0;
-                    break;
-                }
-            }else if(i == n) {
-                if(vi[i-1]) {
-                    vi[i]=1;
-                    continue;
-                }
-                else {
-                    follow = 0;
-                    break;
-                }
-            }else {
-                if(vi[i-1] || vi[i+1]) {
-                    vi[i]=1;
-                    continue;
-                }
-                else {
-                    follow = 0;
-                    break;
-                }
-            }
+            pre[i + 1] = pre[i] + v[i];
         }
-        // debug(vi , i);
-
     }
-    if(follow) {
-        cout << "YES" << endl;
-        return;
+    string s;
+    cin >> s;
+    ll sum = 0;
+    ll l = 1, r = n;
+    while (l < r) {
+        if (s[l - 1] != 'L')l++;
+        if (s[r - 1] != 'R')r--;
+        if (s[l - 1] == 'L' && s[r - 1] == 'R') {
+            sum += (pre[r] - pre[l - 1]);
+            l++, r--;
+        }
     }
-    else {
-        cout << "NO" << endl;
-        return ;
-    }
-    return ;
-
+    cout << sum << endl;
+ 
+ 
+ 
 }
-signed main()
-{
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
-    // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
-    ishowspeed
-    int T; cin >> T;
-    while(T--) {
+int main() {
+    ios_base::sync_with_stdio(false),
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) {
         solve();
     }
-    return 0;
+ 
 }
