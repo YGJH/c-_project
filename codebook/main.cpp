@@ -159,7 +159,8 @@ So as I pray, "Unlimited Blade Works".
 * 2305843009213693951, 4611686018427387847
 * 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
-#include <random>
+#include <bits/extc++.h>
+// #include <SDL2/SDL.h>
 #define mk make_pair
 #define pb push_back
 #define pll pair<long long ,long long>
@@ -179,6 +180,7 @@ constexpr ld rad = 0.01745329252;
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
+using namespace __gnu_pbds;
 // ----------------------------------------------
 
 // -----------------------------------------------
@@ -252,9 +254,9 @@ template<class T, T M> class modular {
 };
 
 template<typename T>
-ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cout << a << ' '; return os; }
+ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) os << a << ' '; return os; }
 template<typename T>
-istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) cin >> a; return is; }
+istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) is >> a; return is; }
 template<typename T>
 void print(T a) { cout << a << endl; }
 template<typename T, typename... Args>
