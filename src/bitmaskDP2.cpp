@@ -46,12 +46,7 @@
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞                        ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 ⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
-⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞*/
-
-
-
-
-/*
+⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞⁞
 I am the bone of my sword.
 Steel is my body, and fire is my blood.
 I have created over a thousand blades.
@@ -157,38 +152,40 @@ So as I pray, "Unlimited Blade Works".
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 // 競程者的吟唱
 /* 12721, 13331, 14341, 75577, 123457, 222557, 556679
- * 999983, 1097774749, 1076767633, 100102021, 999997771
- * 1001010013, 1000512343, 987654361, 999991231
- * 999888733, 98789101, 987777733, 999991921, 1010101333
- * 1010102101, 1000000000039, 1000000000000037
- * 2305843009213693951, 4611686018427387847
- * 9223372036854775783, 18446744073709551557 */
+* 999983, 1097774749, 1076767633, 100102021, 999997771
+* 1001010013, 1000512343, 987654361, 999991231
+* 999888733, 98789101, 987777733, 999991921, 1010101333
+* 1010102101, 1000000000039, 1000000000000037
+* 2305843009213693951, 4611686018427387847
+* 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
+#include <bits/extc++.h>
+// #include <SDL2/SDL.h>
 #define mk make_pair
 #define pb push_back
-#define pll pair<long long, long long>
+#define pll pair<long long ,long long>
 #define pi acos(-1)
-#define all(x) (x).begin(), (x).end()
-#define ishowspeed ios_base::sync_with_stdio(0), cin.tie(nullptr), cout.tie(0);
+#define all(x) (x).begin(),(x).end()
+#define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
 using ll = long long;
 #define endl '\n'
-#define lcm(a, b) ((a) * (b)) / __gcd(a, b)
-// ff#define int long long
+#define lcm(a , b) ((a) * (b)) / __gcd(a ,b)
+//ff#define int long long
 #define ld long double
 constexpr ld rad = 0.01745329252;
 // #define int __int128
 #define MOD 1000000009
-#define cr(x) (x << 1)
-#define cl(x) (x << 1) | 1
-#define mmax(a, b) (a > b) ? a : b
-#define mmin(a, b) (a < b) ? a : b
+#define cr(x) (x<<1)
+#define cl(x) (x<<1)|1
+#define mmax(a,b) (a > b)?a:b
+#define mmin(a,b) (a<b)?a:b
 using namespace std;
+using namespace __gnu_pbds;
 // ----------------------------------------------
 
 // -----------------------------------------------
-// template<typename T> using pbds = tree<T, null_type, less<T>,
-// rb_tree_tag,tree_order_statistics_node_update>;
-
+template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+ 
 // ostream& operator<<(ostream& os , __int128 x) {
 //   char st[128];
 //   int now = 0;
@@ -210,200 +207,132 @@ using namespace std;
 //   return is;
 // }
 
-template <class T, T M> class modular
-{
+template<class T, T M> class modular {
 
-  public:
-    T value;
-    modular(T val = T())
-    {
-        value = val;
-        value %= M;
-        while (value < 0)
-            value += M;
-        if (value >= M)
-            value %= M;
-    }
-    template <class P> modular(P val)
-    {
-        value = val;
-        value %= M;
-        while (value < 0)
-            value += M;
-        if (value >= M)
-            value %= M;
-    }
+	public:
+	T value;
+	modular(T val=T()) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	template<class P> modular(P val) {
+		value = val;
+		value %= M; while(value<0)value+=M; if(value>=M)value%=M;
+	}
+	
+	T pow(T a, T b) {
+		T ret=1;
+		for(a%=M; b; b>>=1, a=a*a%M) if(b&1) ret=ret*a%M;
+		return ret;
+	}
+	modular operator+(modular m) {return modular(value+m.value);}
+	modular operator-(modular m) {return modular(value-m.value);}
+	modular operator*(modular m) {return modular(value*m.value);}
+	modular operator/(modular m) {return modular(value*pow(m.value, M-2));} // works if M is prime
+	modular operator+=(modular m) {*this=operator+(m); return *this;}
+	modular operator-=(modular m) {*this=operator-(m); return *this;}
+	modular operator*=(modular m) {*this=operator*(m); return *this;}
+	modular operator/=(modular m) {*this=operator/(m); return *this;}
+	modular operator++() {*this=operator+(1); return *this;}
+	modular operator++(int) {modular r=*this; operator++(); return r;}
+	modular operator--() {*this=operator-(1); return *this;}
+	modular operator--(int) {modular r=*this; operator--(); return r;}
+	template<class P> friend modular operator-(P v, modular m) {return modular(v-m.value);}
+	template<class P> friend modular operator/(P v, modular m) {return modular(v)/m;}
+	T get() {return value;}
+	//operator T() {return value;}
 
-    T pow(T a, T b)
-    {
-        T ret = 1;
-        for (a %= M; b; b >>= 1, a = a * a % M)
-            if (b & 1)
-                ret = ret * a % M;
-        return ret;
-    }
-    modular operator+(modular m) { return modular(value + m.value); }
-    modular operator-(modular m) { return modular(value - m.value); }
-    modular operator*(modular m) { return modular(value * m.value); }
-    modular operator/(modular m)
-    {
-        return modular(value * pow(m.value, M - 2));
-    } // works if M is prime
-    modular operator+=(modular m)
-    {
-        *this = operator+(m);
-        return *this;
-    }
-    modular operator-=(modular m)
-    {
-        *this = operator-(m);
-        return *this;
-    }
-    modular operator*=(modular m)
-    {
-        *this = operator*(m);
-        return *this;
-    }
-    modular operator/=(modular m)
-    {
-        *this = operator/(m);
-        return *this;
-    }
-    modular operator++()
-    {
-        *this = operator+(1);
-        return *this;
-    }
-    modular operator++(int)
-    {
-        modular r = *this;
-        operator++();
-        return r;
-    }
-    modular operator--()
-    {
-        *this = operator-(1);
-        return *this;
-    }
-    modular operator--(int)
-    {
-        modular r = *this;
-        operator--();
-        return r;
-    }
-    template <class P> friend modular operator-(P v, modular m)
-    {
-        return modular(v - m.value);
-    }
-    template <class P> friend modular operator/(P v, modular m)
-    {
-        return modular(v) / m;
-    }
-    T get() { return value; }
-    // operator T() {return value;}
+	bool operator==(modular m) {return value==m.value;}
+	bool operator!=(modular m) {return value!=m.value;}
+	bool operator<(modular m) {return value<m.value;}
+	bool operator>(modular m) {return value>m.value;}
+	bool operator<=(modular m) {return value<=m.value;}
+	bool operator>=(modular m) {return value>=m.value;}
 
-    bool operator==(modular m) { return value == m.value; }
-    bool operator!=(modular m) { return value != m.value; }
-    bool operator<(modular m) { return value < m.value; }
-    bool operator>(modular m) { return value > m.value; }
-    bool operator<=(modular m) { return value <= m.value; }
-    bool operator>=(modular m) { return value >= m.value; }
-
-    friend istream &operator>>(istream &is, modular &m)
-    {
-        is >> m.value;
-        return is;
-    }
-    friend ostream &operator<<(ostream &os, modular m)
-    {
-        os << m.value;
-        return os;
-    }
+	friend istream& operator>>(istream& is, modular& m) {is>>m.value; return is;}
+	friend ostream& operator<<(ostream& os, modular m) {os<<m.value; return os;}
 };
 
-template <typename T>
-ostream &operator<<(ostream &os, vector<T> &intermediate_array)
-{
-    for (auto &a : intermediate_array)
-        os << a << ' ';
-    return os;
-}
-template <typename T>
-istream &operator>>(istream &is, vector<T> &intermediate_array)
-{
-    for (auto &a : intermediate_array)
-        is >> a;
-    return is;
-}
-template <typename T> void print(T a) { cout << a << endl; }
-template <typename T, typename... Args> void print(T a, Args... b)
-{
-    cout << a << " ";
-    print(b...);
-}
-template <typename T> void _debug(T a)
-{
-    if (typeid(a) == typeid(char))
-        cout << '\'';
-    if (typeid(a) == typeid(string))
-        cout << '\"';
+template<typename T>
+ostream& operator<<(ostream& os, vector<T>& intermediate_array) { for (auto& a : intermediate_array) os << a << ' '; return os; }
+template<typename T>
+istream& operator>>(istream& is, vector<T>& intermediate_array) { for (auto& a : intermediate_array) is >> a; return is; }
+template<typename T>
+void print(T a) { cout << a << endl; }
+template<typename T, typename... Args>
+void print(T a, Args... b) { cout << a << " "; print(b...); } 
+template<typename T>
+void _debug(T a) {
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
     cout << a;
-    if (typeid(a) == typeid(char))
-        cout << '\'';
-    if (typeid(a) == typeid(string))
-        cout << '\"';
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
     cout << "]" << endl;
 }
-template <typename T, typename... Args> void _debug(T a, Args... b)
-{
-    if (typeid(a) == typeid(char))
-        cout << '\'';
-    if (typeid(a) == typeid(string))
-        cout << '\"';
+template<typename T, typename... Args>
+void _debug(T a, Args... b) {
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
     cout << a;
-    if (typeid(a) == typeid(char))
-        cout << '\'';
-    if (typeid(a) == typeid(string))
-        cout << '\"';
+    if (typeid(a) == typeid(char)) cout << '\'';
+    if (typeid(a) == typeid(string)) cout << '\"';
     cout << ",\t";
     _debug(b...);
 }
-template <typename... Args> void debug(Args... b)
-{
-    cout << '[';
-    _debug(b...);
-}
-
-void swap(ll &x, ll &y)
-{
+template<typename... Args>
+void debug(Args... b) { cout << '['; _debug(b...); }
+ 
+void swap(ll &x,ll &y){
     ll temp = y;
     y = x;
     x = temp;
 }
 string dectobin(ll n)
 {
-    string s = bitset<64>(n).to_string();
+    string s = bitset<64> (n).to_string();
     const auto loc1 = s.find('1');
-    if (loc1 != string::npos)
+    if(loc1 != string::npos)
         return s.substr(loc1);
     return "0";
 }
-void solve()
-{
 
-    return ;
-}
-signed main()
-{
-    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+
+signed main() {
+    mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
-    // uniform_int_distribution<> gen(1 , 10);
+    uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed
-    int T; cin >> T;
-    while(T--) {
-        solve();
+    int n , x;
+    cin >> n >> x;
+    int wei[n+1];
+    vector<pair<int,int>> dp(1<<n , {0,0});
+    dp[0].first=0;
+    dp[0].second=1;
+    for(int i = 1 ; i <= n ; i++) {
+        cin >> wei[i];
+        dp[i].second = 1;
+        dp[i].first = wei[i];
     }
+    // int mask = 0 ;
+    int mask = 0;
+    for(int i = 2 ; i < (1 << n) ; i++) {
+        for(int j = 0 ; j < n ; j++) {
+            if( (i & (1 << j)) && 
+                !(mask & (1<<j) ) ) {
+                if(dp[i].first + wei[j] <= x) {
+                   dp[i].second += dp[i^(1<<j)].second;
+                   dp[i].first += wei[j];
+                } else {
+                    dp[i].second += dp[i^(1<<j)].second + 1;
+                    dp[i].first += wei[j];
+                }
+                mask |= (1 << j);
+            }
+        }
+    }
+    cout << dp[(1<<n)-1].second << endl;
     return 0;
 }

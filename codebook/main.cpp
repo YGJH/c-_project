@@ -183,8 +183,11 @@ using namespace std;
 using namespace __gnu_pbds;
 // ----------------------------------------------
 
-// -----------------------------------------------
-template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+// ----------------------------------------------
+// 如果沒有重複數字
+template<typename T> using pbds_no_equal   = tree<T, null_type, less<T>, 	   rb_tree_tag, tree_order_statistics_node_update>;
+
+template<typename T> using pbds_with_equal = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
  
 // ostream& operator<<(ostream& os , __int128 x) {
 //   char st[128];

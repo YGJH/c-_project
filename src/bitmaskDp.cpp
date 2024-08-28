@@ -1,9 +1,4 @@
-#pragma G++ optimize(3)
-#pragma G++ optimize("-Ofast")
-#pragma G++ optimize("inline")
-
-// #include <bits/stdc++.h>
-#include <iostream>
+#include <bits/stdc++.h>
 #define ll long long
 #define fastio ios::sync_with_stdio(0), cin.tie(0)
 
@@ -39,7 +34,12 @@ int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout.tie(0);
-    solve();
+
+    int t = 1;
+    // cin >> t;
+    while(t--)
+    {
+        solve();
+    }
     return 0;
 }

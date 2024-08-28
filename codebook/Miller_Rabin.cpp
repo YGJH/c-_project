@@ -1,0 +1,68 @@
+#include <iostream>
+using LL = long long;
+// n < 4,759,123,141        3 :  2, 7, 61
+// n < 1,122,004,669,633    4 :  2, 13, 23, 1662803
+// n < 3,474,749,660,383          6 :  pirmes <= 13
+// n < 2^64                       7 :
+// 2, 325, 9375, 28178, 450775, 9780504, 1795265022
+// Make sure testing integer is in range [2, n−2] if
+// you want to use magic.
+/*用法
+那因為他是一個隨機化的算法，所以它並不是百分百正確，而是機率正確，那錯誤要怎麼改正呢?
+就是取決於你取用的底數，對於這個算法來說你選取誰去做底數是非常重要的
+在int範圍內 選取{1 , 7 , 61}
+會使得這個算法百分百正確
+在以上的範圍，則寫在模板裡面，可以直接看模板用。
+就是每次拿底數去跟
+做一些探索，使得可以快速分辨他是否為質數。
+是否為質數。*/
+LL magic[] = {1 , 7, 61};
+bool witness(LL a, LL n, LL u, int t)
+{
+    if (!a)
+        return 0;
+    LL x = mypow(a, u, n);
+    for (int i = 0; i < t; i++)
+    {
+        LL nx = mul(x, x, n);
+        if (nx == 1 && x != 1 && x != n - 1)
+            return 1;
+        x = nx;
+    }
+    return x != 1;
+}
+bool miller_rabin(LL n)
+{
+    int s = (magic number size)
+        // iterate s times of witness on n
+        if (n < 2) return 0;
+    if (!(n & 1))
+        return n == 2;
+    ll u = n - 1;
+    int t = 0;
+    // n-1 = u*2^t
+    while (!(u & 1))
+        u >>= 1, t++;
+    while (s--)
+    {
+        LL a = magic[s] % n;
+        if (witness(a, n, u, t))
+            return 0;
+    }
+    return 1;
+}
+
+int32_t main()
+{
+    int c;
+    cin >> c;
+    if (miller_rabin(c))
+    {
+        cout << "prime\n";
+    }
+    else
+    {
+        cout << "not_prime\n";
+    }
+    return 0;
+}
