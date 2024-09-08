@@ -40,6 +40,3 @@ struct trie{
     }
 };
 trie *root = new trie();
-signed main() {
-
-}

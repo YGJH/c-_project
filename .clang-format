@@ -6,7 +6,7 @@ Language:        Cpp
 # ColumnLimit:    120
 IndentWidth:     4
 TabWidth:        4
-UseTab:          Never
+UseTab:          true
 # IndentCaseLabels: false
 # MaxEmptyLinesToKeep: 1
 BreakBeforeBraces: Allman

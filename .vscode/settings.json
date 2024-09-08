@@ -1,5 +1,6 @@
 {
   "workbench.colorTheme": "Monokai Vibrant",
+  "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
   "editor.mouseWheelZoom": true,
   "[cpp]": {
       "editor.defaultFormatter": "xaver.clang-format"
@@ -59,7 +60,28 @@
     "type_traits": "cpp",
     "tuple": "cpp",
     "ostream": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "bitset": "cpp",
+    "algorithm": "cpp",
+    "format": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "vector": "cpp",
+    "string_view": "cpp",
+    "rope": "cpp",
+    "slist": "cpp",
+    "generator": "cpp",
+    "initializer_list": "cpp",
+    "ranges": "cpp",
+    "stacktrace": "cpp",
+    "text_encoding": "cpp",
+    "regex": "cpp",
+    "valarray": "cpp"
   },
   "cmake.configureOnOpen": false
 }

@@ -1,13 +1,3 @@
-/*
- *
- * The Modular Class template
- * Author: revival0728
- *
- * Test with: https://cses.fi/problemset/task/1079/
- * Status: AC
- * 
- */
-
 #include <bits/stdc++.h>
 using namespace std;
 

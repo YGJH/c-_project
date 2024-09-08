@@ -388,6 +388,7 @@ string dectobin(ll n)
         return s.substr(loc1);
     return "0";
 }
+
 void solve()
 {
 
