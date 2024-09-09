@@ -159,7 +159,11 @@ So as I pray, "Unlimited Blade Works".
 * 2305843009213693951, 4611686018427387847
 * 9223372036854775783, 18446744073709551557 */
 #include <bits/stdc++.h>
+#ifdef pbds
 #include <bits/extc++.h>
+using namespace __gnu_pbds;
+template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+#endif
 // #include <SDL2/SDL.h>
 #define mk make_pair
 #define pb push_back
@@ -180,32 +184,6 @@ constexpr ld rad = 0.01745329252;
 #define mmax(a,b) (a > b)?a:b
 #define mmin(a,b) (a<b)?a:b
 using namespace std;
-using namespace __gnu_pbds;
-// ----------------------------------------------
-
-// -----------------------------------------------
-template<typename T> using pbds = tree<T, null_type, less<T>, rb_tree_tag,tree_order_statistics_node_update>;
- 
-// ostream& operator<<(ostream& os , __int128 x) {
-//   char st[128];
-//   int now = 0;
-//   if(x<0) x=-x,putchar('-');
-//   while(x){
-//     st[now++] = x % 10 + 48;
-//     x/=10;
-//   }
-//   while(now){ putchar(st[--now]);}
-//   return os;
-// }
-// istream& operator>>(istream& is , __int128 &x){
-//   x=0;
-//   char c = getchar();
-//   bool w = 0;
-//   while(c < 48 || c > 57) {w |= (c=='-'); c = getchar();}
-//   while(c>47&&c<58) { x = (x << 1) + (x << 3) + (c & 15); c = getchar(); }
-//   if(w)x=-x;
-//   return is;
-// }
 
 template<class T, T M> class modular {
 
@@ -296,43 +274,48 @@ string dectobin(ll n)
         return s.substr(loc1);
     return "0";
 }
-
-
+constexpr int MXN = 20;
+int n , wei_lim;
+long long wei[MXN];
 signed main() {
-    mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+    // mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
     // mt19937 mt(hash<string>(":poop:"));
-    uniform_int_distribution<> gen(1 , 10);
+    // uniform_int_distribution<> gen(1 , 10);
     // freopen("input.txt", "r", stdin);
     // freopen("output.txt", "w", stdout);
     ishowspeed
-    int n , x;
-    cin >> n >> x;
-    int wei[n+1];
-    vector<pair<int,int>> dp(1<<n , {0,0});
-    dp[0].first=0;
-    dp[0].second=1;
-    for(int i = 1 ; i <= n ; i++) {
-        cin >> wei[i];
-        dp[i].second = 1;
-        dp[i].first = wei[i];
-    }
-    // int mask = 0 ;
-    int mask = 0;
-    for(int i = 2 ; i < (1 << n) ; i++) {
+    cin >> n >> wei_lim;
+   
+    for(int i = 0 ; i < n ; i++) cin >> wei[i];
+    vector<pair<int ,long long>> dp(1<<n , {100 , 1e18});
+    dp[0].first = 0;
+    dp[0].second = 0;
+    for(int i = 1 ; i < (1<<n) ; i++) {
         for(int j = 0 ; j < n ; j++) {
-            if( (i & (1 << j)) && 
-                !(mask & (1<<j) ) ) {
-                if(dp[i].first + wei[j] <= x) {
-                   dp[i].second += dp[i^(1<<j)].second;
-                   dp[i].first += wei[j];
-                } else {
-                    dp[i].second += dp[i^(1<<j)].second + 1;
-                    dp[i].first += wei[j];
-                }
-                mask |= (1 << j);
+            if(!(i&(1<<j))) continue;
+            int nn = i ^ (1<<j);
+            auto now = dp[nn];
+            if(now.second + wei[j] > wei_lim) {
+                now.second = wei[j];
+                now.first++;
+            }
+            else {
+                now.second += wei[j];
+            }
+            if(dp[i].first > now.first
+            || (dp[i].first == now.first && dp[i].second > now.second)) {
+                dp[i] = now;
             }
         }
     }
-    cout << dp[(1<<n)-1].second << endl;
+    // for(int i = 0 ; i < n ; i++) {
+    //     cout << dp[i] << ' ';
+    // }
+    cout << dp[(1<<n)-1].first + 1<< endl;
+
+
+// Print one integer: the minimum number of rides.
+
+
     return 0;
 }
