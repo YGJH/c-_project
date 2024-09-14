@@ -1,5 +1,5 @@
 Language:        Cpp
-# BasedOnStyle:  LLVM
+BasedOnStyle:  LLVM
 # AllowShortFunctionsOnASingleLine: None
 # AllowShortIfStatementsOnASingleLine: false
 # AllowShortLoopsOnASingleLine: false
@@ -9,7 +9,7 @@ TabWidth:        4
 UseTab:          true
 # IndentCaseLabels: false
 # MaxEmptyLinesToKeep: 1
-BreakBeforeBraces: Allman
+# BreakBeforeBraces: Allman
 # SpaceBeforeParens: ControlStatements
 # SpaceBeforeAssignmentOperators: true
 # SpaceAfterAssignmentOperators: true

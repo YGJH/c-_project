@@ -81,7 +81,10 @@
     "stacktrace": "cpp",
     "text_encoding": "cpp",
     "regex": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "*.tcc": "cpp",
+    "any": "cpp",
+    "system_error": "cpp"
   },
   "cmake.configureOnOpen": false
 }

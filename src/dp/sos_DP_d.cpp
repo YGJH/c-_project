@@ -2,55 +2,57 @@
 using namespace std;
 #define ll long long
 #define pb push_back
-#define lowbit(x) x&-x
-constexpr int MXN = 2e5 + 5;
-int n ;
-
-int ar[MXN];
-int d[1e6+1];
-int dd[1e6+1];
-int dp[1e6+1];
-struct BIT{
-    vector<int> bit(1e6+1, 0);
-    int n = 1e6 + 1;
-    void upadte(int pos , int val) {
-        for( ; pos < n ; pos += lowbit(pos)) {
-            bit[pos] += val;
-        }
-        return;
-    }
-    long long query(int pos) {
-        long long ret = 0;
-        for( ; pos ; pos -= lowbit(pos)) {
-            ret += bit[pos];
-        }
-        return ret;
-    }
-}bb;
-long long rang_que(int l , int r) {
-    return bb.query(r) - bb.query(l-1);
+#define endl '\n'
+#define lowbit(x) x & -x
+constexpr int MXN = (1 << 20) + 5, N = (1 << 20);
+ll dp1[MXN], dp2[MXN], arr[MXN];
+template<typename T>
+inline void re(T &a) {
+	a = 0;
+	char c = getchar();
+	while (c < '0' || c > '9')
+		c = getchar();
+	while (c >= '0' && c <= '9')
+		a = (a << 1) + (a << 3) + (c & 15), c=getchar();
+	return;
 }
-void rang_up(int l , int r) {
-    bb.update(l - 1, -1);
-    bb.update(r , 1);
+template<typename T>
+inline void wr(T a) {
+	char cm[10];
+	int now = 0;
+	while (a)
+		cm[now++] = a % 10 + 48, a /= 10;
+	while (now)
+		putchar(cm[--now]);
+	return;
 }
+int n;
 int32_t main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    memset(d, 0 , sizeof(d));
-    memset(dd, 0 , sizeof(dd));
-    memset(dp, 0 , sizeof(dp));
-    memset(pre, 0 , sizeof(pre));
-    cin >> n;
-    for(int i = 0 ; i < n ; i++) {
-        cin >> ar[i];
-        dp[ar[i]]++;
-        d[ar[i]]++;
-        dd[ar[i]]++;
-
-    }
-
-
-    return 0;
+	// ios_base::sync_with_stdio(0);
+	// cin.tie(0);
+	// cout.tie(0);
+	// cin >> n;
+	re(n);
+	for (int i = 0; i < n; i++) {
+		// cin >> arr[i];
+		re(arr[i]);
+		dp1[arr[i]]++, dp2[arr[i]]++;
+	}
+	for (int i = 0; i < 20; i++) {
+		for (int mask = 0; mask < N; mask++) {
+			if ((mask & (1 << i)))
+				dp1[mask] += dp1[mask ^ (1 << i)];
+			else
+				dp2[mask] += dp2[mask ^ (1 << i)];
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		wr(dp1[arr[i]]);
+		putchar(' ');
+		wr(dp2[arr[i]]);
+		putchar(' ');
+		wr(n - dp1[arr[i] ^ (N - 1)]);
+        putchar('\n');
+	}
+	return 0;
 }
