@@ -105,82 +105,92 @@ So as I pray, "Unlimited Blade Works".
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
-
-// mt19937 gen(chrono::steady_clock::now().time_since_epoch().count());
-struct Treap {
-	int pri, sz;
-	char key;
-	Treap *l, *r;
-	Treap(char key_) {
-		key = key_, pri = rand(), sz = 1;
-		l = r = nullptr;
+int n , m;
+bool w;
+char c;
+inline void re(int &a) {
+	a=0;
+	c=getchar();
+	w=0;
+	while(c<'0'||c>'9') w|=(c=='-'), c=getchar();
+	while(c>='0' && c<='9')a=(a<<1)+(a<<3)+(c&15) , c=getchar();
+	if(w) a=-a;
+	return ;
+}
+int nn;
+char st[40];
+inline void wr(int a) {
+	if(a==0){
+		putchar('0');
+		return ;
 	}
-};
-int l, r;
-int n, q;
-string arr;
-Treap *root = nullptr;
-int Size(Treap *x) { return x ? x->sz : 0; }
-void pull(Treap *x) { x->sz = Size(x->l) + Size(x->r) + 1; }
-Treap *merge(Treap *a, Treap *b) {
-	if (!a || !b)
-		return a ? a : b;
-	if (a->pri > b->pri) {
-		a->r = merge(a->r, b);
-		pull(a);
-		return a;
-	} else {
-		b->l = merge(a, b->l);
-		pull(b);
-		return b;
+	if(a<0) {
+		putchar('-') , a=-a;
 	}
-}
-
-void split_by_size(Treap *x, int k, Treap *&a, Treap *&b) {
-	if (!x) {
-		a = b = nullptr;
-	} else if (Size(x->l) + 1 <= k) {
-		a = x;
-		split_by_size(x->r, k - Size(x->l) - 1, a->r, b);
-		pull(a);
-	} else {
-		b = x;
-		split_by_size(x->l, k, a, b->l);
-		pull(b);
+	while(a) {
+		st[nn++] = a%10 +'0';
+		a/=10;
 	}
+	while(nn) {
+		putchar(st[--nn]);
+	}
+	return ;
 }
-
-inline void build() {
-    for(int i = 0 ; i < n ; i++) {
-        root = merge(root , new Treap(arr[i]));
-    }
-}
-string ans = "";
-void dfs(Treap *a) {
-	if (!a)
-		return;
-	dfs(a->l);
-	ans.push_back(a->key);
-	dfs(a->r);
-}
+// unordered_map<int , int> mp;
+vector<int> mp;
+// vector<int> mp(1e9)
+int arr[2001];
+int out[2001];
 int32_t main() {
-	srand(time(NULL));
-	ios_base::sync_with_stdio(0);
-	cin.tie(0);
-	cin >> n >> q;
-    cin >> arr;
-    build();
-	Treap *le, *rr, *midd;
-	while (q--) {
-		cin >> l >> r;
-		split_by_size(root, r, le, rr);
-		split_by_size(le, l - 1, le, midd);
-		root = merge(le, merge(rr, midd));
+	// ios_base::sync_with_stdio(0);
+	// cin.tie(0);
+	// cin >> n >> m;
+	re(n) , re(m);
+	for(int i = 0 ; i < n ; i++) {
+		re(arr[i]);
+		// cin >> arr[i];
 	}
-	dfs(root);
-    int now = 0;
-    while(n>now){
-        putchar(ans[now++]);
-    }
-	return 0;
+	for(int j = 0 ; j < m ; j++) {
+		re(out[j]);
+		// cin >> out[j];
+	}
+	int mx = 0;
+	int ans = 1e9;
+	int j=0, i=0;
+	// int cou = min(m , n);
+	bool kk = 0;
+	for(i = 0 ; i < n ; i++) {
+		for(j = 0 ; j < m ; j++) {
+			if(out[j] - arr[i] < 0) continue;
+			mp.push_back(out[j] - arr[i]);
+			// cerr << out[j]-arr[i] << endl;
+			// mp[out[j] - arr[i]]+=1;
+			kk=1;
+		}
+	}
+	if(!kk) {
+		putchar('0');
+		return 0;
+	}
+	sort(mp.begin() , mp.end());
+	int now = mp[0] , count = 0;
+	for(auto &a : mp) {
+		if(now==a) {
+			count++;
+		}
+		else {
+			if(mx < count) {
+				mx = count;
+				ans = now;
+			}
+			count=1;
+		}
+		now = a;
+	}
+	if(count > mx){
+		ans = *prev(mp.end());
+	}
+	wr(ans);
+ 
+	return 0;	
 }

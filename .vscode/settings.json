@@ -84,7 +84,10 @@
     "valarray": "cpp",
     "*.tcc": "cpp",
     "any": "cpp",
-    "system_error": "cpp"
+    "system_error": "cpp",
+    "complex": "cpp",
+    "random": "cpp",
+    "limits": "cpp"
   },
   "cmake.configureOnOpen": false
 }

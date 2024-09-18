@@ -165,6 +165,7 @@ So as I pray, "Unlimited Blade Works".
 #define pll pair<long long ,long long>
 #define pi acos(-1)
 #define all(x) (x).begin(),(x).end()
+#define fk cout<<"fk"<<endl
 #define ishowspeed ios_base::sync_with_stdio(0),cin.tie(nullptr) , cout.tie(0);
 using ll = long long;
 #define endl '\n'

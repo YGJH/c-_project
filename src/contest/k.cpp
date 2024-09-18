@@ -3,11 +3,12 @@ using namespace std;
 using ld = long double;
 #define all(x) (x).begin(),(x).end()
 #define PB push_back
+// #define int long double
 #define max(a,b) (a>b)?a:b
 const ld eps = 1e-8, PI = acos(-1);
 struct Pt {  // 定義點
-    long long x, y;
-    Pt(int _x = 0, int _y = 0) : x(_x), y(_y) {}
+    long double x, y;
+    Pt(long double _x = 0, int _y = 0) : x(_x), y(_y) {}
     bool operator==(const Pt& a) const { return (a.x == x && a.y == y); }
     Pt operator+(const Pt& a) const { return Pt(x + a.x, y + a.y); }
     Pt operator-(const Pt& a) const { return Pt(x - a.x, y - a.y); }
@@ -102,8 +103,8 @@ int ori(const Pt& o, const Pt& a, const Pt& b) {
 // }
  
 long double distance( Pt a, Pt b ){
-    long double len_x = abs(a.x- b.x);
-    long double len_y = abs(a.y- b.y);
+    long double len_x = fabs(a.x- b.x);
+    long double len_y = fabs(a.y- b.y);
     return sqrt(len_x * len_x + len_y * len_y);
 }
  
