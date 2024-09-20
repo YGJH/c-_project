@@ -87,7 +87,9 @@
     "system_error": "cpp",
     "complex": "cpp",
     "random": "cpp",
-    "limits": "cpp"
+    "limits": "cpp",
+    "utility": "cpp",
+    "xstring": "cpp"
   },
   "cmake.configureOnOpen": false
 }

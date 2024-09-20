@@ -16,8 +16,34 @@
 	// 	"description": "Log output to console"
 	// }
 	"cpp": {
-		"prefix":["ishowspeed"],
-		"body": ["ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);"],
+		"prefix": [
+			"ishowspeed"
+		],
+		"body": [
+			"ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);"
+		],
+		"description": "default code"
+	},
+	"cpp": {
+		"prefix": [
+			"fastio"
+		],
+		"body": [
+			"bool w = 0; char c ;",
+			"inline void re(int&a) {",
+			"c = getchar();	a = 0; while(c < '0' || c > '9') w|=(c=='-') , c=getchar();",
+			"while(c >= '0' && c <= '9') a = (a<<1) + (a<<3) + (c&15) , c = getchar();",
+			"if(w) a=-a;",
+			"return ;}",
+			"char st[30] ; int kkkk = 0;",
+			"inline void wr(int a) {",
+			"if(a==0) { putchar('0') ; return ;}",
+			"if(a<0)putchar('-') , a=-a;",
+			"while(a) { st[kkkk++] = a % 10 + '0' , a/=10;}",
+			"while(kkkk) { putchar(st[--kkkk]);}",
+			"return ;}"
+		],
 		"description": "default code"
 	}
+	
 }

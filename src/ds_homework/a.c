@@ -9,7 +9,6 @@ typedef struct{
 pol* head;
 
 int horner(pol* n , int x , int val) {
-    printf("val = %d\n" , val);    
     return (n->nxt && n->level != 0) ? horner(n->nxt , x , (val + n->coeff)*x ) : n->coeff+val;
 }
 
@@ -29,7 +28,6 @@ int main(){
         tmp = tmp->nxt;
         tmp->coeff = v;
         tmp->level = i;
-        printf("i = %d\n" , i);
         tmp->nxt = NULL;
     }
     int x;
