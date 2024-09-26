@@ -89,7 +89,12 @@
     "random": "cpp",
     "limits": "cpp",
     "utility": "cpp",
-    "xstring": "cpp"
+    "xstring": "cpp",
+    "ios": "cpp",
+    "xtree": "cpp",
+    "xutility": "cpp",
+    "memory": "cpp",
+    "xiosbase": "cpp"
   },
   "cmake.configureOnOpen": false
 }

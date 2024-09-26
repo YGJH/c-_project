@@ -103,7 +103,7 @@ vector<pair<int, int>> rot;
 int n;
 bool w;
 char c;
-inline void re(int &a) {
+inline void re(auto &a) {
 	a = 0;
 	w = 0;
 	c = getchar();
@@ -117,7 +117,7 @@ inline void re(int &a) {
 }
 int x;
 char st[40];
-inline void wr(int a) {
+inline void wr(auto a) {
 	x = 0;
 	if (a == 0) {
 		putchar('0');

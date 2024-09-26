@@ -1,26 +1,34 @@
 from random import *
-# import os
+import os
 
 # while 1:
 with open("input.out", "w") as data:
-    n = randint(3 , 10)
-    m = randint(3 , 10)
-    data.write(f"{n}\n")
-    data.write(f"{m}\n")
-    ar=[]
-    for i in range(n):
-        ar.append(randint(0 , 100))
-    ar.sort()
-    arr = []
-    for i in range(m):
-        arr.append(randint(0 , 100))
-    arr.sort()
-    for i in range(0,n):
-        data.write(f"{ar[i]} ")
-    data.write('\n')
-    for i in range(0,m):
-        data.write(f"{arr[i]} ")
-    data.write('\n')
+    for i in range(1 , 10):
+        for j in range(1 ,10):
+            data.write(f"{i , j}")
+            os.system("./ac < input.out > ac.out")
+            os.system("cat ac.out")
+                
+    
+    
+    # n = randint(3 , 10)
+    # m = randint(3 , 10)
+    # data.write(f"{n}\n")
+    # data.write(f"{m}\n")
+    # ar=[]
+    # for i in range(n):
+    #     ar.append(randint(0 , 100))
+    # ar.sort()
+    # arr = []
+    # for i in range(m):
+    #     arr.append(randint(0 , 100))
+    # arr.sort()
+    # for i in range(0,n):
+    #     data.write(f"{ar[i]} ")
+    # data.write('\n')
+    # for i in range(0,m):
+    #     data.write(f"{arr[i]} ")
+    # data.write('\n')
             # data.write(f"{randint(-10 , 10)} ")
         # os.system("./test.exe < input.txt")
         # a = int(input())

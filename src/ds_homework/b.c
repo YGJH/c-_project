@@ -1,19 +1,42 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
+#include<stdio.h>
 
-int A(int m , int n) {
-     if(m ==0){
-        return n+1;
-     }
-     else if(n == 0) {
-        return A(m-1 , 1);
-     }
-     else {
-        return A(m-1 , A(m , n - 1));
-     }
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {  // Changed < to >
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
 }
 
-signed main() {
-    printf( "A(3 ,3) = %d\n",A(3 , 3));
+int search(int arr[], int tar, int l, int r) {
+    if (l >= r) {
+        return (arr[l] == tar) ? l : -1;
+    }
+    int mid = (l + r) >> 1;
+    if (arr[mid] > tar) {
+        return search(arr, tar, l, mid);
+    }
+    else {
+        return search(arr, tar, mid + 1, r);
+    }
+}
+
+int main() {
+    int tar;
+    scanf("%d", &tar);
+    int n;
+    scanf("%d", &n);
+    int arr[1000];
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    bubbleSort(arr, n);
+    
+    printf("%d\n", search(arr, tar, 0, n - 1));
     return 0;
 }

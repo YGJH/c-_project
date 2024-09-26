@@ -1,30 +1,77 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-#define int long long
-int N,M,s[2050],e[2050];
-vector<int> cook_time;
-signed main(){
-    ios::sync_with_stdio(0); cin.tie(0);
-    cin>>N>>M;
-    for (int i=0;i<N;i++) cin>>s[i];
-    for (int i=0;i<M;i++) cin>>e[i];
-    for (int i=0;i<N;i++) for (int j=0;j<M;j++) if (e[j]>=s[i]) cook_time.push_back(e[j]-s[i]);
-    sort(cook_time.begin(),cook_time.end());
-    if (!cook_time.size()){
-        cout<<"0\n";
-        return 0;
-    }
-    int ans=cook_time[0],cnt=1,temp=1;
-    for (int i=1;i<cook_time.size();i++){
-        if (cook_time[i]==cook_time[i-1]) temp++;
-        else{
-            if (temp>cnt) ans=cook_time[i-1],cnt=temp,temp=1;
-            else temp=1;
-        }
-    }
-    if (temp>cnt) ans=cook_time[cook_time.size()-1],cnt=temp,temp=1;
-    cout<<ans<<endl;
-    return 0;
+
+int n , m;
+
+bool w = 0;
+char c;
+inline void re(int &a) {
+	c = getchar();
+	a = 0;
+	while (c < '0' || c > '9')
+		w |= (c == '-'), c = getchar();
+	while (c >= '0' && c <= '9')
+		a = (a << 1) + (a << 3) + (c & 15), c = getchar();
+	if (w)
+		a = -a;
+	return;
+}
+char st[30];
+int kkkk = 0;
+inline void wr(int a) {
+	if (a == 0) {
+		putchar('0');
+		return;
+	}
+	if (a < 0)
+		putchar('-'), a = -a;
+	while (a) {
+		st[kkkk++] = a % 10 + '0', a /= 10;
+	}
+	while (kkkk) {
+		putchar(st[--kkkk]);
+	}
+	return;
+}
+int count = 0;
+bool boad[100][100];
+void solve(int x, int y) {
+	if (x > m) {
+		solve(0, y + 1);
+		return;
+	} else if (y >= n) {
+		::count++;
+		return;
+	} else {
+		if (boad[y][x] == 0) {
+			boad[y][x] = 1;
+			solve(y, x + 1);
+			boad[y][x] = 0;
+			if (boad[y][x + 1] == 0) {
+				boad[y][x] = 1;
+				boad[y][x + 1] = 1;
+				solve(y, x + 1);
+				boad[y][x] = 0;
+				boad[y][x + 1] = 0;
+			}
+			if (boad[y + 1][x] == 0) {
+				boad[y][x] = 1;
+				boad[y + 1][x] = 1;
+				solve(y, x + 1);
+				boad[y][x] = 0;
+				boad[y + 1][x] = 0;
+			}
+		} else {
+			solve(y, x + 1);
+		}
+	}
+    return;
+}
+
+
+int main() {
+	re(n), re(m);
+	memset(boad, 0, sizeof(boad));
+	solve(0, 0);
+    wr(::count);
 }
