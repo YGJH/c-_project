@@ -1,13 +1,109 @@
+#pragma GCC optimize(1)
+#pragma GCC optimize(2)
+#pragma GCC optimize(3)
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("inline")
+#pragma GCC optimize("-fgcse")
+#pragma GCC optimize("-fgcse-lm")
+#pragma GCC optimize("-fipa-sra")
+#pragma GCC optimize("-ftree-pre")
+#pragma GCC optimize("-ftree-vrp")
+#pragma GCC optimize("-fpeephole2")
+#pragma GCC optimize("-ffast-math")
+#pragma GCC optimize("-fsched-spec")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("-falign-jumps")
+#pragma GCC optimize("-falign-loops")
+#pragma GCC optimize("-falign-labels")
+#pragma GCC optimize("-fdevirtualize")
+#pragma GCC optimize("-fcaller-saves")
+#pragma GCC optimize("-fcrossjumping")
+#pragma GCC optimize("-fthread-jumps")
+#pragma GCC optimize("-funroll-loops")
+#pragma GCC optimize("-fwhole-program")
+#pragma GCC optimize("-freorder-blocks")
+#pragma GCC optimize("-fschedule-insns")
+#pragma GCC optimize("inline-functions")
+#pragma GCC optimize("-ftree-tail-merge")
+#pragma GCC optimize("-fschedule-insns2")
+#pragma GCC optimize("-fstrict-aliasing")
+#pragma GCC optimize("-fstrict-overflow")
+#pragma GCC optimize("-falign-functions")
+#pragma GCC optimize("-fcse-skip-blocks")
+#pragma GCC optimize("-fcse-follow-jumps")
+#pragma GCC optimize("-fsched-interblock")
+#pragma GCC optimize("-fpartial-inlining")
+#pragma GCC optimize("no-stack-protector")
+#pragma GCC optimize("-freorder-functions")
+#pragma GCC optimize("-findirect-inlining")
+#pragma GCC optimize("-frerun-cse-after-loop")
+#pragma GCC optimize("inline-small-functions")
+#pragma GCC optimize("-finline-small-functions")
+#pragma GCC optimize("-ftree-switch-conversion")
+#pragma GCC optimize("-foptimize-sibling-calls")
+#pragma GCC optimize("-fexpensive-optimizations")
+#pragma GCC optimize("-funsafe-loop-optimizations")
+#pragma GCC optimize("inline-functions-called-once")
+#pragma GCC optimize("-fdelete-null-pointer-checks")
+#pragma G++ optimize(1)
+#pragma G++ optimize(2)
+#pragma G++ optimize(3)
+#pragma G++ optimize("Ofast")
+#pragma G++ optimize("inline")
+#pragma G++ optimize("-fgcse")
+#pragma G++ optimize("-fgcse-lm")
+#pragma G++ optimize("-fipa-sra")
+#pragma G++ optimize("-ftree-pre")
+#pragma G++ optimize("-ftree-vrp")
+#pragma G++ optimize("-fpeephole2")
+#pragma G++ optimize("-ffast-math")
+#pragma G++ optimize("-fsched-spec")
+#pragma G++ optimize("unroll-loops")
+#pragma G++ optimize("-falign-jumps")
+#pragma G++ optimize("-falign-loops")
+#pragma G++ optimize("-falign-labels")
+#pragma G++ optimize("-fdevirtualize")
+#pragma G++ optimize("-fcaller-saves")
+#pragma G++ optimize("-fcrossjumping")
+#pragma G++ optimize("-fthread-jumps")
+#pragma G++ optimize("-funroll-loops")
+#pragma G++ optimize("-fwhole-program")
+#pragma G++ optimize("-freorder-blocks")
+#pragma G++ optimize("-fschedule-insns")
+#pragma G++ optimize("inline-functions")
+#pragma G++ optimize("-ftree-tail-merge")
+#pragma G++ optimize("-fschedule-insns2")
+#pragma G++ optimize("-fstrict-aliasing")
+#pragma G++ optimize("-fstrict-overflow")
+#pragma G++ optimize("-falign-functions")
+#pragma G++ optimize("-fcse-skip-blocks")
+#pragma G++ optimize("-fcse-follow-jumps")
+#pragma G++ optimize("-fsched-interblock")
+#pragma G++ optimize("-fpartial-inlining")
+#pragma G++ optimize("no-stack-protector")
+#pragma G++ optimize("-freorder-functions")
+#pragma G++ optimize("-findirect-inlining")
+#pragma G++ optimize("-frerun-cse-after-loop")
+#pragma G++ optimize("inline-small-functions")
+#pragma G++ optimize("-finline-small-functions")
+#pragma G++ optimize("-ftree-switch-conversion")
+#pragma G++ optimize("-foptimize-sibling-calls")
+#pragma G++ optimize("-fexpensive-optimizations")
+#pragma G++ optimize("-funsafe-loop-optimizations")
+#pragma G++ optimize("inline-functions-called-once")
+#pragma G++ optimize("-fdelete-null-pointer-checks")
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long
 
 using ll = long long;
 constexpr int INF = 1e9;
-constexpr int MXN = 550;
+constexpr int MXN = 100000;
 #define SZ(x) (int)(x).size()
 #define PB push_back
-int n , m;
+int n, k;
+#define SZ(X) (int)(X).size()
+// constexpr int MXN = 1e5+4;
 struct Dinic {
 	struct Edge {
 		int v, f, re;
@@ -68,69 +164,81 @@ struct Dinic {
 		return res;
 	}
 } flow;
-bitset<5500> vis;
+bitset<1000> vis;
 vector<int> ans;
 void dfs(int x) {
-	if(vis[x]) return;
-	vis[x]=1;
-	for(auto &a : flow.E[x]) {
-		if(x == 0) {
+	if (vis[x])
+		return;
+	vis[x] = 1;
+	// cerr << x << endl;
+	for (auto &a : flow.E[x]) {
+		if (x == 0) {
 			dfs(a.v);
 		}
-		else {
-			// cerr << a.f << ' ' << a.v << endl;
-			if(a.f == 0 && a.v > n) {
-				if(!vis[a.v-n])
-					ans[x] = a.v-n;
-				else
-					ans[a.v-n] = 0;
-
-				dfs(a.v-n);
+		if (a.v > n && a.v < n + n + 1) {
+			if (a.f > 0) {
+				ans[a.v] = 0;
+			} else {
+				ans[x] = a.v - n;
+				dfs(a.v - n);
 			}
-
 		}
 	}
 	return;
 }
+int con[550][550];
 void solve() {
-	cin >> n >> m;
-	int tmp1;
-	ans = vector<int>(5500,0);
-	if(n == 1) {
+	cin >> n >> k;
+	// memset(con , 0 , sizeof(con));
+	if (n == 1) {
 		cout << 1 << endl;
 		cout << 0 << endl;
-		return ;
+		return;
 	}
-	flow.init(n + n + 30, 0, n + n + 1);
-	vector<vector<int>> node(m, vector<int>(n));
-	for(int i = 0 ; i < m ; i++) {
-		for(auto &a : node[i]) {
+	int source = 0, tt = n + n + 1;
+	for (int i = 1; i <= n; i++)
+		for (int j = 1; j <= n; j++)
+			con[i][j] = 1;
+	ans = vector<int>(1000, 0);
+	int tmp1;
+	flow.init(n + n + 3, source, tt);
+	// vector<int> node[k + 3];
+	for (int i = 0; i < k; i++) {
+		vector<int> tmp(n);
+		for (auto &a : tmp) {
 			cin >> a;
 		}
-	}
-	for (int i = 0; i < m ; i++) {
 		for(int j = 0 ; j < n ; j++) {
-			if (j != 0) {
-				flow.add_edge(node[i][j-1] , node[i][j] + n , 1);
+			for(int k = j + 1; k < n ; k++) {
+				con[tmp[j]][tmp[k]]=0;
 			}
 		}
 	}
 	for (int i = 1; i <= n; i++) {
-		flow.add_edge(0, i, 1);
-		flow.add_edge(i + n, n + n + 1, 1);
+		flow.add_edge(source, i, 1);
+		flow.add_edge((i + n), tt, 1);
+		for (int j = 1; j <= n; j++) {
+			if (con[j][i] && i != j) {
+				flow.add_edge(i, j + n, 1);
+			}
+		}
 	}
-	cout << flow.flow() << endl;
+	for (int i = 1; i <= n; i++) {
+	}
+	cout << n - flow.flow() << endl;
 	vis.reset();
 	dfs(0);
-	for(int i = 1 ; i <= n ; i++) {
+	for (int i = 1; i <= n; i++) {
 		cout << ans[i] << ' ';
 	}
 	cout << endl;
-	return ;
+	return;
 }
 int32_t main() {
 	int T;
-	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 	cin >> T;
 	while (T--) {
 		solve();

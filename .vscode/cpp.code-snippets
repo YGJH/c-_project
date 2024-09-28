@@ -52,7 +52,7 @@
 			"pragma"
 		],
 		"body": [
-			"#pragma GC optimize(1)",
+			"#pragma GCC optimize(1)",
 			"#pragma GCC optimize(2)",
 			"#pragma GCC optimize(3)",
 			"#pragma GCC optimize(\"Ofast\")",

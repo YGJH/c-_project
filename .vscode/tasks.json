@@ -8,6 +8,7 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
+				"-Wshadow",
 				"${file}",
 				"-o",
 				"${fileDirname}\\..\\bin\\${fileBasenameNoExtension}.exe"
