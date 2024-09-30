@@ -3,24 +3,23 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "C/C++: g++.exe 建置使用中檔案",
-			"command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+			"label": "C/C++: g++ 建置使用中檔案",
+			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"-Wshadow",
 				"${file}",
 				"-o",
-				"${fileDirname}\\..\\bin\\${fileBasenameNoExtension}.exe"
+				"${fileDirname}/../bin/${fileBasenameNoExtension}"
 			],
 			"options": {
-				"cwd": "C:\\msys64\\ucrt64\\bin"
+				"cwd": "${fileDirname}"
 			},
 			"problemMatcher": [
 				"$gcc"
 			],
 			"group": "build",
-			"detail": "編譯器: C:\\msys64\\ucrt64\\bin\\g++.exe"
+			"detail": "編譯器: /usr/bin/g++"
 		}
 	]
 }

@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+#define int long long
 #define SZ(X) (int)(X).size()
 #define PB push_back
 constexpr int MXN = 1e5+4;
@@ -83,22 +83,24 @@ int32_t main() {
     int n , m;
     cin >> n >> m;
     int wei[n];
+    int tar = n + n + 1;
+    constexpr int source = 0;
+    flow.init(n + n + 3 , source , tar);
     for(int i = 1 ; i <= n ; i++) {
         cin >> wei[i];
+        flow.add_edge(source , i , -wei[i]);
     }
-    constexpr int source = 0;
     
-    int tar = n + n + 1;
-    flow.init(n + n + 3 , source , tar);
     for(int i = 0 ; i < m ; i++) {
         int u , v , w;
         cin >> u >> v >> w;
         flow.add_edge(u , v , w);
     }
     for(int i = 1 ; i <= n ; i++) {
-        flow.add_edge(source , i , INF);
+        flow.add_edge(i , tar , 1);
     }
-
+    int ans = flow.flow();
+    cout << ans << endl;
 
     return 0;
 }
