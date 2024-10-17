@@ -3,22 +3,26 @@ using namespace std;
 
 int32_t main() {
 	ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-	int n , k;
-	cin >> n >> k;
-	int sum = 0;
-	int tmp;
-	for(int i = 0 ; i < n ; i++) {
-		cin >> tmp;
-		if(tmp < 0) {
-			sum += tmp;
-		}
-		else if(k > 0) {
-			sum += tmp * -1;
-			k--;
-		}
-		else {
-			sum += tmp;
-		}
+
+	long double a , b , c;
+	cin >> a >> b >> c;
+	if(c==0) {
+		cout << 90 << endl;
+		return 0;
 	}
-	cout << sum << endl;
+	long double ans;
+	long double tmp = (c*2) / (a * b);
+	if(tmp > a) {
+		long double he = (c) / (a * a);
+		long double x = b - he;
+		long double kk = sqrt(a * a + (2 * x) * (2 * x));
+		ans = acos((2*x) / kk);
+	}
+	else {
+		long double x = sqrt(tmp * tmp + b * b);
+		ans = acos(b / x);
+	}
+	ans *= (long double)(180) / (long double)(acos(-1));
+	// cout << tmp << endl;
+	cout << setprecision(10) << fixed << (long double)90 - ans << endl;
 }

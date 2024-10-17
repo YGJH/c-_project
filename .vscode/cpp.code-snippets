@@ -32,7 +32,7 @@
 			"bool w = 0; char c ;",
 			"template<typename T>",
 			"inline void re(T &a) {",
-			"c = getchar();	a = 0; while(c < '0' || c > '9') w|=(c=='-') , c=getchar();",
+			"w=0;c = getchar();	a = 0; while(c < '0' || c > '9') w|=(c=='-') , c=getchar();",
 			"while(c >= '0' && c <= '9') a = (a<<1) + (a<<3) + (c&15) , c = getchar();",
 			"if(w) a=-a;",
 			"return ;}",

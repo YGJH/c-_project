@@ -3,14 +3,14 @@
   "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
   "editor.mouseWheelZoom": true,
   "[cpp]": {
-      "editor.defaultFormatter": "xaver.clang-format"
+      "editor.defaultFormatter": "ms-vscode.cpptools"
   },
   "C_Cpp.clang_format_sortIncludes": true,
   "editor.dragAndDrop": false,
   "files.autoSave": "afterDelay",
   "window.menuBarVisibility": "compact",
   "editor.renderWhitespace": "all",
-  "workbench.sideBar.location": "right",
+  "workbench.sideBar.location": "left",
   "vim.commandLineModeKeyBindingsNonRecursive": [
       {
           "vim.easymotion": true,

@@ -3,8 +3,8 @@ using namespace std;
 #define int long long
 #define SZ(X) (int)(X).size()
 #define PB push_back
-constexpr int MXN = 1e5+4;
-constexpr int INF = 1e18;
+constexpr int MXN = 5000;
+constexpr int INF = 1e15;
 struct Dinic
 {
     struct Edge
@@ -82,25 +82,26 @@ int32_t main() {
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     int n , m;
     cin >> n >> m;
-    int wei[n];
-    int tar = n + n + 1;
-    constexpr int source = 0;
-    flow.init(n + n + 3 , source , tar);
+    int wei[n+3];
+    constexpr int source = 0 ; 
+    int tar = n + m + 2;
+    flow.init(n + m + 4 , source , tar);
     for(int i = 1 ; i <= n ; i++) {
         cin >> wei[i];
-        flow.add_edge(source , i , -wei[i]);
     }
-    
-    for(int i = 0 ; i < m ; i++) {
-        int u , v , w;
-        cin >> u >> v >> w;
-        flow.add_edge(u , v , w);
+    int sum = 0;
+    for(int i = n+1 ; i <= m + n ; i++) {
+        int u , v , f;
+        cin >> u >> v >> f;
+        flow.add_edge(source , i , f);
+        flow.add_edge(i , u , INF);
+        flow.add_edge(i , v , INF);
+        sum += f;
     }
     for(int i = 1 ; i <= n ; i++) {
-        flow.add_edge(i , tar , 1);
+        flow.add_edge(i , tar , wei[i]);
     }
-    int ans = flow.flow();
-    cout << ans << endl;
+    cout << sum - flow.flow() << endl;
 
     return 0;
 }
