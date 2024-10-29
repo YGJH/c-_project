@@ -1,0 +1,1 @@
+{"name":"Local: e","url":"/home/charles/c-_project/src/sqrt/e.cpp","tests":[{"id":1729487235466,"input":"3 2\n1 2 1\n1 2\n1 3\n","output":"3\n6\n"},{"id":1729487238795,"input":"8 3\n1 1 2 2 1 3 1 1\n2 7\n1 6\n2 7\n","output":"20\n20\n20\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/c-_project/src/sqrt/e.cpp","group":"local","local":true}

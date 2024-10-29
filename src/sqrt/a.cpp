@@ -94,144 +94,49 @@
 #pragma G++ optimize("-fdelete-null-pointer-checks")
 #include <bits/stdc++.h>
 using namespace std;
+#define int long long
 
 
-constexpr int mxn = 2e5 + 3;
-bool w = 0;
-char c;
-template <typename T>
-inline void re(T& a)
-{
-    c = getchar();
-    a = 0;
-    while (c < '0' || c > '9')
-        w |= (c == '-'), c = getchar();
-    while (c >= '0' && c <= '9')
-        a = (a << 1) + (a << 3) + (c & 15), c = getchar();
-    if (w)
-        a = -a;
+bool w = 0; char c;
+template<typename T>
+inline void re(T& a) {
+    c = getchar();	a = 0; while (c < '0' || c > '9') w |= (c == '-'), c = getchar();
+    while (c >= '0' && c <= '9') a = (a << 1) + (a << 3) + (c & 15), c = getchar();
+    if (w) a = -a;
     return;
 }
-char st[30];
-int kkkk = 0;
-template <typename T>
-inline void wr(T a)
-{
+char st[30]; int kkkk = 0;
+template<typename T>
+inline void wr(T a) {
     kkkk = 0;
-    if (a == 0)
-    {
-        putchar('0');
-        return;
-    }
-    if (a < 0)
-        putchar('-'), a = -a;
-    while (a)
-    {
-        st[kkkk++] = a % 10 + '0', a /= 10;
-    }
-    while (kkkk)
-    {
-        putchar(st[--kkkk]);
-    }
+    if (a == 0) { putchar('0'); return; }
+    if (a < 0)putchar('-'), a = -a;
+    while (a) { st[kkkk++] = a % 10 + '0', a /= 10; }
+    while (kkkk) { putchar(st[--kkkk]); }
     return;
 }
-struct Edge {
-    // int w , u ,v;
-    int u, v, w;
-    int tag;
-    int num;
-    Edge() {
-        tag = 0;
-    }
-    bool operator<(const Edge& b) const {
-        return w < b.w;
-    }
-    bool operator<(const Edge& b)  {
-        return w < b.w;
-    }
-    bool operator==(const Edge& b) {
-        return w == b.w && u == b.u && v == b.v;
-    }
-    bool operator()(const Edge& b) const {
-        return w < b.w;
-    }
-    bool operator==(Edge& a)  {
-        return w == a.w && v == a.v && w == a.w;
-    }
-    int operator()(const Edge &a) {
-        return a.w;
-    }
 
-};
-vector<Edge> que;
-int f[mxn], sz[mxn];
-int find(int x) {
-    return (x == f[x]) ? x : f[x] = find(f[x]);
-}
-void merge(int x, int y) {
-    int xx = find(x), yy = find(y);
-    if (xx == yy) return;
-    if (sz[xx] < sz[yy]) {
-        swap(xx, yy);
-    }
-    f[yy] = xx;
-    sz[xx] += sz[yy];
-    return;
-}
-vector<Edge> E;
-bitset<mxn> ans;
-int cnt = 0;
-// int con[mxn];
-int mx = 0;
-Edge tar;
-void solve() {
-    for (auto &a : E) {
-        // cerr << a.u << ' ' << a.v << ' ' << a.w << ' ' << a.tag << endl;
-        if (find(a.v) == find(a.u)) {
-            if(a.tag) {
-                ans[a.num]=0;
-            }
-        }
-        else {
-            if(a.tag) {
-                ans[a.num]=1;
-            }
-            else{
-                merge(a.v , a.u);
+int n, m;
+
+int wa() {
+    int sum = 0;
+    int l = sqrt(m);
+    for (int i = 1; i <= l; i++) {
+        for (int j = max(i * i, n / i * i); j <= m; j += i) {
+            if (j <= m && j >= n) {
+                sum += i;
+                // cout << i << endl;
+                if (j / i != i)  sum += j / i;// , cout << j / i<< endl; 
             }
         }
     }
-    return;
+    return sum;
+
 }
 
 signed main() {
-    int n, m, q;
     re(n);
     re(m);
-    re(q);
-    tar.num = mxn - 3;
-    tar.tag = 0;
-    for (int i = 1; i <= n; i++) sz[i] = 1, f[i] = i;
-    for (int i = 0; i < m; i++) {
-        re(tar.u) ; re(tar.v) ; re(tar.w);
-        if (tar.u == tar.v) continue;
-        E.push_back(tar);
-    }
-    tar.tag = 1;
-    for (int i = 0; i < q; i++) {
-        re(tar.u), re(tar.v), re(tar.w);
-        tar.num = i;
-        E.push_back(tar);
-    }
-    sort(E.begin() , E.end());
-    solve();
-    for(int i = 0 ; i < q ; i++) {
-        if(ans[i]) {
-            puts("Yes");
-        }
-        else{
-            puts("No");
-        }
-    }
+    wr(wa());
     return 0;
 }

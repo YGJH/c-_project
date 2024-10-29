@@ -1,0 +1,1 @@
+{"name":"Local: ac","url":"/home/charles/c-_project/src/contest/ac.cpp","tests":[{"id":1729319601361,"input":"1 10","output":""},{"id":1729320257755,"input":"39339 660077\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/charles/c-_project/src/contest/ac.cpp","group":"local","local":true}

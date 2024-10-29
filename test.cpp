@@ -1,77 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n , m;
-
-bool w = 0;
-char c;
-inline void re(int &a) {
-	c = getchar();
-	a = 0;
-	while (c < '0' || c > '9')
-		w |= (c == '-'), c = getchar();
-	while (c >= '0' && c <= '9')
-		a = (a << 1) + (a << 3) + (c & 15), c = getchar();
-	if (w)
-		a = -a;
-	return;
-}
-char st[30];
-int kkkk = 0;
-inline void wr(int a) {
-	if (a == 0) {
-		putchar('0');
-		return;
-	}
-	if (a < 0)
-		putchar('-'), a = -a;
-	while (a) {
-		st[kkkk++] = a % 10 + '0', a /= 10;
-	}
-	while (kkkk) {
-		putchar(st[--kkkk]);
-	}
-	return;
-}
-int count = 0;
-bool boad[100][100];
-void solve(int x, int y) {
-	if (x > m) {
-		solve(0, y + 1);
-		return;
-	} else if (y >= n) {
-		::count++;
-		return;
-	} else {
-		if (boad[y][x] == 0) {
-			boad[y][x] = 1;
-			solve(y, x + 1);
-			boad[y][x] = 0;
-			if (boad[y][x + 1] == 0) {
-				boad[y][x] = 1;
-				boad[y][x + 1] = 1;
-				solve(y, x + 1);
-				boad[y][x] = 0;
-				boad[y][x + 1] = 0;
-			}
-			if (boad[y + 1][x] == 0) {
-				boad[y][x] = 1;
-				boad[y + 1][x] = 1;
-				solve(y, x + 1);
-				boad[y][x] = 0;
-				boad[y + 1][x] = 0;
-			}
-		} else {
-			solve(y, x + 1);
-		}
-	}
-    return;
-}
-
-
 int main() {
-	re(n), re(m);
-	memset(boad, 0, sizeof(boad));
-	solve(0, 0);
-    wr(::count);
+    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    int arr[] = { 5, 3, 2, 0, 14, 5 };
+    int n = sizeof(arr) / sizeof(int);
+
+    // 使用遞迴 Lambda 實現分治排序
+    function<void(int* l , int * r)> cdq = [&](int* l, int* r) {
+        if (r - l <= 1) return;  // 基準條件，當子陣列大小為1時停止遞迴
+        auto m = l + (r - l) / 2; // 中點
+        cdq(l, m);                // 遞迴處理左半部分
+        cdq(m, r);                // 遞迴處理右半部分
+        inplace_merge(l, m, r);   // 合併已排序的兩部分
+    };
+
+    cdq(arr, arr + n);  // 對整個陣列進行排序
+
+    for (int a : arr) {
+        cout << a << ' ';
+    }
 }

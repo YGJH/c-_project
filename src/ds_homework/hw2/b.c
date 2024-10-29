@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#define min(a,b) (a<b)?a:b
 #define max(a,b) (a>b)?a:b
 #define mxn 1001
 typedef struct {
@@ -101,15 +102,58 @@ void fast_transpose(node a[], node b[]) {
     }
 }
 
+void matrix_multiplication(node a[] , node b[] , node ans[]) {
+    if(a[0].col != b[0].row)    return;
+    if(a[0].val == 0 || b[0].val == 0){
+        for(int i = 0 ; i < mxn ; i++) ans[i].val = ans[i].col = ans[i].row = 0;
+        return;
+    }
+    int index = 1;
+    int st[1000];
+    for(int i = 0 ; i <= mxn ; i++) st[i]=1e9 , ans[i].val = 0;
+    ans[0].row = a[0].row;
+    ans[0].col = b[0].col;
+    int sst[1000];
+    memset(sst , 0 , sizeof(sst));
+    for(int i = 1 ; i <= b[0].val ; i++) {
+        sst[b[i].row]++;
+    }
+    int tmp = sst[0] , tmp2;
+    sst[0] = 1;
+    for(int i = 1 ; i < b[0].row ; i++) {
+        tmp2 = sst[i];
+        sst[i] = sst[i-1] + tmp;
+        tmp = tmp2;
+    }
+    int now = 1;
+    int sz = 0;
+    int las = 0;
+    for(int i = 1 ; i <= a[0].val ; i++) {
+        if(st[a[i].row]!=1e9) {
+            now = st[a[i].row];
+        }
+        for(int j = sst[a[i].col] ; j <= b[0].val && b[j].row <= a[i].col ; j++) {
+            if(b[j].row == a[i].col) {
+                ans[now].row = a[i].row;
+                ans[now].col = b[j].col;
+                ans[now].val += a[i].val * b[j].val;
+                sz = max(sz , now);
+                st[a[i].row] = min(now , st[a[i].row]);
+                now++;
+            }
+        }
+    }
+    ans[0].val = sz;
+}
+
 signed main() {
-    node mat[mxn];
-    read_mat(mat);
-    print_mat(mat);
-    // wr(search(mat, 2));
-    putchar('\n');
-    // wr(search(mat, -2));
-    node b[mxn];
-    fast_transpose(mat, b);
+    node a[mxn] , b[mxn];
+    read_mat(a);
+    puts("a = ");
+    print_mat(a);
+    puts("b = ");
+    fast_transpose(a ,b);
     print_mat(b);
+
 
 }

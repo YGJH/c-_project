@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
+    system("g++ ac.cpp -o ac.exe");
+    system("g++ wa.cpp -o wa.exe");
     while(1) {
-        system("python3  gen.py");
-        system("/ac < input.out > wa.out");
-        system("/wa < input.out > ac.out");
+        system("python3 gen.py > input");
+        system("./ac.exe < input > wa.out");
+        system("./wa.exe < input > ac.out");
+        system("diff ac.out wa.out");
+        // cin.get();
         FILE * ac = fopen("ac.out" , "r");
         FILE * wa = fopen("wa.out" , "r");
         char tmp[3000], tmp2[3000] ;
@@ -31,7 +35,7 @@ int main() {
         fclose(wa);
         if(!ok) {
             printf("input:\n");
-            system("cat input.out");
+            system("cat input");
             printf("ac output: \n");
             system("cat ac.out");
             printf("\n");
