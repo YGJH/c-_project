@@ -10,7 +10,7 @@
   "files.autoSave": "afterDelay",
   "window.menuBarVisibility": "compact",
   "editor.renderWhitespace": "all",
-  "workbench.sideBar.location": "right",
+  "workbench.sideBar.location": "left",
   "vim.commandLineModeKeyBindingsNonRecursive": [
       {
           "vim.easymotion": true,
