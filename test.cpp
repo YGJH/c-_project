@@ -1,77 +1,39 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int n , m;
-
-bool w = 0;
-char c;
-inline void re(int &a) {
-	c = getchar();
-	a = 0;
-	while (c < '0' || c > '9')
-		w |= (c == '-'), c = getchar();
-	while (c >= '0' && c <= '9')
-		a = (a << 1) + (a << 3) + (c & 15), c = getchar();
-	if (w)
-		a = -a;
-	return;
+#include <chrono>
+#include <iostream>
+#include <queue>
+#include <thread>
+#include <mutex>
+#define int long long 
+std::mutex m;
+int num = 0;
+void incre() {
+    int ret = 0;
+    for(int i = 0 ; i < 1e10 ; i++) {
+        ret++;
+    }
+    m.lock();
+    num += ret;
+    m.unlock();
+    return ;
 }
-char st[30];
-int kkkk = 0;
-inline void wr(int a) {
-	if (a == 0) {
-		putchar('0');
-		return;
-	}
-	if (a < 0)
-		putchar('-'), a = -a;
-	while (a) {
-		st[kkkk++] = a % 10 + '0', a /= 10;
-	}
-	while (kkkk) {
-		putchar(st[--kkkk]);
-	}
-	return;
-}
-int count = 0;
-bool boad[100][100];
-void solve(int x, int y) {
-	if (x > m) {
-		solve(0, y + 1);
-		return;
-	} else if (y >= n) {
-		::count++;
-		return;
-	} else {
-		if (boad[y][x] == 0) {
-			boad[y][x] = 1;
-			solve(y, x + 1);
-			boad[y][x] = 0;
-			if (boad[y][x + 1] == 0) {
-				boad[y][x] = 1;
-				boad[y][x + 1] = 1;
-				solve(y, x + 1);
-				boad[y][x] = 0;
-				boad[y][x + 1] = 0;
-			}
-			if (boad[y + 1][x] == 0) {
-				boad[y][x] = 1;
-				boad[y + 1][x] = 1;
-				solve(y, x + 1);
-				boad[y][x] = 0;
-				boad[y + 1][x] = 0;
-			}
-		} else {
-			solve(y, x + 1);
-		}
-	}
-    return;
-}
+signed main() {
+    std::chrono::high_resolution_clock::time_point st = std::chrono::high_resolution_clock::now();
+    std::queue<std::thread> que;
+    for(int i = 0 ; i < 10 ; i++) {
+        que.push(std::thread(incre));
+       // incre();
+    }
+    std::cout << num << std::endl;
+    while(que.empty() == 0) {
+         //que.front().detach();
+        que.front().join();
+        que.pop();
+    }
+    std::chrono::high_resolution_clock::time_point en = std::chrono::high_resolution_clock::now();
+    auto dur = en - st;
+    std::cerr << dur.count() << std::endl;
+    std::cerr << num << std::endl;
+    return 0;
 
 
-int main() {
-	re(n), re(m);
-	memset(boad, 0, sizeof(boad));
-	solve(0, 0);
-    wr(::count);
 }

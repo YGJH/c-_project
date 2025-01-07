@@ -1,42 +1,70 @@
-#include<stdlib.h>
-#include<stdio.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {  // Changed < to >
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+#define max(a, b) (a) > (b) ? (a) : (b)
+#define min(a, b) (a) > (b) ? (b) : (a)
+
+signed main() {
+	int s;
+	scanf("%d", &s);
+	int u, v, w;
+	const int INF = 1e9;
+	int mx = 0;
+	int dis[100][100];
+	for (int i = 0; i <= 99; i++) {
+		for (int j = 0; j <= 99; j++) {
+			dis[i][j] = 1e9;
+		}
+	}
+	while (scanf("%d %d %d", &u, &v, &w) != EOF) {
+		mx = max(mx, max(u, v));
+		dis[u][v] = min(w, dis[u][v]);
+		dis[u][u] = 0;
+		dis[v][v] = 0;
+	}
+
+	int con, tmp;
+	for (int i = 0; i <= mx; i++) { // from
+		// floyd warshall
+		for (int j = 0; j <= mx; j++) { // to
+			for (int k = 0; k <= mx; k++) {
+				if (dis[j][i] == INF || dis[i][k] == INF)
+					continue;
+				if (dis[j][k] > dis[j][i] + dis[i][k]) {
+					dis[j][k] = dis[j][i] + dis[i][k];
+				}
+			}
+		}
+	}
+
+	for (int k = 0; k <= mx; k++) {
+		for (int i = 0; i <= mx; i++) {
+			for (int j = 0; j <= mx; j++) {
+				if (dis[i][j] == INF || dis[j][k] == INF)
+					continue;
+				if (dis[i][j] + dis[j][k] < dis[i][k]) {
+					// the distance is still updatable by a negative cylcle
+					dis[i][k] = -INF;
+                    break;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i <= mx; i++) {
+		for (int j = 0; j <= mx; j++) {
+			if (dis[i][j] == -INF)
+				printf("-INF  ");
+			else if(dis[i][j] == INF) {
+                printf("INF   ");
+            }else{
+				printf("%-5d ", dis[i][j]);
+
             }
-        }
-    }
-}
+		}
+		printf("\n");
+	}
 
-int search(int arr[], int tar, int l, int r) {
-    if (l >= r) {
-        return (arr[l] == tar) ? l : -1;
-    }
-    int mid = (l + r) >> 1;
-    if (arr[mid] > tar) {
-        return search(arr, tar, l, mid);
-    }
-    else {
-        return search(arr, tar, mid + 1, r);
-    }
-}
-
-int main() {
-    int tar;
-    scanf("%d", &tar);
-    int n;
-    scanf("%d", &n);
-    int arr[1000];
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
-    bubbleSort(arr, n);
-    
-    printf("%d\n", search(arr, tar, 0, n - 1));
-    return 0;
+	return 0;
 }
