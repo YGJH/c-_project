@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Monokai Vibrant",
+  "workbench.colorTheme": "Tokyo Night Storm",
   "clang-format.executable": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
   "editor.mouseWheelZoom": true,
   "[cpp]": {
@@ -94,7 +94,9 @@
     "xtree": "cpp",
     "xutility": "cpp",
     "memory": "cpp",
-    "xiosbase": "cpp"
+    "xiosbase": "cpp",
+    "xlocmon": "cpp",
+    "xmemory": "cpp"
   },
   "cmake.configureOnOpen": false
 }
