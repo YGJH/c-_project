@@ -1,9 +1,11 @@
-#pragma GCC optimize("O3")
-#pragma GCC optimize("fast-math")
-// #pragma GCC target("avx2, bmi , bmi2")
-// #pragma GCC target("lzcnt , popcnt ")
-
-
+#pragma GCC optimize(3)
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("inline")
+#pragma GCC optimize("-bmi -bmi2 -popcnt -abm -lzcnt -tbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm")
+#pragma G++ optimize(3)
+#pragma G++ optimize("Ofast")
+#pragma G++ optimize("inline")
+#pragma G++ optimize("-bmi -bmi2 -popcnt -abm -lzcnt -tbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm")
 #include <atomic>
 #include <bitset>
 #include <chrono>
@@ -72,17 +74,6 @@ constexpr unsigned long long dapow(unsigned long long a, unsigned long long b) {
 }
 constexpr unsigned long long full_process = dapow(16ll, 8ll);
 std::mutex output_lock;
-// std::vector<atomwrapper<int>> now;
-// std::atomic<int> a_0(0);
-// std::atomic<int> a_1(0);
-// std::atomic<int> a_2(0);
-// std::atomic<int> a_3(0);
-// std::atomic<int> a_4(0);
-// std::atomic<int> a_5(0);
-// std::atomic<int> a_6(0);
-// std::atomic<int> a_7(0);
-// E01FE01FF10EF10E
-// int now[8] = { 14, 0 , 1 , 15 , 14 , 0 , 1 , 15 };
 int now[8] = {0};
 constexpr uint64_t every_step = full_process / 100;
 std::atomic_bool flag{ true };
@@ -140,7 +131,7 @@ void getNext(unsigned char* buffer , unsigned char* current) {
     mtx.lock();
     if (now[7] > 15) {
         flag.store(false);
-        printf("已經沒有更多金鑰可供嘗試。\n");
+        printf("\n已經沒有更多金鑰可供嘗試。\n");
         mtx.unlock();
         return;
     }
@@ -206,21 +197,11 @@ inline void encode(unsigned char * in , int len) {
 }
 
 signed main() {
-    // ios_base::sync_with_stdio(false);
-    // cin.tie(0);
-    // cout.tie(0);
-    // now.emplace_back(a_0);
-    // now.emplace_back(a_1);
-    // now.emplace_back(a_2);
-    // now.emplace_back(a_3);
-    // now.emplace_back(a_4);
-    // now.emplace_back(a_5);
-    // now.emplace_back(a_6);
-    // now.emplace_back(a_7);
+
 
     auto start = chrono::steady_clock::now();
     unsigned char msg[8] = "TSC{";
-    unsigned char in[] = "01E001E001F101F1";  // 第一把金鑰
+    unsigned char in[] = "1FE01FE00EF10EF1";  // 第一把金鑰
     unsigned char pwd[8] = { 0 };
     encode(in , sizeof(in)/sizeof(in[0]));
     bytes_fromhex(in, pwd, 16);
@@ -244,10 +225,10 @@ signed main() {
     }
 
     if (found) {
-        cout << "破解成功！" << endl;
+        cout << "\n破解成功！" << endl;
     }
     else {
-        cout << "未找到正確的金鑰。" << endl;
+        cout << "\n未找到正確的金鑰。" << endl;
     }
 
     auto end = std::chrono::steady_clock::now();
