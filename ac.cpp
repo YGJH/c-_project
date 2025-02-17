@@ -1,129 +1,114 @@
-#include <iostream>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-#include <queue>
-#include <string>
-#include <sstream>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct TrieNode {
-    unordered_map<char, TrieNode*> children;
-    vector<string> words; // 儲存以此節點結尾的所有單詞
-};
+static const int INF = INT_MAX;
 
-class Trie {
-public:
-    Trie() : root(new TrieNode()) {}
+// 按單詞長度分組：每個長度存一個單詞列表
+unordered_map<int, vector<string>> groupWords;
+// 每個長度的單詞對應索引（快速查找）
+unordered_map<int, unordered_map<string, int>> wordIdx;
+// 每個長度單詞的鄰接表：兩個單詞如果只差一個字母則互相連通
+unordered_map<int, vector<vector<int>>> adj;
 
-    void insert(const string& word) {
-        TrieNode* node = root;
-        for (char c : word) {
-            if (!node->children.count(c)) {
-                node->children[c] = new TrieNode();
+// 對於長度為 len 的單詞群，建構鄰接圖，時間 O(G * L * 26)
+void buildAdjForGroup(int len) {
+    auto &words = groupWords[len];
+    int n = words.size();
+    adj[len].resize(n);
+    for (int i = 0; i < n; i++) {
+        string w = words[i];
+        for (int pos = 0; pos < len; pos++) {
+            char orig = w[pos];
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == orig) continue;
+                w[pos] = c;
+                if (wordIdx[len].count(w))
+                    adj[len][i].push_back(wordIdx[len][w]);
             }
-            node = node->children[c];
-        }
-        node->words.push_back(word);
-    }
-
-    vector<string> findDoublets(const string& word) {
-        vector<string> doublets;
-        findDoubletsHelper(word, 0, root, 0, doublets);
-        return doublets;
-    }
-
-private:
-    TrieNode* root;
-
-    void findDoubletsHelper(const string& word, int index, TrieNode* node, int changes, vector<string>& doublets) {
-        if (changes > 1) return; // 超過一個字母不同，直接返回
-
-        if (index == word.size()) {
-            if (changes == 1) { // 僅當有且只有一個不同字母時，加入雙字組
-                doublets.insert(doublets.end(), node->words.begin(), node->words.end());
-            }
-            return;
-        }
-
-        // 遍歷所有子節點
-        for (const auto& [c, child] : node->children) {
-            findDoubletsHelper(word, index + 1, child, changes + (c != word[index]), doublets);
+            w[pos] = orig;
         }
     }
-};
-
-// 單向 BFS 尋找最短路徑
-vector<string> bfsShortestPath(const string& start, const string& end, 
-                               const unordered_map<string, vector<string>>& graph) {
-    queue<vector<string>> q;  // 每個節點存當前路徑
-    unordered_set<string> visited;  // 記錄訪問過的單詞
-    q.push({start});
-    visited.insert(start);
-
-    while (!q.empty()) {
-        vector<string> path = q.front();
-        q.pop();
-        string current = path.back();
-
-        if (current == end) return path; // 到達終點
-
-        for (const string& neighbor : graph.at(current)) {
-            if (!visited.count(neighbor)) {
-                visited.insert(neighbor);
-                vector<string> newPath = path;
-                newPath.push_back(neighbor);
-                q.push(newPath);
-            }
-        }
-    }
-
-    return {}; // 無解
 }
 
-int main() {
-    vector<string> dictionary;
-    unordered_map<string, vector<string>> graph;
+// 在長度為 len 的單詞群中，用 BFS 求從 start 到 end 的最短路徑（返回索引序列）
+vector<int> bfsShortestPath(int len, int start, int end) {
+    int n = groupWords[len].size();
+    vector<int> dist(n, INF), parent(n, -1);
+    vector<bool> visited(n, false);
+    queue<int> q;
+    dist[start] = 0;
+    q.push(start);
+    while (!q.empty()){
+        int u = q.front();
+        q.pop();
+        if(visited[u]) continue;
+        visited[u] = true;
+        if(u == end) break;
+        for(int v : adj[len][u]) {
+            if(!visited[v] && dist[v] > dist[u] + 1) {
+                dist[v] = dist[u] + 1;
+                parent[v] = u;
+                q.push(v);
+            }
+        }
+    }
+    if(!visited[end])
+        return {};
+    vector<int> path;
+    for(int cur = end; cur != -1; cur = parent[cur])
+        path.push_back(cur);
+    reverse(path.begin(), path.end());
+    return path;
+}
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    // 讀取字典：直到遇到空行
     string word;
-
-    // 讀取字典
-    while (getline(cin, word) && !word.empty()) {
-        dictionary.push_back(word);
+    while(getline(cin, word) && !word.empty()){
+        int len = word.size();
+        groupWords[len].push_back(word);
     }
-
-    // 建立 Trie 並構建圖
-    Trie trie;
-    for (const string& word : dictionary) {
-        trie.insert(word);
+    
+    // 為每個長度建立「單詞 -> 索引」的映射
+    for(auto &kv : groupWords){
+        int len = kv.first;
+        auto &words = kv.second;
+        for(int i = 0; i < words.size(); i++){
+            wordIdx[len][words[i]] = i;
+        }
     }
-
-    for (const string& word : dictionary) {
-        graph[word] = trie.findDoublets(word);
+    
+    // 為每個長度建立鄰接圖
+    for(auto &kv : groupWords){
+        int len = kv.first;
+        adj[len].clear();
+        buildAdjForGroup(len);
     }
-
-    // 處理單詞對
-    string line;
+    
+    // 讀取查詢，每行包含兩個單詞，輸出轉換序列（或 "No solution."）
     bool firstCase = true;
-    while (getline(cin, line) && !line.empty()) {
-        if (!firstCase) cout << "\n";
+    string startWord, endWord;
+    while(cin >> startWord >> endWord){
+        if(!firstCase)
+            cout << "\n";
         firstCase = false;
-
-        stringstream ss(line);
-        string start, end;
-        ss >> start >> end;
-
-        if (!graph.count(start) || !graph.count(end)) {
+        int lenA = startWord.size(), lenB = endWord.size();
+        // 若兩單詞長度不同或不在字典中則無解
+        if(lenA != lenB || !wordIdx[lenA].count(startWord) || !wordIdx[lenB].count(endWord)){
             cout << "No solution.\n";
             continue;
         }
-
-        vector<string> path = bfsShortestPath(start, end, graph);
-        if (path.empty()) {
+        int startIdx = wordIdx[lenA][startWord], endIdx = wordIdx[lenA][endWord];
+        vector<int> path = bfsShortestPath(lenA, startIdx, endIdx);
+        if(path.empty()){
             cout << "No solution.\n";
         } else {
-            for (const string& p : path) cout << p << "\n";
+            for(int idx : path)
+                cout << groupWords[lenA][idx] << "\n";
         }
     }
-
     return 0;
 }

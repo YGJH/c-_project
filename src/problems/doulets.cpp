@@ -1,115 +1,151 @@
-#pragma GCC optimize(3)
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("inline")
-#pragma GCC optimize("-bmi -bmi2 -popcnt -abm -lzcnt -tbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm")
-#pragma G++ optimize(3)
-#pragma G++ optimize("Ofast")
-#pragma G++ optimize("inline")
-#pragma G++ optimize("-bmi -bmi2 -popcnt -abm -lzcnt -tbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm -mmmx -msse -msse2 -msse3 -mssse3 -msse4.1 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 -mpopcnt -mabm -mlzcnt -mtbm")
-// link : https://vjudge.net/problem/UVA-10150
-#include <iostream>
-#include <unordered_map>
-#include <unordered_set>
-#include <vector>
-#include <queue>
-#include <string>
-#include <sstream>
+#include <bits/stdc++.h>
 using namespace std;
 
-// 檢查是否為雙字組
-bool isDoublet(const string& a, const string& b) {
-    if (a.size() != b.size()) return false;
-    int diffCount = 0;
-    for (size_t i = 0; i < a.size(); ++i) {
-        if (a[i] != b[i]) ++diffCount;
-        if (diffCount > 1) return false;
-    }
-    return diffCount == 1;
-}
+// We store words in groups by their length.
+// For each length `len`, we have:
+//   1. A vector of all words of length `len`.
+//   2. A map<string,int> for quick word->index lookup in that group.
+//   3. An adjacency list that links each index to neighbors differing by 1 character.
 
-// 基於哈希分組構建雙字組的圖
-unordered_map<string, vector<string>> buildGraph(const vector<string>& words) {
-    unordered_map<string, vector<string>> graph;
-    for (const string& word : words) {
-        graph[word] = {};  // 初始化節點
-    }
+static const int INF = INT_MAX;
 
-    // 建立邊：兩個單詞如果是雙字組，則互相連接
-    for (size_t i = 0; i < words.size(); ++i) {
-        for (size_t j = i + 1; j < words.size(); ++j) {
-            if (isDoublet(words[i], words[j])) {
-                graph[words[i]].push_back(words[j]);
-                graph[words[j]].push_back(words[i]);
+// For each group (by length), we store these:
+unordered_map<int, vector<string>> groupWords;          // length -> vector of words
+unordered_map<int, unordered_map<string,int>> wordIdx;  // length -> (word -> index)
+unordered_map<int, vector<vector<int>>> adj;            // length -> adjacency list
+
+// Build adjacency for words of a specific length group.
+// O(G * L * 26) where G is #words in that group, L is word length.
+void buildAdjForGroup(int len) {
+    auto &words = groupWords[len];
+    int n = (int)words.size();
+    adj[len].resize(n);
+
+    // For each word, try replacing each character with [a..z].
+    // If the replaced word exists in the dictionary, add an edge.
+    for (int i = 0; i < n; i++) {
+        string w = words[i];
+        for (int pos = 0; pos < len; pos++) {
+            char orig = w[pos];
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == orig) continue;
+                w[pos] = c;
+                // Check if w is in dictionary (same length).
+                if (wordIdx[len].count(w)) {
+                    int neighbor = wordIdx[len][w];
+                    adj[len][i].push_back(neighbor);
+                }
             }
+            w[pos] = orig; // revert
         }
     }
-    return graph;
 }
 
-// 單向 BFS 尋找最短路徑
-vector<string> bfsShortestPath(const string& start, const string& end, 
-                               const unordered_map<string, vector<string>>& graph) {
-    queue<vector<string>> q;  // 每個節點存當前路徑
-    unordered_set<string> visited;  // 記錄訪問過的單詞
-    q.push({start});
-    visited.insert(start);
+// BFS to find the shortest path in the group of a certain length.
+// Returns the path from `start` to `end` index. If no path, returns empty vector.
+vector<int> bfsShortestPath(int len, int start, int end) {
+    int n = (int)groupWords[len].size();
+    vector<int> dist(n, INF), fa(n, -1);
+    vector<bool> visited(n, false);
 
-    while (!q.empty()) {
-        vector<string> path = q.front();
+    queue<int>q;
+    dist[start] = 0;
+    q.push(start);
+
+    while(!q.empty()) {
+        int u = q.front();
         q.pop();
-        string current = path.back();
+        if (visited[u]) continue;
+        visited[u] = true;
+        if (u == end) break; // found the end word
 
-        // 如果到達目標單詞，返回路徑
-        if (current == end) return path;
-
-        // 遍歷所有相鄰的雙字組單詞
-        for (const string& neighbor : graph.at(current)) {
-            if (visited.count(neighbor) == 0) {
-                visited.insert(neighbor);
-                vector<string> newPath = path;
-                newPath.push_back(neighbor);
-                q.push(newPath);
+        for (int v : adj[len][u]) {
+            if (!visited[v] && dist[v] > dist[u] + 1) {
+                dist[v] = dist[u] + 1;
+                fa[v] = u;
+                q.push(v);
             }
         }
     }
 
-    return {};  // 無解
+    if (!visited[end]) {
+        // No path found
+        return {};
+    }
+
+    // Reconstruct path
+    vector<int> path;
+    for (int cur = end; cur != -1; cur = fa[cur]) {
+        path.push_back(cur);
+    }
+    reverse(path.begin(), path.end());
+    return path;
 }
 
 int main() {
-    vector<string> dictionary;
-    unordered_map<string, vector<string>> graph;
-    string word;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    // 讀取字典
-    while (getline(cin, word) && !word.empty()) {
-        dictionary.push_back(word);
+    // 1) Read dictionary until blank line
+    while(true) {
+        string word;
+        if(!std::getline(cin, word)) break;       // no more input
+        if(word.empty()) break;                  // blank line -> dictionary ends
+        int len = (int)word.size();
+        groupWords[len].push_back(word);
     }
-    graph = buildGraph(dictionary);
 
-    // 處理單詞對
-    string line;
-    bool firstCase = true;
-    while (getline(cin, line) && !line.empty()) {
-        if (!firstCase) cout << "\n";
-        firstCase = false;
+    // 2) For each length group, build (word -> index) map
+    for (auto &kv : groupWords) {
+        int len = kv.first;
+        auto &words = kv.second;
+        // Build map from word -> index
+        for (int i = 0; i < (int)words.size(); i++) {
+            wordIdx[len][words[i]] = i;
+        }
+    }
 
-        stringstream ss(line);
-        string start, end;
-        ss >> start >> end;
+    // 3) Build adjacency for each length group
+    for (auto &kv : groupWords) {
+        int len = kv.first;
+        // prepare adjacency vector
+        adj[len].clear();
+        buildAdjForGroup(len);
+    }
 
-        if (!graph.count(start) || !graph.count(end)) {
+    // 4) Read queries until EOF
+    bool firstOutput = true;
+    while(true) {
+        string startWord, endWord;
+        if(!(cin >> startWord >> endWord)) break; // no more queries
+        // Print a blank line before each case except the first
+        if(!firstOutput) cout << '\n';
+        firstOutput = false;
+
+        // If not in dictionary or lengths differ -> no solution
+        int lenA = (int)startWord.size();
+        int lenB = (int)endWord.size();
+        if (lenA != lenB ||
+            !wordIdx[lenA].count(startWord) ||
+            !wordIdx[lenB].count(endWord)) {
             cout << "No solution.\n";
             continue;
         }
 
-        vector<string> path = bfsShortestPath(start, end, graph);
+        // BFS in the group for this length
+        int startIdx = wordIdx[lenA][startWord];
+        int endIdx   = wordIdx[lenB][endWord];
+        vector<int> path = bfsShortestPath(lenA, startIdx, endIdx);
+
         if (path.empty()) {
             cout << "No solution.\n";
         } else {
-            for (const string& p : path) cout << p << "\n";
+            // Print the actual words in the path
+            auto &words = groupWords[lenA];
+            for (int idx : path) {
+                cout << words[idx] << '\n';
+            }
         }
     }
-
     return 0;
 }

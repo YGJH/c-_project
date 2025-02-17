@@ -24,7 +24,7 @@
 		],
 		"description": "default code"
 	},
-	"fastio": {
+	"fastio": { 
 		"prefix": [
 			"fastio"
 		],
